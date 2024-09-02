@@ -147,87 +147,33 @@ class PreregistroController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
 
-                $model->archivoKardex = UploadedFile::getInstance($model,'archivoKardex');
-                $model->archivoConstancia_ingles = UploadedFile::getInstance($model,'archivoConstancia_ingles');
-                $model->archivoCv = UploadedFile::getInstance($model,'archivoCv');
-                $model->archivoConstancia_creditos_complementarios = UploadedFile::getInstance($model,'archivoConstancia_creditos_complementarios');
+                // Obtener los archivos subidos
+                $model->archivoKardex = UploadedFile::getInstance($model, 'archivoKardex');
+                $model->archivoConstancia_ingles = UploadedFile::getInstance($model, 'archivoConstancia_ingles');
+                $model->archivoCv = UploadedFile::getInstance($model, 'archivoCv');
+                $model->archivoConstancia_creditos_complementarios = UploadedFile::getInstance($model, 'archivoConstancia_creditos_complementarios');
 
+                // Validar el modelo
+                if ($model->validate()) {
 
-                if($model->validate())
-                {
-                    if(($model->archivoKardex))
-                    {
-                        if(file_exists($model->kardex))
-                        {
-                            unlink($model->kardex);
-                        }
-
-                        $rutaArchivoKardex = "uploads/preregistro/kardex/".time()."_".$model->archivoKardex->basename.".".$model->archivoKardex->extension;
-
-                        if(($model->archivoKardex->saveAs($rutaArchivoKardex)))
-                        {
-                            $model->kardex = $rutaArchivoKardex;
-                        }
-                    }
-
-                    if(($model->archivoConstancia_ingles))
-                    {
-                        if(file_exists($model->constancia_ingles) )
-                        {
-                            unlink($model->constancia_ingles);
-                        }
-
-                        $rutaArchivoConstancia_ingles = "uploads/preregistro/ingles/".time()."_".$model->archivoConstancia_ingles->basename.".".$model->archivoConstancia_ingles->extension;
-
-                        if(($model->archivoConstancia_ingles->saveAs($rutaArchivoConstancia_ingles)))
-                        {
-                            $model->constancia_ingles = $rutaArchivoConstancia_ingles;
-                        }
-                    }
-
-                    if(($model->archivoCv))
-                    {
-                        if(file_exists($model->cv) )
-                        {
-                            unlink($model->cv);
-                        }
-
-                        $rutaArchivoCv = "uploads/preregistro/cv/".time()."_".$model->archivoCv->basename.".".$model->archivoCv->extension;
-
-                        if(($model->archivoCv->saveAs($rutaArchivoCv)))
-                        {
-                            $model->cv = $rutaArchivoCv;
-                        }
-                    }
-
-                    if(($model->archivoConstancia_creditos_complementarios))
-                    {
-                        if(file_exists($model->constancia_creditos_complementarios) )
-                        {
-                            unlink($model->constancia_creditos_complementarios);
-                        }
-                        
-                        $rutaArchivoConstancia_creditos_complementarios = "uploads/preregistro/creditos_complementarios/".time()."_".$model->archivoConstancia_creditos_complementarios->basename.".".$model->archivoConstancia_creditos_complementarios->extension;
-
-                        if(($model->archivoConstancia_creditos_complementarios->saveAs($rutaArchivoConstancia_creditos_complementarios)))
-                        {
-                            $model->constancia_creditos_complementarios = $rutaArchivoConstancia_creditos_complementarios;
-                        }
-
-                    }
+                    // Manejar la subida de cada archivo
+                    $this->guardarArchivo($model, 'archivoKardex', 'kardex', 'uploads/preregistro/kardex/');
+                    $this->guardarArchivo($model, 'archivoConstancia_ingles', 'constancia_ingles', 'uploads/preregistro/ingles/');
+                    $this->guardarArchivo($model, 'archivoCv', 'cv', 'uploads/preregistro/cv/');
+                    $this->guardarArchivo($model, 'archivoConstancia_creditos_complementarios', 'constancia_creditos_complementarios', 'uploads/preregistro/creditos_complementarios/');
                 }
 
+                // Limpiar los archivos en el modelo
                 $model->archivoKardex = null;
                 $model->archivoConstancia_ingles = null;
                 $model->archivoCv = null;
                 $model->archivoConstancia_creditos_complementarios = null;
 
-                if($model->kardex == NULL || $model->constancia_ingles == NULL || $model->cv == NULL || $model->constancia_creditos_complementarios == NULL)
-                {
+                // Verificar si todos los archivos se han subido
+                if ($model->kardex == null || $model->constancia_ingles == null || $model->cv == null || $model->constancia_creditos_complementarios == null) {
                     Yii::$app->session->setFlash('error', 'Debes cargar los documentos solicitados');
-                }else{
-                    if($model->save())
-                    {
+                } else {
+                    if ($model->save()) {
                         return $this->redirect(['view', 'id' => $model->id]);
                     }
                 }
@@ -235,8 +181,33 @@ class PreregistroController extends Controller
         } else {
             $model->loadDefaultValues();
         }
-
     }
+
+    /**
+     * Guarda el archivo subido y actualiza el modelo.
+     * 
+     * @param Preregistro $model
+     * @param string $attribute Nombre del atributo de archivo en el modelo.
+     * @param string $field Campo en el modelo para almacenar la ruta del archivo.
+     * @param string $directory Directorio donde se guardará el archivo.
+     */
+    protected function guardarArchivo($model, $attribute, $field, $directory)
+    {
+        $archivo = $model->$attribute;
+        if ($archivo) {
+            // Verificar si ya existe un archivo y eliminarlo
+            if ($model->$field && file_exists($model->$field)) {
+                unlink($model->$field);
+            }
+
+            // Guardar el nuevo archivo
+            $rutaArchivo = $directory . time() . "_" . $archivo->basename . "." . $archivo->extension;
+            if ($archivo->saveAs($rutaArchivo)) {
+                $model->$field = $rutaArchivo;
+            }
+        }
+    }
+
 
     public function actionDownload($filename)
     {
