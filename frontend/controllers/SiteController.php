@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -11,10 +12,15 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\Preregistro;
+use common\models\BuscarPreregistro;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use common\models\Ajuste;
+use yii\web\NotFoundHttpException;
+use yii\helpers\Url;
 
 /**
  * Site controller
@@ -144,6 +150,21 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionDual()
+    {
+        return $this->render('dual',
+            ['model' => $this->findAjuste(1)]);
+    }
+
+    public function findAjuste($id)
+    {
+        if (($model = Ajuste::findOne(['id' => $id])) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 
     /**
