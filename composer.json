@@ -17,7 +17,16 @@
         "php": ">=7.4.0",
         "yiisoft/yii2": "~2.0.45",
         "yiisoft/yii2-bootstrap5": "~2.0.2",
-        "yiisoft/yii2-symfonymailer": "~2.0.3",
+        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
+        "kartik-v/yii2-widgets": "*",
+        "kartik-v/yii2-widget-fileinput": "dev-master",
+        "kartik-v/yii2-widget-select2": "dev-master",
+        "kartik-v/yii2-grid": "dev-master",
+        "kartik-v/yii2-bootstrap5-dropdown": "dev-master",
+        "kartik-v/yii2-detail-view": "dev-master",
+        "twbs/bootstrap": "5.3.2",
+        "kartik-v/yii2-widget-depdrop": "dev-master",
+        "kartik-v/yii2-mpdf": "dev-master",
         "fortawesome/font-awesome": "4.2.0"
     },
     "require-dev": {
@@ -42,12 +51,13 @@
         }
     },
     "config": {
-        "allow-plugins": {
-            "yiisoft/yii2-composer" : true
-        },
+        "bsVersion" : "5.x",
         "process-timeout": 1800,
         "fxp-asset": {
             "enabled": false
+        },
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
         }
     },
     "repositories": [
