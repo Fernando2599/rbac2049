@@ -48,8 +48,8 @@ use yii\helpers\Url;
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="<?= Url::to(['/ajuste']); ?>">
-                                <i class="ri-user-line"></i> <span data-key="t-admin">Ajuste</span>
+                            <a class="nav-link menu-link" href="<?= Url::to(['/admin']); ?>">
+                                <i class="ri-user-line"></i> <span data-key="t-admin">Administrar usuarios</span>
                             </a>
                         </li>
 
@@ -66,7 +66,7 @@ use yii\helpers\Url;
                             <div class="collapse menu-dropdown" id="sidebarInstitution">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="<?= Url::to(['/departamento']);?>" class="nav-link" data-key="t-departamento">Departamentos</a>
+                                        <a href="" class="nav-link" data-key="t-api-key">Departamentos</a>
                                         <a href="<?= Url::to(['/asesor-interno']); ?>" class="nav-link" data-key="t-asesor-interno">Asesor Interno</a>
                                     </li>
                                 </ul>
