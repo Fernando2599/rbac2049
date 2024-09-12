@@ -47,10 +47,24 @@ use yii\helpers\Url;
                                 <i class="ri-dashboard-2-line"></i> <span data-key="t-site">Panel de control</span>
                             </a>
                         </li>
+                      
+
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="<?= Url::to(['/ajuste']); ?>">
-                                <i class="ri-user-line"></i> <span data-key="t-admin">Ajuste</span>
+                            <a class="nav-link menu-link" href="#sidebarInstitution" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarInstitution">
+                                <i class="las la-graduation-cap"></i> <span data-key="t-institution">Administrar</span>
                             </a>
+                            <div class="collapse menu-dropdown" id="sidebarInstitution">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/ajuste']); ?>">
+                                           <i class="ri-settings-3-line"></i> <span data-key="t-admin">Ajuste</span>
+                                        </a>
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/user']); ?>">
+                                           <i class="ri-group-line"></i> <span data-key="t-user">Usuarios</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
 
                         <li class="nav-item">

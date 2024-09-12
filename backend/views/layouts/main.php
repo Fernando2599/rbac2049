@@ -50,6 +50,14 @@ use yii\helpers\Url;
 <script src="<?= Url::base(true) ?>/administrador/libs/flatpickr/flatpickr.min.js"></script>
 <script src="<?= Url::base(true) ?>/administrador/libs/sweetalert2/sweetalert2.min.js"></script>
 <script src="<?= Url::base(true) ?>/administrador/js/app.js"></script>
+<!-- Incluye jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Incluye Popper.js (necesario para Bootstrap) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    
+    <!-- Incluye el JavaScript de Bootstrap -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
 <?php $this->endBody() ?>

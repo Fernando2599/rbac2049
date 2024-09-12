@@ -28,20 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                    // ]);  
     ?> 
 
-   
-    <?php  echo Accordion::widget([
-                            'items' => [
-                                // equivalent to the above
-                                [
-                                    'label' => 'Usuario a Buscar ',
-                                    'content' => $this->render('_search', ['model' => $searchModel]) ,
-                                    // open its content by default
-                                    'contentOptions' => ['class' => 'in']
-                                ],
-                                   // if you want to swap out .card-block with .list-group, you may use the following
-                            ]
-                        ]);
-    ?> 
     
     <p> </p>
     
