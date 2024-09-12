@@ -57,11 +57,24 @@ use yii\helpers\Url;
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
                                         <a class="nav-link menu-link" href="<?= Url::to(['/ajuste']); ?>">
-                                           <i class="ri-settings-3-line"></i> <span data-key="t-admin">Ajuste</span>
+                                           <i class="ri-settings-3-line"></i> <span data-key="t-ajuste">Ajuste</span>
                                         </a>
                                         <a class="nav-link menu-link" href="<?= Url::to(['/user']); ?>">
                                            <i class="ri-group-line"></i> <span data-key="t-user">Usuarios</span>
                                         </a>
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/rol']); ?>">
+                                           <i class="ri-group-line"></i> <span data-key="t-rol">Rol</span>
+                                        </a>
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/permisos']); ?>">
+                                           <i class="ri-group-line"></i> <span data-key="t-permisos">Permisos</span>
+                                        </a>
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/tipo-usuario']); ?>">
+                                           <i class="ri-group-line"></i> <span data-key="t-tipo-usuario">Tipo de usuarios</span>
+                                        </a>
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/estado']); ?>">
+                                           <i class="ri-group-line"></i> <span data-key="t-estado">Estado de usuarios</span>
+                                        </a>
+
                                     </li>
                                 </ul>
                             </div>
