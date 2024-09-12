@@ -13,6 +13,7 @@ use  yii\helpers\ArrayHelper;
 use  backend\models\Estado;
 use  backend\models\TipoUsuario;
 use  backend\models\Rol;
+use  backend\models\Permiso;
 use  frontend\models\Perfil;
 
 use  yii\helpers\Url;
@@ -28,6 +29,7 @@ use  yii\helpers\Html;
  * @property string $email
  * @property string $auth_key
  * @property integer $rol_id
+ * @property integer $permiso_id
  * @property integer $estado_id
  * @property integer $tipo_usuario_id
  * @property integer $created_at
@@ -75,6 +77,10 @@ class User extends ActiveRecord implements IdentityInterface
 
             [['rol_id'],'in',  'range'=>array_keys($this->getRolLista())],
 
+            ['permiso_id', 'default', 'value' => 1],
+
+            [['permiso_id'],'in',  'range'=>array_keys($this->getPermisoLista())],
+
             ['tipo_usuario_id', 'default', 'value' => 1],
 
             [['tipo_usuario_id'],'in',  'range'=>array_keys($this->getTipoUsuarioLista())],
@@ -97,6 +103,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             /* Sus otras etiquetas de atributo */
             'rolNombre' => Yii::t('app', 'Rol'),
+            'permisoNombre' => Yii::t('app', 'Permiso'),
             'estadoNombre' => Yii::t('app', 'Estado'),
             'perfilId' => Yii::t('app', 'Perfil'),
             'perfilLink' => Yii::t('app', 'Perfil'),
@@ -264,7 +271,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getRolNombre()
     {
-        return $this->rol ? $this->rol->rol_nombre : '- sin rol -';
+        return $this->rol ? $this->rol->rol_nombre : 'Sin rol';
     }
     /**
      * get lista de roles para lista desplegable
@@ -274,6 +281,31 @@ class User extends ActiveRecord implements IdentityInterface
         $dropciones = Rol::find()->asArray()->all();
         return ArrayHelper::map($dropciones, 'id', 'rol_nombre');
     }
+    /**
+     * relación get permiso
+     *
+     */
+    public function getPermiso()
+    {
+        return $this->hasOne(Permiso::className(), ['id' => 'permiso_id']);
+    }
+    /**
+     * get rol nombre
+     *
+     */
+    public function getPermisoNombre()
+    {
+        return $this->permiso ? $this->permiso->permiso_nombre : 'Sin permiso';
+    }
+    /**
+     * get lista de roles para lista desplegable
+     */
+    public static function getPermisoLista()
+    {
+        $dropciones = Permiso::find()->asArray()->all();
+        return ArrayHelper::map($dropciones, 'id', 'permiso_nombre');
+    }
+    
 
     /**
      * relación get estado

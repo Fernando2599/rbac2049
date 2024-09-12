@@ -20,6 +20,7 @@ class UserSearch extends User
      * @var mixed
      */
      public $rolNombre;
+     public $permisoNombre;
      public $tipoUsuarioNombre;
      public $tipo_usuario_nombre;
      public $tipo_usuario_id;
@@ -32,8 +33,8 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['id', 'rol_id', 'estado_id', 'tipo_usuario_id'], 'integer'],
-            [['username', 'email', 'created_at', 'updated_at', 'rolNombre',
+            [['id', 'rol_id', 'permiso_id','estado_id', 'tipo_usuario_id'], 'integer'],
+            [['username', 'email', 'created_at', 'updated_at', 'rolNombre','permisoNombre',
             'estadoNombre','tipoUsuarioNombre', 'perfilId', 'tipo_usuario_nombre',
              'auth_key', 'password_hash', 'password_reset_token', 'verification_token'], 'safe'],
         ];
@@ -97,6 +98,11 @@ class UserSearch extends User
                     'desc' => ['rol.rol_name' => SORT_DESC],
                     'label' => 'Rol'
                 ],
+                'permisoNombre' => [
+                    'asc' => ['permiso.permiso_name' => SORT_ASC],
+                    'desc' => ['permiso.permiso_name' => SORT_DESC],
+                    'label' => 'Permiso'
+                ],
                 'estadoNombre' => [
                     'asc' => ['estado.estado_nombre' => SORT_ASC],
                     'desc' => ['estado.estado_nombre' => SORT_DESC],
@@ -131,6 +137,7 @@ class UserSearch extends User
             // $query->where('0=1');
 
             $query->joinWith(['rol'])
+                ->joinWith(['permiso'])
                 ->joinWith(['estado'])
                 ->joinWith(['perfil'])
                 ->joinWith(['tipoUsuario']);
@@ -142,6 +149,7 @@ class UserSearch extends User
         $this->addSearchParameter($query, 'username', true);
         $this->addSearchParameter($query, 'email', true);
         $this->addSearchParameter($query, 'rol_id');
+        $this->addSearchParameter($query, 'permiso_id');
         $this->addSearchParameter($query, 'estado_id');
         $this->addSearchParameter($query, 'tipo_usuario_id');
         $this->addSearchParameter($query, 'created_at');
@@ -152,6 +160,11 @@ class UserSearch extends User
         $query->joinWith(['rol' => function ($q) {
             $q->andFilterWhere(['=', 'rol.rol_nombre', $this->rolNombre]);
         }])
+
+            // filter by permiso
+            ->joinWith(['permiso' => function ($q) {
+                $q->andFilterWhere(['=', 'permiso.permiso_nombre', $this->permisoNombre]);
+            }])
 
             // filter by estado
             ->joinWith(['estado' => function ($q) {
