@@ -5,6 +5,7 @@ use backend\models\Rol;
 use backend\models\Estado;
 use backend\models\TipoUsuario;
 use common\models\User;
+use backend\models\Permiso;
 
 class ValorHelpers
 {
@@ -26,6 +27,18 @@ class ValorHelpers
             return isset($usersRolValor) ? $usersRolValor : false;
         }
     }
+    public static function getUsersPermisoValor($userId=null)
+    {
+        if ($userId == null){
+            $usersPermisoValor = Yii::$app->user->identity->permiso->permiso_valor;
+            return isset($usersPermisoValor) ? $usersPermisoValor : false;
+        } else {
+            
+            $user = User::findOne($userId);
+            $usersPermisoValor = $user->permiso->permiso_valor;
+            return isset($usersPermisoValor) ? $usersPermisoValor : false;
+        }
+    }
     
     public static function getRolValor($rol_nombre)
     {
@@ -34,6 +47,13 @@ class ValorHelpers
             ->one();
         return isset($rol->rol_valor) ? $rol->rol_valor : false;
     }
+    public static function getPermisoValor($permiso_nombre)
+    {
+        $permiso = Permiso::find('permiso_valor')
+            ->where(['permiso_nombre' => $permiso_nombre])
+            ->one();
+        return isset($permiso->permiso_valor) ? $permiso->permiso_valor : false;
+    }
 
     public static function esRolNombreValido($rol_nombre)
     {
@@ -41,6 +61,13 @@ class ValorHelpers
             ->where(['rol_nombre' => $rol_nombre])
             ->one();
         return isset($rol->rol_nombre) ? true : false;
+    }
+    public static function esPermisoNombreValido($permiso_nombre)
+    {
+        $permiso = Permiso::find('permiso_nombre')
+            ->where(['permiso_nombre' => $permiso_nombre])
+            ->one();
+        return isset($permiso->permiso_nombre) ? true : false;
     }
     public static function estadoCoincide($estado_nombre)
     {
@@ -61,4 +88,6 @@ class ValorHelpers
         $userTieneTipoUsurioName = Yii::$app->user->identity->tipoUsuario->tipo_usuario_nombre;
         return $userTieneTipoUsurioName == $tipo_usuario_nombre ? true : false;
     }
+
+
 }

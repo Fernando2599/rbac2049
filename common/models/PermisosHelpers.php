@@ -23,6 +23,7 @@ class PermisosHelpers
     {
         return ValorHelpers::rolCoincide($rol_nombre);
     }
+
     public static function requerirMinimoRol($rol_nombre, $userId=null)
     {
         if (ValorHelpers::esRolNombreValido($rol_nombre)){
@@ -36,6 +37,21 @@ class PermisosHelpers
             return false;
         }
     }
+
+    public static function requerirPermiso($permiso_nombre, $userId = null)
+    {
+        if (ValorHelpers::esPermisoNombreValido($permiso_nombre)){
+            if ($userId == null) {
+                $userPermisoValor = ValorHelpers::getUsersPermisoValor();
+            } else {
+                $userPermisoValor = ValorHelpers::getUsersPermisoValor($userId);
+            }
+            return $userPermisoValor == ValorHelpers::getPermisoValor($permiso_nombre) ? true : false;
+        } else {
+            return false;
+        }
+    }
+
     public static function userDebeSerPropietario($model_nombre, $model_id)
     {
         $connection = \Yii::$app->db;
