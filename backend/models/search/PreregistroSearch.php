@@ -1,7 +1,7 @@
 <?php
 
 namespace backend\models\search;
-
+use yii\web\NotFoundHttpException;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Preregistro;
@@ -50,13 +50,29 @@ class PreregistroSearch extends Preregistro
 
         // add conditions that should always apply here
 
-        $id_user = Yii::$app->user->identity->getId();
-        $nombrePermiso = User::findOne(['id'=>$id_user])->permiso->permiso_nombre;
+         // Agregar condiciones que siempre deben aplicarse aquí
 
-        if(PermisosHelpers::requerirPermiso($nombrePermiso)){
-            $userPermisoValor = ValorHelpers::getPermisoValor($nombrePermiso);
-            $query->andFilterWhere(['=', 'ingenieria_id', $userPermisoValor]);
+    $id_user = Yii::$app->user->identity->getId();
+    if ($id_user !== null) {
+        // Buscar al usuario
+        $user = User::findOne(['id' => $id_user]);
+        
+        // Verificar si el usuario y su permiso están definidos
+        if ($user !== null && $user->permiso !== null) {
+            $nombrePermiso = $user->permiso->permiso_nombre;
+
+            if (PermisosHelpers::requerirPermiso($nombrePermiso)) {
+                $userPermisoValor = ValorHelpers::getPermisoValor($nombrePermiso);
+                $query->andFilterWhere(['=', 'ingenieria_id', $userPermisoValor]);
+            } else {
+                throw new NotFoundHttpException('Necesitas permisos para esta acción.');
+            }
+        } else {
+            throw new NotFoundHttpException('El usuario no tiene un permiso asignado.');
         }
+    } else {
+        throw new NotFoundHttpException('Necesitas permisos para esta acción.');
+    }
 
 
 

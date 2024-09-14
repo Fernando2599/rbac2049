@@ -77,9 +77,9 @@ class User extends ActiveRecord implements IdentityInterface
 
             [['rol_id'],'in',  'range'=>array_keys($this->getRolLista())],
 
-            ['permiso_id', 'default', 'value' => 1],
+            //['permiso_id', 'default', 'value' => 1],
 
-            [['permiso_id'],'in',  'range'=>array_keys($this->getPermisoLista())],
+            //[['permiso_id'],'in',  'range'=>array_keys($this->getPermisoLista())],
 
             ['tipo_usuario_id', 'default', 'value' => 1],
 
