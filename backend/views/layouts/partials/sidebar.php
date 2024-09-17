@@ -50,10 +50,10 @@ use yii\helpers\Url;
                       
 
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="#sidebarInstitution" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarInstitution">
-                                <i class="las la-graduation-cap"></i> <span data-key="t-institution">Administrar</span>
+                            <a class="nav-link menu-link" href="#sidebarAdministrar" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAdministrar">
+                                <i class="las la-graduation-cap"></i> <span data-key="t-administrar">Administrar</span>
                             </a>
-                            <div class="collapse menu-dropdown" id="sidebarInstitution">
+                            <div class="collapse menu-dropdown" id="sidebarAdministrar">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
                                         <a class="nav-link menu-link" href="<?= Url::to(['/ajuste']); ?>">
