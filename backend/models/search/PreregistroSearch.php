@@ -61,11 +61,22 @@ class PreregistroSearch extends Preregistro
         if ($user !== null && $user->permiso !== null) {
             $nombrePermiso = $user->permiso->permiso_nombre;
 
-            if (PermisosHelpers::requerirPermiso($nombrePermiso)) {
+            //Filtrar por Permisos de coordinador
+
+            $permisosCoordinadores = [
+                'CoordinadorSistemas', 
+                'CoordinadorAdministracion', 
+                'CoordinadorCivil', 
+                'CoordinadorAmbiental', 
+                'CoordinadorIndustrial', 
+                'CoordinadorGestionEmpresarial'
+            ];
+
+            if (in_array($nombrePermiso, $permisosCoordinadores)) {
                 $userPermisoValor = ValorHelpers::getPermisoValor($nombrePermiso);
                 $query->andFilterWhere(['=', 'ingenieria_id', $userPermisoValor]);
             } else {
-                throw new NotFoundHttpException('Necesitas permisos para esta acción.');
+                throw new NotFoundHttpException('Necesitas otro tipo de permiso para esta acción.');
             }
         } else {
             throw new NotFoundHttpException('El usuario no tiene un permiso asignado.');
