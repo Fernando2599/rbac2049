@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use common\models\PermisosHelpers;
 /**
  * AjusteController implements the CRUD actions for Ajuste model.
  */
@@ -21,6 +22,32 @@ class AjusteController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => \yii\filters\AccessControl::className(),
+                    'only' => ['index', 'view','create', 'update', 'delete'],
+                    'rules' => [
+                        [
+                            'actions' => ['index', 'create', 'view',],
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function ($rule, $action) {
+                             return PermisosHelpers::requerirMinimoRol('Admin') 
+                             && PermisosHelpers::requerirEstado('Activo');
+                            }
+                        ],
+                         [
+                            'actions' => [ 'update', 'delete'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function ($rule, $action) {
+                             return PermisosHelpers::requerirMinimoRol('SuperUsuario') 
+                             && PermisosHelpers::requerirEstado('Activo');
+                            }
+                        ],
+                             
+                    ],
+                         
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
