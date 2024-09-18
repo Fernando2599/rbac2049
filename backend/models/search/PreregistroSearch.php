@@ -71,11 +71,22 @@ class PreregistroSearch extends Preregistro
                 'CoordinadorIndustrial', 
                 'CoordinadorGestionEmpresarial'
             ];
+            $permisosAvanzados = [
+                'AdministradorDelSistema', 
+                'SuperUsuario'
+            ];
 
+            // Si el usuario tiene permiso de coordinador, aplicar el filtro por ingeniería
             if (in_array($nombrePermiso, $permisosCoordinadores)) {
                 $userPermisoValor = ValorHelpers::getPermisoValor($nombrePermiso);
                 $query->andFilterWhere(['=', 'ingenieria_id', $userPermisoValor]);
-            } else {
+            } 
+            // Si el usuario tiene un permiso avanzado, no se aplica ningún filtro
+            elseif (in_array($nombrePermiso, $permisosAvanzados)) {
+                // No aplicar filtros, el usuario avanzado ve todo
+            } 
+            // Si no tiene permisos ni de coordinador ni avanzados, lanzar excepción
+            else {
                 throw new NotFoundHttpException('Necesitas otro tipo de permiso para esta acción.');
             }
         } else {
