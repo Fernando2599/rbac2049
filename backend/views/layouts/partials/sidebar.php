@@ -71,9 +71,7 @@ use yii\helpers\Url;
                                         <a class="nav-link menu-link" href="<?= Url::to(['/tipo-usuario']); ?>">
                                            <i class="ri-group-line"></i> <span data-key="t-tipo-usuario">Tipo de usuarios</span>
                                         </a>
-                                        <a class="nav-link menu-link" href="<?= Url::to(['/estado']); ?>">
-                                           <i class="ri-group-line"></i> <span data-key="t-estado">Estado de usuarios</span>
-                                        </a>
+                                        
 
                                     </li>
                                 </ul>
