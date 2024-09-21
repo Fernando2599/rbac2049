@@ -43,9 +43,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute'=>'perfilLink', 'format'=>'raw'],
            
             'email:email',
-            'rolNombre',
-            'permisoNombre',
-            'tipoUsuarioNombre',
+            //'rolNombre',
+            //'permisoNombre',
+            //'tipoUsuarioNombre',
             'estadoNombre',
             'created_at',
           
