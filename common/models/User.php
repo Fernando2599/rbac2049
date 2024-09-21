@@ -73,13 +73,13 @@ class User extends ActiveRecord implements IdentityInterface
 
             [['estado_id'],'in',  'range'=>array_keys($this->getEstadoLista())],
 
-            ['rol_id', 'default', 'value' => 1],
+            //['rol_id', 'default', 'value' => 1],
 
-            [['rol_id'],'in',  'range'=>array_keys($this->getRolLista())],
+            //[['rol_id'],'in',  'range'=>array_keys($this->getRolLista())],
 
             //['permiso_id', 'default', 'value' => 1],
 
-            [['permiso_id'],'in',  'range'=>array_keys($this->getPermisoLista())],
+            //[['permiso_id'],'in',  'range'=>array_keys($this->getPermisoLista())],
 
             ['tipo_usuario_id', 'default', 'value' => 1],
 
@@ -102,8 +102,8 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             /* Sus otras etiquetas de atributo */
-            'rolNombre' => Yii::t('app', 'Rol'),
-            'permisoNombre' => Yii::t('app', 'Permiso'),
+            //'rolNombre' => Yii::t('app', 'Rol'),
+            //'permisoNombre' => Yii::t('app', 'Permiso'),
             'estadoNombre' => Yii::t('app', 'Estado'),
             'perfilId' => Yii::t('app', 'Perfil'),
             'perfilLink' => Yii::t('app', 'Perfil'),
