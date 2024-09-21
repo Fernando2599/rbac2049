@@ -1,7 +1,7 @@
 <?php
 
 namespace backend\models;
-
+use  backend\models\Rol;
 use Yii;
 
 /**
@@ -43,4 +43,30 @@ class UsuarioRol extends \yii\db\ActiveRecord
             'rol_id' => 'Rol ID',
         ];
     }
+
+    /**
+     * relación get rol
+     *
+     */
+    public function getRol()
+    {
+        return $this->hasOne(Rol::className(), ['id' => 'rol_id']);
+    }
+    /**
+     * get rol nombre
+     *
+     */
+    public function getRolNombre()
+    {
+        return $this->rol ? $this->rol->rol_nombre : 'Sin rol';
+    }
+    /**
+     * get lista de roles para lista desplegable
+     */
+    public static function getRolLista()
+    {
+        $dropciones = Rol::find()->asArray()->all();
+        return ArrayHelper::map($dropciones, 'id', 'rol_nombre');
+    }
+    
 }
