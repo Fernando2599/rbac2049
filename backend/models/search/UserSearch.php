@@ -32,8 +32,9 @@ class UserSearch extends User
      */
     public function rules()
     {
+        //'rol_id', 'permiso_id',
         return [
-            [['id', 'rol_id', 'permiso_id','estado_id', 'tipo_usuario_id'], 'integer'],
+            [['id', 'estado_id', 'tipo_usuario_id'], 'integer'],
             [['username', 'email', 'created_at', 'updated_at', 'rolNombre','permisoNombre',
             'estadoNombre','tipoUsuarioNombre', 'perfilId', 'tipo_usuario_nombre',
              'auth_key', 'password_hash', 'password_reset_token', 'verification_token'], 'safe'],
@@ -136,9 +137,9 @@ class UserSearch extends User
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
 
-            $query->joinWith(['rol'])
-                ->joinWith(['permiso'])
-                ->joinWith(['estado'])
+            $query->joinWith(['estado'])
+            //joinWith(['rol'])
+                //->joinWith(['permiso'])
                 ->joinWith(['perfil'])
                 ->joinWith(['tipoUsuario']);
 
@@ -148,8 +149,8 @@ class UserSearch extends User
         $this->addSearchParameter($query, 'id');
         $this->addSearchParameter($query, 'username', true);
         $this->addSearchParameter($query, 'email', true);
-        $this->addSearchParameter($query, 'rol_id');
-        $this->addSearchParameter($query, 'permiso_id');
+        //$this->addSearchParameter($query, 'rol_id');
+        //$this->addSearchParameter($query, 'permiso_id');
         $this->addSearchParameter($query, 'estado_id');
         $this->addSearchParameter($query, 'tipo_usuario_id');
         $this->addSearchParameter($query, 'created_at');
@@ -157,19 +158,20 @@ class UserSearch extends User
 
 
         // filter by role
-        $query->joinWith(['rol' => function ($q) {
-            $q->andFilterWhere(['=', 'rol.rol_nombre', $this->rolNombre]);
+        $query->joinWith(['estado' => function ($q) {
+            $q->andFilterWhere(['=', 'estado.estado_nombre', $this->estadoNombre]);
         }])
+        //joinWith(['rol' => function ($q) {
+            //$q->andFilterWhere(['=', 'rol.rol_nombre', $this->rolNombre]);
+        //}])
 
             // filter by permiso
-            ->joinWith(['permiso' => function ($q) {
-                $q->andFilterWhere(['=', 'permiso.permiso_nombre', $this->permisoNombre]);
-            }])
+            //->joinWith(['permiso' => function ($q) {
+                //$q->andFilterWhere(['=', 'permiso.permiso_nombre', $this->permisoNombre]);
+            //}])
 
             // filter by estado
-            ->joinWith(['estado' => function ($q) {
-                $q->andFilterWhere(['=', 'estado.estado_nombre', $this->estadoNombre]);
-            }])
+            
 
             // filter by user type
             ->joinWith(['tipoUsuario' => function ($q) {
