@@ -3,6 +3,8 @@
 namespace backend\models;
 use  backend\models\Permiso;
 use Yii;
+use  yii\helpers\ArrayHelper;
+use common\models\User;
 
 /**
  * This is the model class for table "usuario_permiso".
@@ -29,6 +31,7 @@ class UsuarioPermiso extends \yii\db\ActiveRecord
         return [
             [['user_id', 'permiso_id'], 'required'],
             [['user_id', 'permiso_id'], 'integer'],
+            
         ];
     }
 
@@ -38,9 +41,13 @@ class UsuarioPermiso extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            
             'id' => 'ID',
             'user_id' => 'User ID',
             'permiso_id' => 'Permiso ID',
+            'permisoNombre' => Yii::t('app', 'Permiso'),
+            'userName' => Yii::t('app', 'Usuario'),
+            
         ];
     }
 
@@ -68,4 +75,29 @@ class UsuarioPermiso extends \yii\db\ActiveRecord
         $dropciones = Permiso::find()->asArray()->all();
         return ArrayHelper::map($dropciones, 'id', 'permiso_nombre');
     }
+    /**
+     * Relación getUser
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /**
+    * Obtener el nombre de usuario
+    */
+    public function getUserName()
+    {
+        return $this->user ? $this->user->username : 'Sin usuario';
+    }
+    
+    /**
+     * get lista de usuarios para lista desplegable
+     */    
+    public function getUserLista() {
+        
+        $users = User::find()->all(); 
+        return ArrayHelper::map($users, 'id', 'username'); 
+    }
+    
 }

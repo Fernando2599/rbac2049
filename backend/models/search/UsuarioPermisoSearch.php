@@ -1,23 +1,24 @@
 <?php
-
 namespace backend\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\models\UsuarioPermiso;
 
-/**
- * UsuarioPermisoSearch represents the model behind the search form of `backend\models\UsuarioPermiso`.
- */
 class UsuarioPermisoSearch extends UsuarioPermiso
 {
+    // Definimos la propiedad 
+    public $permisoNombre;
+    public $userName;
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'user_id', 'permiso_id'], 'integer'],
+            [['id', 'user_id', 'permiso_id'], 'integer'], // Los campos que son enteros
+            [['permisoNombre', 'userName'], 'safe'], // Campo de busqueda
         ];
     }
 
@@ -26,7 +27,6 @@ class UsuarioPermisoSearch extends UsuarioPermiso
      */
     public function scenarios()
     {
-        // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
 
@@ -41,7 +41,8 @@ class UsuarioPermisoSearch extends UsuarioPermiso
     {
         $query = UsuarioPermiso::find();
 
-        // add conditions that should always apply here
+        // Hacemos el join con la tabla Permiso para poder buscar por nombre de permiso
+        $query->joinWith(['permiso', 'user']); // 'permiso' es la relación en el modelo UsuarioPermiso
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -50,8 +51,6 @@ class UsuarioPermisoSearch extends UsuarioPermiso
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
 
@@ -62,6 +61,12 @@ class UsuarioPermisoSearch extends UsuarioPermiso
             'permiso_id' => $this->permiso_id,
         ]);
 
+        // Filtramos por el nombre del permiso
+        $query->andFilterWhere(['like', 'permiso.permiso_nombre', $this->permisoNombre]);
+        // Filtramos por el nombre de usuario
+        $query->andFilterWhere(['like', 'user.username', $this->userName]);
+
         return $dataProvider;
     }
 }
+

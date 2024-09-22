@@ -12,9 +12,10 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
+    <?= $form->field($model, 'user_id')->dropDownList($model->getUserLista(), ['prompt' => 'Por Favor Elija Uno']); ?>
 
-    <?= $form->field($model, 'permiso_id')->textInput() ?>
+
+    <?= $form->field($model, 'permiso_id')->dropDownList($model->PermisoLista, [ 'prompt' => 'Por Favor Elija Uno' ]);?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
