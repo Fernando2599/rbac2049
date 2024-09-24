@@ -11,13 +11,17 @@ use backend\models\UsuarioRol;
  */
 class UsuarioRolSearch extends UsuarioRol
 {
+     // Definimos la propiedad 
+     public $rolNombre;
+     public $userName;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'user_id', 'rol_id'], 'integer'],
+            [['id', 'user_id', 'rol_id'], 'integer'], //campos enteros
+            [['rolNombre', 'userName'], 'safe'], // Campo de busqueda
         ];
     }
 
@@ -43,6 +47,9 @@ class UsuarioRolSearch extends UsuarioRol
 
         // add conditions that should always apply here
 
+        // Hacemos el join con la tabla Rol para poder buscar por nombre
+        $query->joinWith(['rol', 'user']); // 'rol' es la relación en el modelo UsuarioRol
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -61,6 +68,11 @@ class UsuarioRolSearch extends UsuarioRol
             'user_id' => $this->user_id,
             'rol_id' => $this->rol_id,
         ]);
+
+        // Filtramos por el nombre del rol
+        $query->andFilterWhere(['like', 'rol.rol_nombre', $this->rolNombre]);
+        // Filtramos por el nombre de usuario
+        $query->andFilterWhere(['like', 'user.username', $this->userName]);
 
         return $dataProvider;
     }

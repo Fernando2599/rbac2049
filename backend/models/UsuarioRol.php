@@ -3,6 +3,8 @@
 namespace backend\models;
 use  backend\models\Rol;
 use Yii;
+use  yii\helpers\ArrayHelper;
+use common\models\User;
 
 /**
  * This is the model class for table "usuario_rol".
@@ -41,6 +43,8 @@ class UsuarioRol extends \yii\db\ActiveRecord
             'id' => 'ID',
             'user_id' => 'User ID',
             'rol_id' => 'Rol ID',
+            'userName' => Yii::t('app', 'Usuario'),
+            'rolNombre' => Yii::t('app', 'Rol'),
         ];
     }
 
@@ -68,5 +72,31 @@ class UsuarioRol extends \yii\db\ActiveRecord
         $dropciones = Rol::find()->asArray()->all();
         return ArrayHelper::map($dropciones, 'id', 'rol_nombre');
     }
+
+    /**
+     * Relación getUser
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /**
+    * Obtener el nombre de usuario
+    */
+    public function getUserName()
+    {
+        return $this->user ? $this->user->username : 'Sin usuario';
+    }
+    
+    /**
+     * get lista de usuarios para lista desplegable
+     */    
+    public function getUserLista() {
+        
+        $users = User::find()->all(); 
+        return ArrayHelper::map($users, 'id', 'username'); 
+    }
+
     
 }
