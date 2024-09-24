@@ -13,33 +13,33 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     //public $sourcePath = '@vendor/myAssets';
     public $css = [
-        'administrador/libs/jsvectormap/css/jsvectormap.min.css',
-        'administrador/css/bootstrap.min.css',
-        'administrador/libs/swiper/swiper-bundle.min.css',
-        'administrador/css/icons.min.css',
-        'administrador/css/app.min.css',
-        'administrador/css/custom.min.css',
+        'theme/libs/jsvectormap/css/jsvectormap.min.css',
+        'theme/css/bootstrap.min.css',
+        'theme/libs/swiper/swiper-bundle.min.css',
+        'theme/css/icons.min.css',
+        'theme/css/app.min.css',
+        'theme/css/custom.min.css',
     ];
     public $js = [
         //'admin/js/layout.js',
-        'administrador/libs/node-waves/waves.min.js',
-        'administrador/libs/bootstrap/js/bootstrap.bundle.min.js',
-        'administrador/libs/simplebar/simplebar.min.js',
-        'administrador/libs/node-waves/waves.min.js',
-        'administrador/libs/feather-icons/feather.min.js',
-        'administrador/js/pages/plugins/lord-icon-2.1.0.js',
-        'administrador/js/plugins.js',
-        'administrador/libs/apexcharts/apexcharts.min.js',
-        'administrador/js/pages/dashboard-projects.init.js',
-        'administrador/libs/jsvectormap/js/jsvectormap.min.js',
-        'administrador/libs/jsvectormap/maps/world-merc.js',
-        'administrador/libs/swiper/swiper-bundle.min.js',
-        'administrador/libs/flatpickr/flatpickr.min.js',
-        'administrador/js/pages/dashboard-projects.init.js',
-        'administrador/js/app.js',
-        'administrador/libs/particles.js/particles.js',
-        'administrador/js/pages/particles.app.js',
-        'administrador/js/pages/password-addon.init.js'
+        'theme/libs/node-waves/waves.min.js',
+        'theme/libs/bootstrap/js/bootstrap.bundle.min.js',
+        'theme/libs/simplebar/simplebar.min.js',
+        'theme/libs/node-waves/waves.min.js',
+        'theme/libs/feather-icons/feather.min.js',
+        'theme/js/pages/plugins/lord-icon-2.1.0.js',
+        'theme/js/plugins.js',
+        'theme/libs/apexcharts/apexcharts.min.js',
+        'theme/js/pages/dashboard-projects.init.js',
+        'theme/libs/jsvectormap/js/jsvectormap.min.js',
+        'theme/libs/jsvectormap/maps/world-merc.js',
+        'theme/libs/swiper/swiper-bundle.min.js',
+        'theme/libs/flatpickr/flatpickr.min.js',
+        'theme/js/pages/dashboard-projects.init.js',
+        'theme/js/app.js',
+        'theme/libs/particles.js/particles.js',
+        'theme/js/pages/particles.app.js',
+        'theme/js/pages/password-addon.init.js'
 
     ];
     public $depends = [

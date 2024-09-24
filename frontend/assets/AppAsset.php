@@ -11,34 +11,40 @@ class AppAsset extends AssetBundle
 {
     // public $basePath = '@webroot';
     //public $baseUrl = '@web';
-    public $sourcePath = '@frontend/themes/main';
-    public $css = [
+        // Usa el sourcePath para copiar los archivos del backend
+        public $sourcePath = '@backend/web/theme';
 
-        'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,70',
-        ' ./assets/css/nucleo-icons.css',
-        './assets/css/nucleo-svg.css',
-
-        './assets/css/nucleo-svg.css',
-        './assets/css/soft-design-system.css?v=1.0.5',
-    ];
-    public $js = [
-        ' https://kit.fontawesome.com/42d5adcbca.js',
-        './assets/js/core/popper.min.js',
-        './assets/js/core/bootstrap.min.js',
-        './assets/js/plugins/perfect-scrollbar.min.js',
-        './assets/js/plugins/countup.min.js',
-        ' ./assets/js/plugins/choices.min.js',
-        './assets/js/plugins/prism.min.js',
-        './assets/js/plugins/highlight.min.js',
-        './assets/js/plugins/rellax.min.js',
-        './assets/js/plugins/tilt.min.js',
-        './assets/js/plugins/choices.min.js',
-        './assets/js/plugins/parallax.min.js',
-        ' https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI',
-        ' ./assets/js/soft-design-system.min.js?v=1.0.5'
-    ];
+        public $css = [
+            'libs/jsvectormap/css/jsvectormap.min.css',
+            'css/bootstrap.min.css',
+            'libs/swiper/swiper-bundle.min.css',
+            'css/icons.min.css',
+            'css/app.min.css',
+            'css/custom.min.css',
+        ];
+    
+        public $js = [
+            'libs/node-waves/waves.min.js',
+            'libs/bootstrap/js/bootstrap.bundle.min.js',
+            'libs/simplebar/simplebar.min.js',
+            'libs/feather-icons/feather.min.js',
+            'js/pages/plugins/lord-icon-2.1.0.js',
+            'js/plugins.js',
+            'libs/apexcharts/apexcharts.min.js',
+            'js/pages/dashboard-projects.init.js',
+            'libs/jsvectormap/js/jsvectormap.min.js',
+            'libs/jsvectormap/maps/world-merc.js',
+            'libs/swiper/swiper-bundle.min.js',
+            'libs/flatpickr/flatpickr.min.js',
+            'js/app.js',
+            'libs/particles.js/particles.js',
+            'js/pages/particles.app.js',
+            'js/pages/password-addon.init.js',
+            'libs/swiper/swiper-bundle.min.js',
+            'js/pages/job-lading.init.js',
+        ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap5\BootstrapAsset',
+        //'yii\bootstrap5\BootstrapAsset',
     ];
 }

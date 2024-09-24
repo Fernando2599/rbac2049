@@ -484,4 +484,4 @@ $this->registerJsFile(
 
 </div>
 
-<script src="administrador/functionAjax/dashboardAjax.js"></script>
+<script src="theme/functionAjax/dashboardAjax.js"></script>
