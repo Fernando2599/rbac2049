@@ -83,99 +83,105 @@ $this->registerCss("
             element = document.getElementById("content");
             check = document.getElementById("check");
             if (check.checked) {
-                element.style.display='block';
-            }
-            else {
-                element.style.display='none';
+                element.style.display = 'block';
+            } else {
+                element.style.display = 'none';
             }
         }
     </script>
 </head>
 
-<div class="preregistro-form">
+<div class="layout-wrapper landing">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <div class="d-flex justify-content-center align-items-center">
+        <?php $form = ActiveForm::begin(); ?>
 
-    <div class="row">
+        <div class="row">
 
-        <div class="col-md-6">
-            <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
+            <div class="col-md-6">
+                <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
+            </div>
+
+            <div class="col-md-6">
+                <?= $form->field($model, 'matricula')->textInput(['maxlength' => true]) ?>
+            </div>
+
+            <div class="col-md-6">
+                <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+            </div>
+
+            <div class="col-md-6">
+                <?= $form->field($model, 'ingenieria_id')->dropDownList($model->getIngenieriasList(), ['prompt' => 'Seleccione su Ingeniería']) ?>
+            </div>
+
+            <div class="col-md-6">
+                <?= $form->field($model, 'archivoKardex')->widget(FileInput::classname(), [
+                    'options' => ['accept' => 'file/*'],
+                    'pluginOptions' => [
+                        'allowedFileExtensions' => ['pdf'],
+                        'showUpload' => false
+                    ]
+                ]) ?>
+            </div>
+
+            <div class="col-md-6">
+                <?= $form->field($model, 'archivoConstancia_ingles')->widget(FileInput::classname(), [
+                    'options' => ['accept' => 'file/*'],
+                    'pluginOptions' => [
+                        'allowedFileExtensions' => ['pdf'],
+                        'showUpload' => false
+                    ]
+                ]) ?>
+            </div>
+
+            <div class="col-md-6">
+                <?= $form->field($model, 'archivoConstancia_creditos_complementarios')->widget(FileInput::classname(), [
+                    'options' => ['accept' => 'file/*'],
+                    'pluginOptions' => [
+                        'allowedFileExtensions' => ['pdf'],
+                        'showUpload' => false
+                    ]
+                ]) ?>
+            </div>
+
+            <div class="col-md-6">
+                <?= $form->field($model, 'archivoCv')->widget(FileInput::classname(), [
+                    'options' => ['accept' => 'file/*'],
+                    'pluginOptions' => [
+                        'allowedFileExtensions' => ['pdf'],
+                        'showUpload' => false
+                    ]
+                ]) ?>
+            </div>
+
         </div>
 
-        <div class="col-md-6">
-            <?= $form->field($model, 'matricula')->textInput(['maxlength' => true]) ?>
+        <?php if ($model->isNewRecord): ?>
+            <br>
+            <b>Leer terminos y condiciones</b>
+            <input type="checkbox" name="check" id="check" value="1" onchange="javascript:showContent()" />
+            <br>
+            <div id="content" style="display: none;">
+                <?= $form->field(
+                    $model,
+                    'terminos_condiciones',
+                    [
+                        'options' => ['tag' => 'span'],
+                        'template' => "{input}",
+                    ]
+                )->checkbox(['checked' => false, 'required' => true])
+                ?>
+            </div>
+            <br>
+        <?php endif; ?>
+
+
+        <div class="form-group">
+            <?= Html::submitButton('Guardar', ['class' => 'btn btn-secondary waves-effect waves-light mt-3']) ?>
         </div>
 
-        <div class="col-md-6">
-            <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-        </div>
-
-        <div class="col-md-6">
-            <?= $form->field($model, 'ingenieria_id')->dropDownList($model->getIngenieriasList(), ['prompt' => 'Seleccione su Ingeniería']) ?>
-        </div>
-
-        <div class="col-md-6">
-            <?= $form->field($model, 'archivoKardex')->widget(FileInput::classname(), [
-                'options' => ['accept' => 'file/*'],
-                'pluginOptions' => [
-                    'allowedFileExtensions' => ['pdf'],
-                    'showUpload' => false
-                ]
-            ]) ?>
-        </div>
-
-        <div class="col-md-6">
-            <?= $form->field($model, 'archivoConstancia_ingles')->widget(FileInput::classname(), [
-                'options' => ['accept' => 'file/*'],
-                'pluginOptions' => [
-                    'allowedFileExtensions' => ['pdf'],
-                    'showUpload' => false
-                ]
-            ]) ?>
-        </div>
-
-        <div class="col-md-6">
-            <?= $form->field($model, 'archivoConstancia_creditos_complementarios')->widget(FileInput::classname(), [
-                'options' => ['accept' => 'file/*'],
-                'pluginOptions' => [
-                    'allowedFileExtensions' => ['pdf'],
-                    'showUpload' => false
-                ]
-            ]) ?>
-        </div>
-
-        <div class="col-md-6">
-            <?= $form->field($model, 'archivoCv')->widget(FileInput::classname(), [
-                'options' => ['accept' => 'file/*'],
-                'pluginOptions' => [
-                    'allowedFileExtensions' => ['pdf'],
-                    'showUpload' => false
-                ]
-            ]) ?>
-        </div>
-
+        <?php ActiveForm::end(); ?>
     </div>
 
-    <?php if ($model->isNewRecord): ?>
-        <br>
-        <b>Leer terminos y condiciones</b>
-        <input type="checkbox" name="check" id="check" value="1" onchange="javascript:showContent()" />
-        <br>
-        <div id="content" style="display: none;">
-            <?= $form->field($model, 'terminos_condiciones', 
-                        ['options' => ['tag' => 'span'], 
-                        'template' => "{input}",]
-                    )->checkbox(['checked' => false, 'required' => true])
-            ?>
-        </div>
-        <br>
-    <?php endif; ?>
-    
-
-    <div class="form-group">
-        <?= Html::submitButton('Guardar', ['class' => 'btn bg-gradient-info btn-lg btn-block']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
 
 </div>
