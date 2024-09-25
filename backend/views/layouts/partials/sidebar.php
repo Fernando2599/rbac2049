@@ -68,10 +68,12 @@ use yii\helpers\Url;
                                         <a class="nav-link menu-link" href="<?= Url::to(['/permiso']); ?>">
                                            <i class="ri-group-line"></i> <span data-key="t-permiso">Permisos</span>
                                         </a>
-                                        <a class="nav-link menu-link" href="<?= Url::to(['/tipo-usuario']); ?>">
-                                           <i class="ri-group-line"></i> <span data-key="t-tipo-usuario">Tipo de usuarios</span>
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/usuario-rol']); ?>">
+                                           <i class="ri-group-line"></i> <span data-key="t-usuario-rol">Asignar Roles</span>
                                         </a>
-                                        
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/usuario-permiso']); ?>">
+                                           <i class="ri-group-line"></i> <span data-key="t-usuario-permiso">Asignar Permisos</span>
+                                        </a>
                                         <a class="nav-link menu-link" href="<?= Url::to(['/estado']); ?>">
                                            <i class="ri-group-line"></i> <span data-key="t-estado">Estado de usuarios</span>
                                         </a>

@@ -7,7 +7,7 @@ use backend\models\search\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\web\ForbiddenHttpException;
 use common\models\PermisosHelpers;
 
 /**
@@ -32,8 +32,10 @@ class UserController extends Controller
                             'allow' => true,
                             'roles' => ['@'],
                             'matchCallback' => function ($rule, $action) {
-                             return PermisosHelpers::requerirMinimoRol('Admin') 
-                             && PermisosHelpers::requerirEstado('Activo');
+                                if (!PermisosHelpers::requerirMinimoRol('Admin') || !PermisosHelpers::requerirEstado('Activo')) {
+                                    throw new ForbiddenHttpException('No tienes permiso para acceder a esta sección. Contacta al administrador.');
+                                }
+                                return true;
                             }
                         ],
                          [

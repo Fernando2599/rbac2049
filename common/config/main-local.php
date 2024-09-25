@@ -4,7 +4,7 @@ return [
     'components' => [
         'db' => [
             'class' => \yii\db\Connection::class,
-            'dsn' => 'mysql:host=localhost;dbname=rbacadual',
+            'dsn' => 'mysql:host=localhost;dbname=rbac_multirol',
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8',

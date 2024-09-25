@@ -14,11 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'estado_id')->dropDownList($model->estadoLista, [ 'prompt' => 'Por Favor Elija Uno' ]);?>
  
-    <?= $form->field($model, 'rol_id')->dropDownList($model->rolLista, [ 'prompt' => 'Por Favor Elija Uno' ]);?>
-
-    <?= $form->field($model, 'permiso_id')->dropDownList($model->PermisoLista, [ 'prompt' => 'Por Favor Elija Uno' ]);?>
-            
-    <?= $form->field($model, 'tipo_usuario_id')->dropDownList($model->tipoUsuarioLista, [ 'prompt' => 'Por Favor Elija Uno' ]);?>
+    
     
     <?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
     

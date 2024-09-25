@@ -4,6 +4,8 @@ use yii;
 use backend\models\Rol;
 use backend\models\Estado;
 use backend\models\TipoUsuario;
+use backend\models\UsuarioPermiso;
+use backend\models\UsuarioRol;
 use common\models\User;
 use backend\models\Permiso;
 
@@ -11,33 +13,61 @@ class ValorHelpers
 {
     public static function rolCoincide($rol_nombre)
     {
-        $userTieneRolNombre = Yii::$app->user->identity->rol->rol_nombre;
-        return $userTieneRolNombre == $rol_nombre ? true : false;
+        // Se obtiene el ID del usuario autenticado
+        $user_id = Yii::$app->user->id;
+
+        // Se busca el registro en la tabla usuario_rol
+        $usuarioRol = UsuarioRol::findOne(['user_id' => $user_id]);
+
+        // Verificar si el usuario tiene un rol asignado
+        if ($usuarioRol) {
+            // Obtener el nombre del rol del usuario
+            $userTieneRolNombre = $usuarioRol->rolNombre;
+
+            // Comparar el rol del usuario con el rol proporcionado
+            return $userTieneRolNombre == $rol_nombre;
+        }
+        // Si no tiene rol, retornar false
+        return false;
     }
 
-    public static function getUsersRolValor($userId=null)
+    public static function getUsersRolValor($userId = null)
     {
-        if ($userId == null){
-            $usersRolValor = Yii::$app->user->identity->rol->rol_valor;
-            return isset($usersRolValor) ? $usersRolValor : false;
-        } else {
-            
-            $user = User::findOne($userId);
-            $usersRolValor = $user->rol->rol_valor;
-            return isset($usersRolValor) ? $usersRolValor : false;
+        // Si no se proporciona un userId, se usa el usuario autenticado
+        if ($userId === null) {
+            $userId = Yii::$app->user->id; // ID del usuario autenticado
         }
+
+        // Buscar el registro en la tabla usuario_rol basado en el userId
+        $usuarioRol = UsuarioRol::findOne(['user_id' => $userId]);
+
+        // Verificar si el usuario tiene un rol asignado
+        if ($usuarioRol) {
+            // Obtener el valor del rol del usuario
+            $rolValor = $usuarioRol->rol ? $usuarioRol->rol->rol_valor : null; // Acceso seguro al rol
+            return isset($rolValor) ? $rolValor : false; // Retornar el valor o false si no está definido
+        }
+        // Si el usuario no tiene un rol asignado, retornar false
+        return false;
     }
     public static function getUsersPermisoValor($userId=null)
     {
-        if ($userId == null){
-            $usersPermisoValor = Yii::$app->user->identity->permiso->permiso_valor;
-            return isset($usersPermisoValor) ? $usersPermisoValor : false;
-        } else {
-            
-            $user = User::findOne($userId);
-            $usersPermisoValor = $user->permiso->permiso_valor;
-            return isset($usersPermisoValor) ? $usersPermisoValor : false;
+        // Si no se proporciona un userId, se usa el usuario autenticado
+        if ($userId === null) {
+            $userId = Yii::$app->user->id; // ID del usuario autenticado
         }
+
+        // Buscar el registro en la tabla usuario_rol basado en el userId
+        $usuarioPermiso = UsuarioPermiso::findOne(['permiso_id' => $userId]);
+
+        // Verificar si el usuario tiene un rol asignado
+        if ($usuarioPermiso) {
+            // Obtener el valor del rol del usuario
+            $permisoValor = $usuarioPermiso->permiso ? $usuarioPermiso->rol->permiso_valor : null; // Acceso seguro al rol
+            return isset($permisoValor) ? $permisoValor : false; // Retornar el valor o false si no está definido
+        }
+        // Si el usuario no tiene un rol asignado, retornar false
+        return false;
     }
     
     public static function getRolValor($rol_nombre)

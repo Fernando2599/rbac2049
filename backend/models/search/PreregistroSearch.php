@@ -8,6 +8,7 @@ use common\models\Preregistro;
 use common\models\ValorHelpers;
 use common\models\PermisosHelpers;
 use common\models\User;
+use backend\models\UsuarioPermiso;
 
 use Yii;
 /**
@@ -55,7 +56,7 @@ class PreregistroSearch extends Preregistro
     $id_user = Yii::$app->user->identity->getId();
     if ($id_user !== null) {
         // Buscar al usuario
-        $user = User::findOne(['id' => $id_user]);
+        $user = UsuarioPermiso::findOne(['user_id' => $id_user]);
         
         // Verificar si el usuario y su permiso están definidos
         if ($user !== null && $user->permiso !== null) {
