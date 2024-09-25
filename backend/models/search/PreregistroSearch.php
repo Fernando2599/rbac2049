@@ -51,51 +51,62 @@ class PreregistroSearch extends Preregistro
 
         // add conditions that should always apply here
 
-         // Agregar condiciones que siempre deben aplicarse aquí
+        // Agregar condiciones que siempre deben aplicarse aquí
 
-    $id_user = Yii::$app->user->identity->getId();
-    if ($id_user !== null) {
-        // Buscar al usuario
-        $user = UsuarioPermiso::findOne(['user_id' => $id_user]);
-        
-        // Verificar si el usuario y su permiso están definidos
-        if ($user !== null && $user->permiso !== null) {
-            $nombrePermiso = $user->permiso->permiso_nombre;
+        $id_user = Yii::$app->user->identity->getId();
+        if ($id_user !== null) {
+            // Buscar todos los permisos del usuario
+            $userPermisos = UsuarioPermiso::findAll(['user_id' => $id_user]);
+            
+            // Verificar si el usuario tiene algun permiso definido
+            if (!empty($userPermisos)) {
+                //Filtrar por Permisos de coordinador
 
-            //Filtrar por Permisos de coordinador
+                $permisosCoordinadores = [
+                    'CoordinadorSistemas', 
+                    'CoordinadorAdministracion', 
+                    'CoordinadorCivil', 
+                    'CoordinadorAmbiental', 
+                    'CoordinadorIndustrial', 
+                    'CoordinadorGestionEmpresarial'
+                ];
+                $permisosAvanzados = [
+                    'AdministradorDelSistema', 
+                    'SuperUsuario'
+                ];
 
-            $permisosCoordinadores = [
-                'CoordinadorSistemas', 
-                'CoordinadorAdministracion', 
-                'CoordinadorCivil', 
-                'CoordinadorAmbiental', 
-                'CoordinadorIndustrial', 
-                'CoordinadorGestionEmpresarial'
-            ];
-            $permisosAvanzados = [
-                'AdministradorDelSistema', 
-                'SuperUsuario'
-            ];
+                // Variable para controlar si ya se aplicó el filtro
+                $filtroAplicado = false;
 
-            // Si el usuario tiene permiso de coordinador, aplicar el filtro por ingeniería
-            if (in_array($nombrePermiso, $permisosCoordinadores)) {
-                $userPermisoValor = ValorHelpers::getPermisoValor($nombrePermiso);
-                $query->andFilterWhere(['=', 'ingenieria_id', $userPermisoValor]);
-            } 
-            // Si el usuario tiene un permiso avanzado, no se aplica ningún filtro
-            elseif (in_array($nombrePermiso, $permisosAvanzados)) {
-                // No aplicar filtros, el usuario avanzado ve todo
-            } 
-            // Si no tiene permisos ni de coordinador ni avanzados, lanzar excepción
-            else {
-                throw new NotFoundHttpException('Necesitas otro tipo de permiso para esta acción.');
+                // Si el usuario tiene permiso de coordinador, aplicar el filtro por ingeniería
+                foreach ($userPermisos as $userPermiso) {
+                    //obtener el nombre del permiso
+                    $nombrePermiso = $userPermiso->permiso->permiso_nombre;
+                    
+                    //verifica si existe coincidencia del permiso en el primer arreglo
+                    if (in_array($nombrePermiso, $permisosCoordinadores)) {
+                        $userPermisoValor = ValorHelpers::getPermisoValor($nombrePermiso);
+                        $query->andFilterWhere(['=', 'ingenieria_id', $userPermisoValor]);
+                        $filtroAplicado = true; // Se aplicó un filtro de coordinador
+                        break;
+                    }
+                    // Verificar si existe coincidencia del permiso en el segundo arreglo
+                    if (in_array($nombrePermiso, $permisosAvanzados)) {
+                        $filtroAplicado = true; // Usuario avanzado, no se aplica filtro
+                        break; 
+                    }
+                    
+                }
+
+                if (!$filtroAplicado) {
+                    throw new NotFoundHttpException('Necesitas otro tipo de permiso para esta acción.');
+                }
+            } else {
+                throw new NotFoundHttpException('El usuario no tiene un permiso asignado.');
             }
         } else {
-            throw new NotFoundHttpException('El usuario no tiene un permiso asignado.');
+            throw new NotFoundHttpException('Necesitas permisos para esta acción.');
         }
-    } else {
-        throw new NotFoundHttpException('Necesitas permisos para esta acción.');
-    }
 
 
 
