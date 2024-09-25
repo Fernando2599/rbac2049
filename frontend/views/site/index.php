@@ -7,6 +7,7 @@ use yii\helpers\Html;
 $this->title = 'Sistema Dual';
 
 use yii\helpers\Url;
+use  common\models\PermisosHelpers;
 
 $asset = frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
@@ -31,7 +32,10 @@ $baseUrl = $asset->baseUrl;
 <?php endif; ?>
 
 <?php
-if (Yii::$app->user->can('estudiante')) { ?>
+$es_estudiante = PermisosHelpers::requerirPermiso('CoordinadorSistemas');
+//$es_estudiante = PermisosHelpers::requerirMinimoRol('Estudiante');
+var_dump($es_estudiante);
+if (!Yii::$app->user->isGuest && $es_estudiante ) { ?>
 
     <div class="site-index">
 

@@ -50,26 +50,37 @@ class ValorHelpers
         // Si el usuario no tiene un rol asignado, retornar false
         return false;
     }
-    public static function getUsersPermisoValor($userId=null)
+    public static function getUsersPermisoValor($userId = null, $permiso_nombre)
     {
         // Si no se proporciona un userId, se usa el usuario autenticado
         if ($userId === null) {
             $userId = Yii::$app->user->id; // ID del usuario autenticado
         }
 
-        // Buscar el registro en la tabla usuario_rol basado en el userId
-        $usuarioPermiso = UsuarioPermiso::findOne(['permiso_id' => $userId]);
+        // Buscar todos los permisos asignados al usuario
+        $usuarioPermisos = UsuarioPermiso::find()
+            ->where(['user_id' => $userId])
+            ->all(); // Obtener todos los permisos relacionados
 
-        // Verificar si el usuario tiene un rol asignado
-        if ($usuarioPermiso) {
-            // Obtener el valor del rol del usuario
-            $permisoValor = $usuarioPermiso->permiso ? $usuarioPermiso->rol->permiso_valor : null; // Acceso seguro al rol
-            return isset($permisoValor) ? $permisoValor : false; // Retornar el valor o false si no está definido
+        // Si el usuario tiene permisos, se verifica si alguno cumple con el valor requerido
+        if (!empty($usuarioPermisos)) {
+            // Obtener el valor del permiso requerido
+            $permisoRequerido = ValorHelpers::getPermisoValor($permiso_nombre);
+
+            foreach ($usuarioPermisos as $usuarioPermiso) {
+                $permisoValor = $usuarioPermiso->permiso ? $usuarioPermiso->permiso->permiso_valor : null; 
+                
+                // Si alguno de los permisos cumple con el valor requerido, retorna verdadero
+                if ($permisoValor >= $permisoRequerido) {
+                    return true;
+                }
+            }
         }
-        // Si el usuario no tiene un rol asignado, retornar false
+        
+        // Si no hay permisos que cumplan, retornar false
         return false;
     }
-    
+
     public static function getRolValor($rol_nombre)
     {
         $rol = Rol::find('rol_valor')

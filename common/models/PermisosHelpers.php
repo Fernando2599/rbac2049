@@ -40,17 +40,18 @@ class PermisosHelpers
 
     public static function requerirPermiso($permiso_nombre, $userId = null)
     {
-        if (ValorHelpers::esPermisoNombreValido($permiso_nombre)){
+        if (ValorHelpers::esPermisoNombreValido($permiso_nombre)) {
+            // Verificar los permisos del usuario
             if ($userId == null) {
-                $userPermisoValor = ValorHelpers::getUsersPermisoValor();
+                return ValorHelpers::getUsersPermisoValor(Yii::$app->user->id, $permiso_nombre);
             } else {
-                $userPermisoValor = ValorHelpers::getUsersPermisoValor($userId);
+                return ValorHelpers::getUsersPermisoValor($userId, $permiso_nombre);
             }
-            return $userPermisoValor == ValorHelpers::getPermisoValor($permiso_nombre) ? true : false;
         } else {
             return false;
         }
     }
+
 
     public static function userDebeSerPropietario($model_nombre, $model_id)
     {

@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use  common\models\User;
 
 /**
  * This is the model class for table "permiso".
@@ -44,5 +45,9 @@ class Permiso extends \yii\db\ActiveRecord
             'permiso_nombre' => 'Permiso Nombre',
             'permiso_valor' => 'Permiso Valor',
         ];
+    }
+    public  function  getUsers()
+    {
+    return  $this->hasMany(User::className(),  ['permiso_id'  =>  'id']);
     }
 }
