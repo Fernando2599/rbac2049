@@ -28,11 +28,10 @@ class PermisosHelpers
     {
         if (ValorHelpers::esRolNombreValido($rol_nombre)){
             if ($userId == null) {
-                $userRolValor = ValorHelpers::getUsersRolValor();
+                return ValorHelpers::getUsersRolValor(Yii::$app->user->id, $rol_nombre);
             } else {
-                $userRolValor = ValorHelpers::getUsersRolValor($userId);
+                return ValorHelpers::getUsersRolValor($userId, $rol_nombre);
             }
-            return $userRolValor >= ValorHelpers::getRolValor($rol_nombre) ? true : false;
         } else {
             return false;
         }
