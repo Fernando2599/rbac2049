@@ -19,6 +19,7 @@ use yii\db\Expression;
  * @property string $constancia_ingles
  * @property string $cv
  * @property string $constancia_creditos_complementarios
+ * @property string $seguro_medico
  * @property string $created_at
  * @property string $updated_at
  * @property int $estado_registro_id
@@ -29,7 +30,7 @@ use yii\db\Expression;
  */
 class Preregistro extends \yii\db\ActiveRecord
 {
-    public $archivoKardex, $archivoConstancia_ingles, $archivoCv, $archivoConstancia_creditos_complementarios, $terminos_condiciones;
+    public $archivoKardex, $archivoConstancia_ingles, $archivoCv, $archivoConstancia_creditos_complementarios, $archivoSeguro_medico, $terminos_condiciones;
     /**
      * {@inheritdoc}
      */
@@ -52,7 +53,7 @@ class Preregistro extends \yii\db\ActiveRecord
             [['nombre', 'matricula', 'email'], 'string', 'max' => 45],
             ['email', 'email'],
             //[['kardex', 'constancia_ingles', 'constancia_servicio_social', 'constancia_creditos_complementarios'], 'string', 'max' => 2500],
-            [['archivoKardex', 'archivoConstancia_ingles', 'archivoCv', 'archivoConstancia_creditos_complementarios'], 'file', 'extensions' => 'pdf', 'maxFiles' => '1'],
+            [['archivoKardex', 'archivoConstancia_ingles', 'archivoCv', 'archivoConstancia_creditos_complementarios', 'archivoSeguro_medico'], 'file', 'extensions' => 'pdf', 'maxFiles' => '1'],
             //[['email'], 'unique'],
             ['email', 'unique', 'targetClass' => '\common\models\Preregistro', 'message' => 'Este correo electronico ya esta en uso.'],
             //[['matricula'], 'unique'],
@@ -92,6 +93,7 @@ class Preregistro extends \yii\db\ActiveRecord
             'cv' => 'Curriculum',
             'archivoConstancia_creditos_complementarios' => 'Constancia de Creditos Complementarios',
             'constancia_creditos_complementarios' => 'Constancia de Creditos Complementarios',
+            'archivoSeguro_medico' => 'Seguro Medico',
             'created_at' => 'Fecha de creación',
             'updated_at' => 'Última actualización',
             'estado_registro_id' => 'Estado',

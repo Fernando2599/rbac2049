@@ -111,12 +111,13 @@ class PreregistroController extends Controller
     {
         $model = $this->findModel($id);
 
-        if(file_exists($model->kardex) && file_exists($model->constancia_ingles) && file_exists($model->cv) && file_exists($model->constancia_creditos_complementarios))
+        if(file_exists($model->kardex) && file_exists($model->constancia_ingles) && file_exists($model->cv) && file_exists($model->constancia_creditos_complementarios) && file_exists($model->seguro_medico))
         {
             unlink($model->kardex);
             unlink($model->constancia_ingles);
             unlink($model->cv);
             unlink($model->constancia_creditos_complementarios);
+            unlink($model->seguro_medico);
         }
 
         $model->delete();
@@ -152,6 +153,7 @@ class PreregistroController extends Controller
                 $model->archivoConstancia_ingles = UploadedFile::getInstance($model, 'archivoConstancia_ingles');
                 $model->archivoCv = UploadedFile::getInstance($model, 'archivoCv');
                 $model->archivoConstancia_creditos_complementarios = UploadedFile::getInstance($model, 'archivoConstancia_creditos_complementarios');
+                $model->archivoSeguro_medico = UploadedFile::getInstance($model, 'archivoSeguro_medico');
 
                 // Validar el modelo
                 if ($model->validate()) {
@@ -161,6 +163,7 @@ class PreregistroController extends Controller
                     $this->guardarArchivo($model, 'archivoConstancia_ingles', 'constancia_ingles', 'uploads/preregistro/ingles/');
                     $this->guardarArchivo($model, 'archivoCv', 'cv', 'uploads/preregistro/cv/');
                     $this->guardarArchivo($model, 'archivoConstancia_creditos_complementarios', 'constancia_creditos_complementarios', 'uploads/preregistro/creditos_complementarios/');
+                    $this->guardarArchivo($model, 'archivoSeguro_medico', 'seguro_medico', 'uploads/preregistro/seguro_medico/');
                 }
 
                 // Limpiar los archivos en el modelo
@@ -168,9 +171,10 @@ class PreregistroController extends Controller
                 $model->archivoConstancia_ingles = null;
                 $model->archivoCv = null;
                 $model->archivoConstancia_creditos_complementarios = null;
+                $model->archivoSeguro_medico = null;
 
                 // Verificar si todos los archivos se han subido
-                if ($model->kardex == null || $model->constancia_ingles == null || $model->cv == null || $model->constancia_creditos_complementarios == null) {
+                if ($model->kardex == null || $model->constancia_ingles == null || $model->cv == null || $model->constancia_creditos_complementarios == null || $model->seguro_medico == null ) {
                     Yii::$app->session->setFlash('error', 'Debes cargar los documentos solicitados');
                 } else {
                     if ($model->save()) {
