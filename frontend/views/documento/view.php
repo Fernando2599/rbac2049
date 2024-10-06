@@ -14,26 +14,26 @@ $this->params['breadcrumbs'][] = $this->title;
 
 date_default_timezone_set("America/Mexico_City");
 
-$fecha_actual= date('Y-m-d');
+$fecha_actual = date('Y-m-d');
 $fecha_inicio = date($model->fecha_inicio);
 $fecha_cierre = date($model->fecha_cierre);
 ?>
-<div class="documento-view">
+<div class="documento-view" style="padding: 70px 45px 50px;">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php
 
     if (RegistrosHelpers::validarFecha($fecha_inicio, $fecha_cierre, $fecha_actual)) { ?>
-    <p>
-    <?= Html::a('Subir documento', ['documento-expediente/create', 'documento_id' => $model->id], ['class' => 'btn btn-success']) ?>
-    </p>
-<?php }
-else {
-    echo '<div class="alert alert-danger" style="color: white;">No es posible subir el documento, verifique la fecha de disponibilidad.</div>';
-}
+        <p>
+            <?= Html::a('Subir documento', ['documento-expediente/create', 'documento_id' => $model->id], ['class' => 'btn btn-success']) ?>
+        </p>
+    <?php } else {
+        echo '<div class="alert alert-warning alert-border-left show">' . '<i class="ri-alert-line me-3 align-middle"></i>' . '<strong> Alerta - </strong>' . 'No es posible subir el documento, verifique la fecha de disponibilidad' .
+            '</div>';
+    }
 
-?>
+    ?>
 
     <?= DetailView::widget([
         'model' => $model,

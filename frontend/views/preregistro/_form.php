@@ -154,6 +154,16 @@ $this->registerCss("
                 ]) ?>
             </div>
 
+            <div class="col-md-6">
+                <?= $form->field($model, 'archivoSeguro_medico')->widget(FileInput::classname(), [
+                    'options' => ['accept' => 'file/*'],
+                    'pluginOptions' => [
+                        'allowedFileExtensions' => ['pdf'],
+                        'showUpload' => false
+                    ]
+                ]) ?>
+            </div>
+
         </div>
 
         <?php if ($model->isNewRecord): ?>

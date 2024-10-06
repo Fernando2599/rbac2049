@@ -26,11 +26,12 @@ $baseUrl = $asset->baseUrl;
 <body data-bs-spy="scroll" data-bs-target="#navbar-example">
     <?php $this->beginBody() ?>
 
-    <div class="layout-wrapper landing">
+    <div class="layout-wrapper ">
 
-        <div class="">
-            <?= $content ?>
-        </div>
+
+                <div class="container-fluid">
+                    <?= $content ?>
+                </div>
         </section>
 
         <!-- -------   END PRE-FOOTER 2 - simple social line w/ title & 3 buttons    -------- -->
@@ -156,7 +157,7 @@ $baseUrl = $asset->baseUrl;
             </div>
         </footer>
         <!-- end footer -->
-        
+
         <script type="text/javascript">
             if (document.getElementById('state1')) {
                 const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
