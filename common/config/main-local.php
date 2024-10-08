@@ -12,9 +12,9 @@ return [
         
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            'viewPath' => '@common/mail', // Especifica el directorio donde están las vistas de los correos
-            'useFileTransport' => false,  // Cambiar a false si quieres enviar correos reales
-            'htmlLayout' => '@common/mail/layouts/html', // Configura el layout HTML
+            'viewPath' => '@common/mail',
+            'useFileTransport' => false,  
+            'htmlLayout' => '@common/mail/layouts/html', 
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
