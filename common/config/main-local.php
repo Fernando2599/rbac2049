@@ -9,6 +9,21 @@ return [
             'password' => '',
             'charset' => 'utf8',
         ],
+        
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'viewPath' => '@common/mail', // Especifica el directorio donde están las vistas de los correos
+            'useFileTransport' => false,  // Cambiar a false si quieres enviar correos reales
+            'htmlLayout' => '@common/mail/layouts/html', // Configura el layout HTML
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',
+                'username' => 'oscaracd231@gmail.com',
+                'password' => 'lgse mgjq rspn wbjv',
+                'port' => '587',
+                'encryption' => 'tls',
+            ],
+        ],
         /*
         'mailer' => [
             'class' => \yii\symfonymailer\Mailer::class,

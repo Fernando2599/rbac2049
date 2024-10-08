@@ -1,10 +1,10 @@
 <?php
 return [
     'bsVersion' => '5.x',
-    'adminEmail' => 'admin@example.com',
-    'supportEmail' => 'support@example.com',
+    'adminEmail' => 'soporte.dual@valladolid.tecnm.mx',
+    'supportEmail' => 'soporte.dual@valladolid.tecnm.mx',
     'senderEmail' => 'noreply@example.com',
-    'senderName' => 'Example.com mailer',
+    'senderName' => 'Soporte Sistema Dual',
     'user.passwordResetTokenExpire' => 3600,
     'user.passwordMinLength' => 8,
 ];

@@ -9,6 +9,12 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'urlManagerFrontEnd' => [
+            'class' => 'yii\web\UrlManager',
+            'baseUrl' => 'http://localhost/rbac2049/frontend/web/index.php',  // Cambia por el dominio de tu frontend
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+        ],
     ],
     'modules' => [
         'gridview' =>  [
