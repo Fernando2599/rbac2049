@@ -189,7 +189,7 @@ class PreregistroController extends Controller
         $pass = bin2hex($bytes);
         $user->setPassword($pass);
         $user->generateAuthKey();
-        $user->status = 10;
+        $user->estado_id = 1;
 
         return $user->save() && $this->sendEmailNewUser($user, $model, $pass);
     }
