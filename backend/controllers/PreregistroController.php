@@ -7,6 +7,7 @@ use common\models\User;
 use common\models\PerfilEstudiante;
 use common\models\Expediente;
 use backend\models\search\PreregistroSearch;
+use backend\models\UsuarioRol;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -196,9 +197,14 @@ class PreregistroController extends Controller
 
     public function asignarRolEstudiante($id)
     {
-        $auth = \Yii::$app->authManager;
+        /*$auth = \Yii::$app->authManager;
         $authorRole = $auth->getRole('estudiante');
-        $auth->assign($authorRole, $id);
+        $auth->assign($authorRole, $id);*/
+
+        $model = new UsuarioRol();
+        $model->user_id = $id;
+        $model->rol_id = 9;
+        return $model->save();
     }
 
     public function insertarPerfilEstudiante($id, $idEstudiante)
@@ -217,6 +223,7 @@ class PreregistroController extends Controller
     {
         $expediente = new Expediente();
         $expediente->perfil_estudiante_id = $idPerfilEstudiante;
+        $expediente->estado_expediente_id = 1;
 
         return $expediente->save();
     }
