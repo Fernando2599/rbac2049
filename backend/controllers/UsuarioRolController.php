@@ -27,23 +27,12 @@ class UsuarioRolController extends Controller
                     'only' => ['index', 'view', 'create', 'update', 'delete'],
                     'rules' => [
                         [
-                            'actions' => ['index', 'view'],
+                            'actions' => ['index', 'view','create',],
                             'allow' => true,
                             'roles' => ['@'],
                             'matchCallback' => function ($rule, $action) {
                                 if (!(PermisosHelpers::requerirMinimoRol('Admin') && PermisosHelpers::requerirEstado('Activo'))) {
                                     throw new \yii\web\ForbiddenHttpException('No tienes los permisos necesarios para acceder a esta página.');
-                                }
-                                return true;
-                            }
-                        ],
-                        [
-                            'actions' => ['create'],
-                            'allow' => true,
-                            'roles' => ['@'],
-                            'matchCallback' => function ($rule, $action) {
-                                if (!(PermisosHelpers::requerirMinimoRol('Estudiante') && PermisosHelpers::requerirEstado('Activo'))) {
-                                    throw new \yii\web\ForbiddenHttpException('No tienes los permisos necesarios para crear contenido.');
                                 }
                                 return true;
                             }

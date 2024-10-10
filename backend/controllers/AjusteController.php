@@ -21,40 +21,46 @@ class AjusteController extends Controller
     {
         return array_merge(
             parent::behaviors(),
-            [
-                'access' => [
-                    'class' => \yii\filters\AccessControl::className(),
-                    'only' => ['index', 'view','create', 'update', 'delete'],
-                    'rules' => [
-                        [
-                            'actions' => ['index', 'create', 'view',],
-                            'allow' => true,
-                            'roles' => ['@'],
-                            'matchCallback' => function ($rule, $action) {
-                             return PermisosHelpers::requerirMinimoRol('Admin') 
-                             && PermisosHelpers::requerirEstado('Activo');
+        [
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'only' => ['index', 'view', 'update'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'update'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            // Permitir acceso si el rol es 'Admin' o 'SuperUsuario' y el estado es 'Activo'
+                            if (!((PermisosHelpers::requerirMinimoRol(['Admin', 'SuperUsuario'])) && PermisosHelpers::requerirEstado('Activo'))) {
+                                throw new \yii\web\ForbiddenHttpException('Ups, necesita un rol en especifico para esta accion');
                             }
-                        ],
-                         [
-                            'actions' => [ 'update', 'delete'],
-                            'allow' => true,
-                            'roles' => ['@'],
-                            'matchCallback' => function ($rule, $action) {
-                             return PermisosHelpers::requerirMinimoRol('SuperUsuario') 
-                             && PermisosHelpers::requerirEstado('Activo');
+                            return true;
+                        }
+                    ],
+                    [
+                        'actions' => ['index', 'view'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            if (!(PermisosHelpers::requerirMinimoRol('Subdirector') && PermisosHelpers::requerirEstado('Activo'))) {
+                                throw new \yii\web\ForbiddenHttpException('No tienes los permisos necesarios para acceder a esta página.');
                             }
-                        ],
-                             
+                            return true;
+                        }
                     ],
-                         
+                    
                 ],
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
+            ],
+
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
                 ],
-            ]
+            ],
+        ],
+
         );
     }
 

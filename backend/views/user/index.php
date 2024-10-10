@@ -12,6 +12,9 @@ $this->title = 'Users';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
+    <p>
+        <?= Html::a('Crear Usuario', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
  
     <h1><?= Html::encode($this->title) ?></h1>
  
