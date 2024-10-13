@@ -28,24 +28,27 @@ class RolController extends Controller
                     'only' => ['index', 'view','create', 'update', 'delete'],
                     'rules' => [
                         [
-                            'actions' => ['index', 'create', 'view',],
+                            'actions' => ['index', 'view','create', 'update'],
                             'allow' => true,
                             'roles' => ['@'],
                             'matchCallback' => function ($rule, $action) {
-                             return PermisosHelpers::requerirMinimoRol('Admin') 
-                             && PermisosHelpers::requerirEstado('Activo');
+                                if (!(PermisosHelpers::requerirMinimoRol('Admin') && PermisosHelpers::requerirEstado('Activo'))) {
+                                    throw new \yii\web\ForbiddenHttpException('Ups, necesita un rol en especifico para esta accion');
+                                }
+                                return true;
                             }
                         ],
-                         [
-                            'actions' => [ 'update', 'delete'],
+                        [
+                            'actions' => ['delete'],
                             'allow' => true,
                             'roles' => ['@'],
                             'matchCallback' => function ($rule, $action) {
-                             return PermisosHelpers::requerirMinimoRol('SuperUsuario') 
-                             && PermisosHelpers::requerirEstado('Activo');
+                                if (!(PermisosHelpers::requerirMinimoRol('SuperUsuario') && PermisosHelpers::requerirEstado('Activo'))) {
+                                    throw new \yii\web\ForbiddenHttpException('Ups, no tiene permitido eliminar contenido');
+                                }
+                                return true;
                             }
-                        ],
-                             
+                        ],                         
                     ],
                          
                 ],

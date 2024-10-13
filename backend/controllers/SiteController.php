@@ -40,8 +40,10 @@ class SiteController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
-                            return PermisosHelpers::requerirMinimoRol('Admin') 
-                            && PermisosHelpers::requerirEstado('Activo');
+                            if (!(PermisosHelpers::requerirMinimoRol(['Admin','SuperUsuario','Coordinador','Subdirector']) && PermisosHelpers::requerirEstado('Activo'))) {
+                                throw new \yii\web\ForbiddenHttpException('Ups, necesita un rol en especifico para esta accion');
+                            }
+                            return true;
                         }
                     ],
                     [

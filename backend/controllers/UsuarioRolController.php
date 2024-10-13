@@ -27,7 +27,7 @@ class UsuarioRolController extends Controller
                     'only' => ['index', 'view', 'create', 'update', 'delete'],
                     'rules' => [
                         [
-                            'actions' => ['index', 'view','create',],
+                            'actions' => ['index', 'view'],
                             'allow' => true,
                             'roles' => ['@'],
                             'matchCallback' => function ($rule, $action) {
@@ -38,7 +38,7 @@ class UsuarioRolController extends Controller
                             }
                         ],
                         [
-                            'actions' => ['update', 'delete'],
+                            'actions' => ['create', 'update', 'delete'],
                             'allow' => true,
                             'roles' => ['@'],
                             'matchCallback' => function ($rule, $action) {
