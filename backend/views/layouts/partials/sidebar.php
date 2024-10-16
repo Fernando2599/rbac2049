@@ -4,6 +4,22 @@
 /** @var string $content */
 
 use yii\helpers\Url;
+use common\models\PermisosHelpers;
+
+function tieneAcceso($opcion, $userId = null) {
+    $rolesNecesarios = [
+        'administrar' => ['Admin'],
+        
+    ];
+
+    foreach ($rolesNecesarios[$opcion] as $rolNecesario) {
+        if (PermisosHelpers::requerirRolEspecifico($rolNecesario, $userId)) {
+            return true;
+        }
+    }
+
+    return false;
+}
 
 ?>
 
@@ -48,7 +64,7 @@ use yii\helpers\Url;
                             </a>
                         </li>
                       
-
+                        <?php if (tieneAcceso('administrar')): ?>
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarAdministrar" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAdministrar">
                                 <i class="las la-graduation-cap"></i> <span data-key="t-administrar">Administrar</span>
@@ -82,6 +98,7 @@ use yii\helpers\Url;
                                 </ul>
                             </div>
                         </li>
+                        <?php endif;?>
 
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="<?= Url::to(['/proyecto']); ?>">

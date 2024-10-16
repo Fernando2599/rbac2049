@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var backend\models\search\UsuarioRolSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Usuario Rols';
+$this->title = 'Usuarios Con Roles';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="usuario-rol-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Usuario Rol', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Asignar Rol a Usuario', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

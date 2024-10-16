@@ -36,6 +36,18 @@ class PermisosHelpers
             return false;
         }
     }
+    public static function requerirRolEspecifico($rol_nombre, $userId=null)
+    {
+        if (ValorHelpers::esRolNombreValido($rol_nombre)){
+            if ($userId == null) {
+                return ValorHelpers::getUsersRolValorEspecifico(Yii::$app->user->id, $rol_nombre);
+            } else {
+                return ValorHelpers::getUsersRolValorEspecifico($userId, $rol_nombre);
+            }
+        } else {
+            return false;
+        }
+    }
 
     public static function requerirPermiso($permiso_nombre, $userId = null)
     {
