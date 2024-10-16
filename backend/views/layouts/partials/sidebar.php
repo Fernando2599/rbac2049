@@ -8,7 +8,9 @@ use common\models\PermisosHelpers;
 
 function tieneAcceso($opcion, $userId = null) {
     $rolesNecesarios = [
-        'administrar' => ['Admin'],
+        'administrar' => ['Admin','SuperUsuario','Subdirector'],
+        'ajuste' => ['Admin','SuperUsuario','Subdirector'],
+        'admin-super' => ['Admin','SuperUsuario'],
         
     ];
 
@@ -71,30 +73,56 @@ function tieneAcceso($opcion, $userId = null) {
                             </a>
                             <div class="collapse menu-dropdown" id="sidebarAdministrar">
                                 <ul class="nav nav-sm flex-column">
+                                    <?php if (tieneAcceso('ajuste')): ?>
                                     <li class="nav-item">
                                         <a class="nav-link menu-link" href="<?= Url::to(['/ajuste']); ?>">
-                                           <i class="ri-settings-3-line"></i> <span data-key="t-ajuste">Ajuste</span>
+                                            <i class="ri-settings-3-line"></i> <span data-key="t-ajuste">Ajuste</span>
                                         </a>
+                                    </li>
+
+                                    <?php endif; ?>
+                                    <?php if (tieneAcceso('admin-super')): ?>
+                                    <li class="nav-item">
                                         <a class="nav-link menu-link" href="<?= Url::to(['/user']); ?>">
-                                           <i class="ri-group-line"></i> <span data-key="t-user">Usuarios</span>
+                                            <i class="ri-group-line"></i> <span data-key="t-user">Usuarios</span>
                                         </a>
+                                    </li>
+                                    <?php endif; ?>
+                                    <?php if (tieneAcceso('admin-super')): ?>
+                                    <li class="nav-item">
                                         <a class="nav-link menu-link" href="<?= Url::to(['/rol']); ?>">
-                                           <i class="ri-group-line"></i> <span data-key="t-rol">Rol</span>
+                                            <i class="ri-group-line"></i> <span data-key="t-rol">Rol</span>
                                         </a>
-                                        <a class="nav-link menu-link" href="<?= Url::to(['/permiso']); ?>">
-                                           <i class="ri-group-line"></i> <span data-key="t-permiso">Permisos</span>
+                                    </li>
+                                    <?php endif; ?>
+                                    <?php if (tieneAcceso('admin-super')): ?>           
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/permiso']);?>">
+                                            <i class="ri-group-line"></i> <span data-key="t-permiso">Permisos</span>
                                         </a>
-                                        <a class="nav-link menu-link" href="<?= Url::to(['/usuario-rol']); ?>">
+                                    </li>
+                                    <?php endif; ?>
+                                    <?php if (tieneAcceso('admin-super')): ?>       
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/usuario-rol']);?>">
                                            <i class="ri-group-line"></i> <span data-key="t-usuario-rol">Asignar Roles</span>
                                         </a>
+                                    </li>
+                                    <?php endif; ?>
+                                    <?php if (tieneAcceso('admin-super')): ?>
+                                    <li class="nav-item">
                                         <a class="nav-link menu-link" href="<?= Url::to(['/usuario-permiso']); ?>">
                                            <i class="ri-group-line"></i> <span data-key="t-usuario-permiso">Asignar Permisos</span>
                                         </a>
-                                        <a class="nav-link menu-link" href="<?= Url::to(['/estado']); ?>">
-                                           <i class="ri-group-line"></i> <span data-key="t-estado">Estado de usuarios</span>
-                                        </a>
-
                                     </li>
+                                    <?php endif; ?>
+                                    <?php if (tieneAcceso('admin-super')): ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/estado']); ?>">
+                                           <i class="ri-group-line"></i> <span data-key="t-estado">Estado</span>
+                                        </a>
+                                    </li>
+                                    <?php endif; ?>
                                 </ul>
                             </div>
                         </li>

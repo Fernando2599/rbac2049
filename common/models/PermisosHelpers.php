@@ -24,7 +24,7 @@ class PermisosHelpers
         return ValorHelpers::rolCoincide($rol_nombre);
     }
 
-    public static function requerirMinimoRol($rol_nombre, $userId=null)
+    public static function requerirMinimoRol1($rol_nombre, $userId=null)
     {
         if (ValorHelpers::esRolNombreValido($rol_nombre)){
             if ($userId == null) {
@@ -36,6 +36,21 @@ class PermisosHelpers
             return false;
         }
     }
+    public static function requerirMinimoRol($roles, $userId=null)
+    {
+        if ($userId == null) {
+            $userId = Yii::$app->user->id;
+        }
+
+        foreach ($roles as $rol_nombre) {
+            if (ValorHelpers::esRolNombreValido($rol_nombre) && ValorHelpers::getUsersRolValor($userId, $rol_nombre)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static function requerirRolEspecifico($rol_nombre, $userId=null)
     {
         if (ValorHelpers::esRolNombreValido($rol_nombre)){
