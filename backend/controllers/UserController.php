@@ -28,7 +28,7 @@ class UserController extends Controller
                     'only' => ['index', 'view','create', 'update', 'delete'],
                     'rules' => [
                         [
-                            'actions' => ['index', 'create', 'view',],
+                            'actions' => ['index', 'view','create','update'],
                             'allow' => true,
                             'roles' => ['@'],
                             'matchCallback' => function ($rule, $action) {
@@ -39,9 +39,12 @@ class UserController extends Controller
                             }
                         ],
                         [
+                            'actions' => ['delete'],
+                            'allow' => true,
+                            'roles' => ['@'],
                             'matchCallback' => function ($rule, $action) {
                                 if (!(PermisosHelpers::requerirMinimoRol(['SuperUsuario']) && PermisosHelpers::requerirEstado('Activo'))) {
-                                    throw new \yii\web\ForbiddenHttpException('No tienes los permisos necesarios para actualizar o eliminar contenido.');
+                                    throw new \yii\web\ForbiddenHttpException('No tienes los permisos necesarios para eliminar contenido.');
                                 }
                                 return true;
                             }
