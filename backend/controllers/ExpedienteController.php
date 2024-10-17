@@ -32,6 +32,17 @@ class ExpedienteController extends Controller
                     'only' => ['index', 'view','create', 'update', 'delete'],
                     'rules' => [
                         [
+                            'actions' => ['index', 'view'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function ($rule, $action) {
+                                if (!(PermisosHelpers::requerirMinimoRol(['Subdirector']) && PermisosHelpers::requerirEstado('Activo'))) {
+                                    throw new \yii\web\ForbiddenHttpException('No tienes el rol necesario');
+                                }
+                                return true;
+                            }
+                        ], 
+                        [
                             'actions' => ['index', 'view','update'],
                             'allow' => true,
                             'roles' => ['@'],
@@ -41,18 +52,7 @@ class ExpedienteController extends Controller
                                 }
                                 return true;
                             }
-                        ],
-                        [
-                            'actions' => ['index', 'view'],
-                            'allow' => true,
-                            'roles' => ['@'],
-                            'matchCallback' => function ($rule, $action) {
-                                if (!(PermisosHelpers::requerirMinimoRol('Subdirector') && PermisosHelpers::requerirEstado('Activo'))) {
-                                    throw new \yii\web\ForbiddenHttpException('No tienes los permisos necesarios para acceder a esta página.');
-                                }
-                                return true;
-                            }
-                        ],                            
+                        ],                         
                     ],
                          
                 ],

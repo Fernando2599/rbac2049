@@ -24,27 +24,27 @@ class PermisoController extends \yii\web\Controller
                     'only' => ['index', 'view','create', 'update', 'delete'],
                     'rules' => [
                         [
-                            'actions' => ['index', 'view','create', 'update'],
+                            'actions' => ['index', 'view'],
                             'allow' => true,
                             'roles' => ['@'],
                             'matchCallback' => function ($rule, $action) {
-                                if (!(PermisosHelpers::requerirMinimoRol('Admin') && PermisosHelpers::requerirEstado('Activo'))) {
-                                    throw new \yii\web\ForbiddenHttpException('Ups, necesita un rol en especifico para esta accion');
+                                if (!(PermisosHelpers::requerirMinimoRol(['Admin']) && PermisosHelpers::requerirEstado('Activo'))) {
+                                    throw new \yii\web\ForbiddenHttpException('No tienes los permisos necesarios para acceder a esta página.');
                                 }
                                 return true;
                             }
                         ],
                         [
-                            'actions' => ['delete'],
+                            'actions' => ['create', 'update', 'delete'],
                             'allow' => true,
                             'roles' => ['@'],
                             'matchCallback' => function ($rule, $action) {
-                                if (!(PermisosHelpers::requerirMinimoRol('SuperUsuario') && PermisosHelpers::requerirEstado('Activo'))) {
-                                    throw new \yii\web\ForbiddenHttpException('Ups, no tiene permitido eliminar contenido');
+                                if (!(PermisosHelpers::requerirMinimoRol(['SuperUsuario']) && PermisosHelpers::requerirEstado('Activo'))) {
+                                    throw new \yii\web\ForbiddenHttpException('No tienes los permisos necesarios para actualizar o eliminar contenido.');
                                 }
                                 return true;
                             }
-                        ],                         
+                        ],                        
                     ],
                          
                 ],

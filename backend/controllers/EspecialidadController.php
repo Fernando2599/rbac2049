@@ -27,13 +27,23 @@ class EspecialidadController extends Controller
                     'class' => \yii\filters\AccessControl::className(),
                     'only' => ['index', 'view', 'create', 'update', 'delete'],
                     'rules' => [
-                        
+                        [
+                            'actions' => ['index', 'view'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function ($rule, $action) {
+                                if (!(PermisosHelpers::requerirMinimoRol(['Subdirector']) && PermisosHelpers::requerirEstado('Activo'))) {
+                                    throw new \yii\web\ForbiddenHttpException('No tienes el rol necesario');
+                                }
+                                return true;
+                            }
+                        ],                        
                         [
                             'actions' => ['index', 'view','create', 'update'],
                             'allow' => true,
                             'roles' => ['@'],
                             'matchCallback' => function ($rule, $action) {
-                                if (!(PermisosHelpers::requerirMinimoRol('Admin') && PermisosHelpers::requerirEstado('Activo'))) {
+                                if (!(PermisosHelpers::requerirMinimoRol(['Admin']) && PermisosHelpers::requerirEstado('Activo'))) {
                                     throw new \yii\web\ForbiddenHttpException('Ups, necesita un rol en especifico para esta accion');
                                 }
                                 return true;
@@ -44,19 +54,8 @@ class EspecialidadController extends Controller
                             'allow' => true,
                             'roles' => ['@'],
                             'matchCallback' => function ($rule, $action) {
-                                if (!(PermisosHelpers::requerirMinimoRol('SuperUsuario') && PermisosHelpers::requerirEstado('Activo'))) {
+                                if (!(PermisosHelpers::requerirMinimoRol(['SuperUsuario']) && PermisosHelpers::requerirEstado('Activo'))) {
                                     throw new \yii\web\ForbiddenHttpException('Ups, no tiene permitido eliminar contenido');
-                                }
-                                return true;
-                            }
-                        ],
-                        [
-                            'actions' => ['index', 'view'],
-                            'allow' => true,
-                            'roles' => ['@'],
-                            'matchCallback' => function ($rule, $action) {
-                                if (!(PermisosHelpers::requerirMinimoRol('Subdirector') && PermisosHelpers::requerirEstado('Activo'))) {
-                                    throw new \yii\web\ForbiddenHttpException('No tienes los permisos necesarios para acceder a esta página.');
                                 }
                                 return true;
                             }

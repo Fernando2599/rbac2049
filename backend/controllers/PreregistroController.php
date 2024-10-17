@@ -32,17 +32,6 @@ class PreregistroController extends Controller
                     'only' => ['index', 'view', 'update'],
                     'rules' => [
                         [
-                            'actions' => ['index', 'view', 'update'],
-                            'allow' => true,
-                            'roles' => ['@'],
-                            'matchCallback' => function ($rule, $action) {
-                                if (!(PermisosHelpers::requerirMinimoRol(['Admin','SuperUsuario']) && PermisosHelpers::requerirEstado('Activo'))) {
-                                    throw new \yii\web\ForbiddenHttpException('Ups, necesita un rol en especifico para esta accion');
-                                }
-                                return true;
-                            }
-                        ],
-                        [
                             'actions' => ['index', 'view'],
                             'allow' => true,
                             'roles' => ['@'],
@@ -52,7 +41,18 @@ class PreregistroController extends Controller
                                 }
                                 return true;
                             }
-                        ],                         
+                        ], 
+                        [
+                            'actions' => ['index', 'view', 'update'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function ($rule, $action) {
+                                if (!(PermisosHelpers::requerirMinimoRol(['Admin','SuperUsuario']) && PermisosHelpers::requerirEstado('Activo'))) {
+                                    throw new \yii\web\ForbiddenHttpException('Ups, necesita un rol en especifico para esta accion');
+                                }
+                                return true;
+                            }
+                        ],                        
                     ],
                          
                 ],

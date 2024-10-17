@@ -29,17 +29,6 @@ class IngenieriaController extends Controller
                     'only' => ['index', 'view','create', 'update', 'delete'],
                     'rules' => [
                         [
-                            'actions' => ['index','create','view','update'],
-                            'allow' => true,
-                            'roles' => ['@'],
-                            'matchCallback' => function ($rule, $action) {
-                                if (!(PermisosHelpers::requerirMinimoRol(['Admin','SuperUsuario']) && PermisosHelpers::requerirEstado('Activo'))) {
-                                    throw new \yii\web\ForbiddenHttpException('Ups, necesita un rol en especifico para esta accion');
-                                }
-                                return true;
-                            }
-                        ],
-                        [
                             'actions' => ['index', 'view'],
                             'allow' => true,
                             'roles' => ['@'],
@@ -49,7 +38,18 @@ class IngenieriaController extends Controller
                                 }
                                 return true;
                             }
-                        ],                            
+                        ], 
+                        [
+                            'actions' => ['index','create','view','update'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function ($rule, $action) {
+                                if (!(PermisosHelpers::requerirMinimoRol(['Admin','SuperUsuario']) && PermisosHelpers::requerirEstado('Activo'))) {
+                                    throw new \yii\web\ForbiddenHttpException('Ups, necesita un rol en especifico para esta accion');
+                                }
+                                return true;
+                            }
+                        ],                           
                     ],
                          
                 ],

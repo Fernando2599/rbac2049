@@ -28,11 +28,22 @@ class ProyectoAsignaturaController extends Controller
                     'only' => ['index', 'view', 'update'],
                     'rules' => [
                         [
+                            'actions' => ['index', 'view'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function ($rule, $action) {
+                                if (!(PermisosHelpers::requerirMinimoRol(['Subdirector','Coordinador']) && PermisosHelpers::requerirEstado('Activo'))) {
+                                    throw new \yii\web\ForbiddenHttpException('No tienes los permisos necesarios para acceder a esta página.');
+                                }
+                                return true;
+                            }
+                        ], 
+                        [
                             'actions' => ['index', 'view', 'update'],
                             'allow' => true,
                             'roles' => ['@'],
                             'matchCallback' => function ($rule, $action) {
-                                if (!(PermisosHelpers::requerirMinimoRol('Admin') && PermisosHelpers::requerirEstado('Activo'))) {
+                                if (!(PermisosHelpers::requerirMinimoRol(['Admin']) && PermisosHelpers::requerirEstado('Activo'))) {
                                     throw new \yii\web\ForbiddenHttpException('Ups, necesita un rol en especifico para esta accion');
                                 }
                                 return true;
@@ -43,23 +54,13 @@ class ProyectoAsignaturaController extends Controller
                             'allow' => true,
                             'roles' => ['@'],
                             'matchCallback' => function ($rule, $action) {
-                                if (!(PermisosHelpers::requerirMinimoRol('SuperUsuario') && PermisosHelpers::requerirEstado('Activo'))) {
+                                if (!(PermisosHelpers::requerirMinimoRol(['SuperUsuario']) && PermisosHelpers::requerirEstado('Activo'))) {
                                     throw new \yii\web\ForbiddenHttpException('Ups, necesita un rol en especifico para esta accion');
                                 }
                                 return true;
                             }
                         ],
-                        [
-                            'actions' => ['index', 'view'],
-                            'allow' => true,
-                            'roles' => ['@'],
-                            'matchCallback' => function ($rule, $action) {
-                                if (!(PermisosHelpers::requerirMinimoRol(['Subdirector','Coordinador']) && PermisosHelpers::requerirEstado('Activo'))) {
-                                    throw new \yii\web\ForbiddenHttpException('No tienes los permisos necesarios para acceder a esta página.');
-                                }
-                                return true;
-                            }
-                        ],                         
+                                                
                     ],
                          
                 ],
