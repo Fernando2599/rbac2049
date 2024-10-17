@@ -11,6 +11,8 @@ function tieneAcceso($opcion, $userId = null) {
         'administrar' => ['Admin','SuperUsuario','Subdirector'],
         'ajuste' => ['Admin','SuperUsuario','Subdirector'],
         'admin-super' => ['Admin','SuperUsuario'],
+        'proyectos' => ['Admin','SuperUsuario','Subdirector','Coordinador'],
+
         
     ];
 
@@ -69,7 +71,7 @@ function tieneAcceso($opcion, $userId = null) {
                         <?php if (tieneAcceso('administrar')): ?>
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarAdministrar" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAdministrar">
-                                <i class="las la-graduation-cap"></i> <span data-key="t-administrar">Administrar</span>
+                            <i class="ri-tools-line"></i><span data-key="t-administrar">Administrar</span>
                             </a>
                             <div class="collapse menu-dropdown" id="sidebarAdministrar">
                                 <ul class="nav nav-sm flex-column">
@@ -91,35 +93,35 @@ function tieneAcceso($opcion, $userId = null) {
                                     <?php if (tieneAcceso('admin-super')): ?>
                                     <li class="nav-item">
                                         <a class="nav-link menu-link" href="<?= Url::to(['/rol']); ?>">
-                                            <i class="ri-group-line"></i> <span data-key="t-rol">Rol</span>
+                                        <i class="ri-shield-user-line"></i> <span data-key="t-rol">Rol</span>
                                         </a>
                                     </li>
                                     <?php endif; ?>
                                     <?php if (tieneAcceso('admin-super')): ?>           
                                     <li class="nav-item">
                                         <a class="nav-link menu-link" href="<?= Url::to(['/permiso']);?>">
-                                            <i class="ri-group-line"></i> <span data-key="t-permiso">Permisos</span>
+                                        <i class="ri-file-lock-line"></i> <span data-key="t-permiso">Permisos</span>
                                         </a>
                                     </li>
                                     <?php endif; ?>
                                     <?php if (tieneAcceso('admin-super')): ?>       
                                     <li class="nav-item">
                                         <a class="nav-link menu-link" href="<?= Url::to(['/usuario-rol']);?>">
-                                           <i class="ri-group-line"></i> <span data-key="t-usuario-rol">Asignar Roles</span>
+                                        <i class="ri-task-line"></i><span data-key="t-usuario-rol">Asignar Roles</span>
                                         </a>
                                     </li>
                                     <?php endif; ?>
                                     <?php if (tieneAcceso('admin-super')): ?>
                                     <li class="nav-item">
                                         <a class="nav-link menu-link" href="<?= Url::to(['/usuario-permiso']); ?>">
-                                           <i class="ri-group-line"></i> <span data-key="t-usuario-permiso">Asignar Permisos</span>
+                                        <i class="ri-survey-line"></i><span data-key="t-usuario-permiso">Asignar Permisos</span>
                                         </a>
                                     </li>
                                     <?php endif; ?>
                                     <?php if (tieneAcceso('admin-super')): ?>
                                     <li class="nav-item">
                                         <a class="nav-link menu-link" href="<?= Url::to(['/estado']); ?>">
-                                           <i class="ri-group-line"></i> <span data-key="t-estado">Estado</span>
+                                        <i class="ri-toggle-line"></i> <span data-key="t-estado">Estado</span>
                                         </a>
                                     </li>
                                     <?php endif; ?>
@@ -127,13 +129,13 @@ function tieneAcceso($opcion, $userId = null) {
                             </div>
                         </li>
                         <?php endif;?>
-
+                        <?php if (tieneAcceso('proyectos')): ?>               
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="<?= Url::to(['/proyecto']); ?>">
                                 <i class="ri-file-list-3-line"></i> <span data-key="t-proyecto">Proyectos</span>
                             </a>
                         </li>
-
+                        <?php endif;?>
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarInstitution" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarInstitution">
                                 <i class="las la-graduation-cap"></i> <span data-key="t-institution">Institucion</span>
@@ -141,8 +143,14 @@ function tieneAcceso($opcion, $userId = null) {
                             <div class="collapse menu-dropdown" id="sidebarInstitution">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="<?= Url::to(['/departamento']);?>" class="nav-link" data-key="t-departamento">Departamentos</a>
-                                        <a href="<?= Url::to(['/asesor-interno']); ?>" class="nav-link" data-key="t-asesor-interno">Asesor Interno</a>
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/departamento']);?>"> 
+                                        <i class="ri-building-line"></i><span data-key="t-departamento">Departamentos</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/asesor-interno']);?>"> 
+                                        <i class="ri-user-line"></i><span data-key="t-asesor-interno">Docente</span>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -155,8 +163,14 @@ function tieneAcceso($opcion, $userId = null) {
                             <div class="collapse menu-dropdown" id="sidebarEmpresa">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="<?= Url::to(['/empresa']); ?>" class="nav-link" data-key="t-Empresas">Empresas</a>
-                                        <a href="<?= Url::to(['/asesor-externo']); ?>" class="nav-link" data-key="t-asesor-interno">Asesor Externo</a>
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/empresa']); ?>">
+                                        <i class="ri-building-2-line"></i><span data-key="t-Empresas">Empresas</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/asesor-externo']); ?>">
+                                        <i class="ri-user-line"></i><span data-key="t-asesor-externo">Asesor Externo</span>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -169,13 +183,17 @@ function tieneAcceso($opcion, $userId = null) {
                             <div class="collapse menu-dropdown" id="sidebarIngenieria">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="<?= Url::to(['/especialidad']); ?>" class="nav-link" data-key="t-espacialidad">Especialidad</a>
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/especialidad']); ?>">
+                                        <i class="ri-cpu-line"></i><span data-key="t-espacialidad">Especialidad</span>
+                                        </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="forms-select" class="nav-link" data-key="t-form-select">Plan de estudio</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<?= Url::to(['/asignatura']); ?>" class="nav-link" data-key="t-asignatura">Asignatura</a>
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/asignatura']); ?>">
+                                        <i class="ri-draft-line"></i><span data-key="t-asignatura">Asignatura</span>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -188,13 +206,19 @@ function tieneAcceso($opcion, $userId = null) {
                             <div class="collapse menu-dropdown" id="sidebarAlumnos">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="<?= Url::to(['/preregistro']); ?>" class="nav-link" data-key="t-preregistro">Pre-registros</a>
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/preregistro']); ?>">
+                                        <i class="ri-user-follow-line"></i><span data-key="t-preregistro">Pre-registros</span>
+                                        </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<?= Url::to(['/documento']); ?>" class="nav-link" data-key="t-documento">Documentos</a>
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/documento']); ?>">
+                                        <i class="ri-file-text-line"></i><span data-key="t-documento">Documentos</span>
+                                        </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<?= Url::to(['/expediente']); ?>" class="nav-link" data-key="t-expediente">Expedientes</a>
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/expediente']); ?>">
+                                        <i class="ri-folder-user-line"></i><span data-key="t-expediente">Expedientes</span>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>

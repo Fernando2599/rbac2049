@@ -36,6 +36,20 @@ class PermisosHelpers
             return false;
         }
     }
+    public static function validarRolesArray($roles, $userId=null)
+    {
+        if ($userId == null) {
+            $userId = Yii::$app->user->id;
+        }
+
+        foreach ($roles as $rol_nombre) {
+            if (ValorHelpers::esRolNombreValido($rol_nombre) && ValorHelpers::getUsersRolValor($userId, $rol_nombre)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
     public static function requerirMinimoRol($roles, $userId=null)
     {
         if ($userId == null) {
