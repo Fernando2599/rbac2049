@@ -136,6 +136,7 @@ function tieneAcceso($opcion, $userId = null) {
                             </a>
                         </li>
                         <?php endif;?>
+                        <?php if (tieneAcceso('proyectos')): ?>
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarInstitution" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarInstitution">
                                 <i class="las la-graduation-cap"></i> <span data-key="t-institution">Institucion</span>
@@ -147,15 +148,25 @@ function tieneAcceso($opcion, $userId = null) {
                                         <i class="ri-building-line"></i><span data-key="t-departamento">Departamentos</span>
                                         </a>
                                     </li>
+    
                                     <li class="nav-item">
                                         <a class="nav-link menu-link" href="<?= Url::to(['/asesor-interno']);?>"> 
                                         <i class="ri-user-line"></i><span data-key="t-asesor-interno">Docente</span>
                                         </a>
                                     </li>
+                                    <?php if (tieneAcceso('proyectos')): ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/grado-academico']);?>"> 
+                                        <i class="ri-award-line"></i><span data-key="t-asesor-interno">Grados Academicos</span>
+                                        </a>
+                                    </li>
+                                    <?php endif; ?>
+                                    
                                 </ul>
                             </div>
                         </li>
-
+                        <?php endif;?>
+                        <?php if (tieneAcceso('proyectos')): ?>
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarEmpresa" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarEmpresa">
                                 <i class="las la-briefcase"></i> <span data-key="t-Empresa">Empresa</span>
@@ -175,7 +186,8 @@ function tieneAcceso($opcion, $userId = null) {
                                 </ul>
                             </div>
                         </li> <!-- end Dashboard Menu -->
-
+                        <?php endif;?>
+                        <?php if (tieneAcceso('proyectos')): ?>
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarIngenieria" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarIngenieria">
                                 <i class="ri-honour-line"></i> <span data-key="t-forms">Ingenieria</span>
@@ -198,7 +210,8 @@ function tieneAcceso($opcion, $userId = null) {
                                 </ul>
                             </div>
                         </li>
-
+                        <?php endif;?>
+                        <?php if (tieneAcceso('proyectos')): ?>
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarAlumnos" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAlumnos">
                                 <i class="las la-user-graduate"></i> <span data-key="t-tables">Alumnos</span>
@@ -210,6 +223,7 @@ function tieneAcceso($opcion, $userId = null) {
                                         <i class="ri-user-follow-line"></i><span data-key="t-preregistro">Pre-registros</span>
                                         </a>
                                     </li>
+                                    <?php if (tieneAcceso('admin-super')): ?>
                                     <li class="nav-item">
                                         <a class="nav-link menu-link" href="<?= Url::to(['/documento']); ?>">
                                         <i class="ri-file-text-line"></i><span data-key="t-documento">Documentos</span>
@@ -220,9 +234,11 @@ function tieneAcceso($opcion, $userId = null) {
                                         <i class="ri-folder-user-line"></i><span data-key="t-expediente">Expedientes</span>
                                         </a>
                                     </li>
+                                    <?php endif;?>
                                 </ul>
                             </div>
                         </li>
+                        <?php endif;?>
 
                     </ul>
                 </div>
