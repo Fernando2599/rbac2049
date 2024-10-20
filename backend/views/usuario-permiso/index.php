@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var backend\models\search\UsuarioPermisoSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Usuario Permisos';
+$this->title = 'Usuarios Permisos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="usuario-permiso-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Usuario Permiso', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Asignar Permiso a Usuario', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

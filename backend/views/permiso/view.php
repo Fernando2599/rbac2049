@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var backend\models\Permiso $model */
 
-$this->title = $model->id;
+$this->title = $model->permiso_nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Permisos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);

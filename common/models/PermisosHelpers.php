@@ -24,15 +24,55 @@ class PermisosHelpers
         return ValorHelpers::rolCoincide($rol_nombre);
     }
 
-    public static function requerirMinimoRol($rol_nombre, $userId=null)
+    public static function requerirMinimoRol1($rol_nombre, $userId=null)
     {
         if (ValorHelpers::esRolNombreValido($rol_nombre)){
             if ($userId == null) {
-                $userRolValor = ValorHelpers::getUsersRolValor();
+                return ValorHelpers::getUsersRolValor(Yii::$app->user->id, $rol_nombre);
             } else {
-                $userRolValor = ValorHelpers::getUsersRolValor($userId);
+                return ValorHelpers::getUsersRolValor($userId, $rol_nombre);
             }
-            return $userRolValor >= ValorHelpers::getRolValor($rol_nombre) ? true : false;
+        } else {
+            return false;
+        }
+    }
+    public static function validarRolesArray($roles, $userId=null)
+    {
+        if ($userId == null) {
+            $userId = Yii::$app->user->id;
+        }
+
+        foreach ($roles as $rol_nombre) {
+            if (ValorHelpers::esRolNombreValido($rol_nombre) && ValorHelpers::getUsersRolValor($userId, $rol_nombre)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    public static function requerirMinimoRol($roles, $userId=null)
+    {
+        if ($userId == null) {
+            $userId = Yii::$app->user->id;
+        }
+
+        foreach ($roles as $rol_nombre) {
+            if (ValorHelpers::esRolNombreValido($rol_nombre) && ValorHelpers::getUsersRolValor($userId, $rol_nombre)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static function requerirRolEspecifico($rol_nombre, $userId=null)
+    {
+        if (ValorHelpers::esRolNombreValido($rol_nombre)){
+            if ($userId == null) {
+                return ValorHelpers::getUsersRolValorEspecifico(Yii::$app->user->id, $rol_nombre);
+            } else {
+                return ValorHelpers::getUsersRolValorEspecifico($userId, $rol_nombre);
+            }
         } else {
             return false;
         }

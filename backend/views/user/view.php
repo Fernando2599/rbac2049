@@ -9,9 +9,9 @@ use common\models\PermisosHelpers;
 /** @var common\models\User $model */
 
 $this->title = $model->username;
-$muestra_esta_nav = PermisosHelpers::requerirMinimoRol('SuperUsuario');
+$muestra_esta_nav = PermisosHelpers::requerirMinimoRol(['SuperUsuario']);
 
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

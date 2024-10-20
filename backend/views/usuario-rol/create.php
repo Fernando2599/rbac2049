@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var backend\models\UsuarioRol $model */
 
-$this->title = 'Create Usuario Rol';
+$this->title = 'Asignar Rol';
 $this->params['breadcrumbs'][] = ['label' => 'Usuario Rols', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

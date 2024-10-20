@@ -28,23 +28,25 @@ class UserController extends Controller
                     'only' => ['index', 'view','create', 'update', 'delete'],
                     'rules' => [
                         [
-                            'actions' => ['index', 'create', 'view',],
+                            'actions' => ['index', 'view','create','update'],
                             'allow' => true,
                             'roles' => ['@'],
                             'matchCallback' => function ($rule, $action) {
-                                if (!PermisosHelpers::requerirMinimoRol('Admin') || !PermisosHelpers::requerirEstado('Activo')) {
-                                    throw new ForbiddenHttpException('No tienes permiso para acceder a esta sección. Contacta al administrador.');
+                                if (!(PermisosHelpers::requerirMinimoRol(['Admin']) && PermisosHelpers::requerirEstado('Activo'))) {
+                                    throw new \yii\web\ForbiddenHttpException('No tienes los permisos necesarios para acceder a esta página.');
                                 }
                                 return true;
                             }
                         ],
-                         [
-                            'actions' => [ 'update', 'delete'],
+                        [
+                            'actions' => ['delete'],
                             'allow' => true,
                             'roles' => ['@'],
                             'matchCallback' => function ($rule, $action) {
-                             return PermisosHelpers::requerirMinimoRol('SuperUsuario') 
-                             && PermisosHelpers::requerirEstado('Activo');
+                                if (!(PermisosHelpers::requerirMinimoRol(['SuperUsuario']) && PermisosHelpers::requerirEstado('Activo'))) {
+                                    throw new \yii\web\ForbiddenHttpException('No tienes los permisos necesarios para eliminar contenido.');
+                                }
+                                return true;
                             }
                         ],
                              

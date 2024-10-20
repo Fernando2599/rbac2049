@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use common\models\PermisosHelpers;
 /**
  * UsuarioPermisoController implements the CRUD actions for UsuarioPermiso model.
  */
@@ -21,6 +22,35 @@ class UsuarioPermisoController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => \yii\filters\AccessControl::className(),
+                    'only' => ['index', 'view', 'create', 'update', 'delete'],
+                    'rules' => [
+                        [
+                            'actions' => ['index', 'view'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function ($rule, $action) {
+                                if (!(PermisosHelpers::requerirMinimoRol(['Admin']) && PermisosHelpers::requerirEstado('Activo'))) {
+                                    throw new \yii\web\ForbiddenHttpException('No tienes los permisos necesarios para acceder a esta página.');
+                                }
+                                return true;
+                            }
+                        ],
+                        [
+                            'actions' => ['create', 'update', 'delete'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function ($rule, $action) {
+                                if (!(PermisosHelpers::requerirMinimoRol(['SuperUsuario']) && PermisosHelpers::requerirEstado('Activo'))) {
+                                    throw new \yii\web\ForbiddenHttpException('No tienes los permisos necesarios para actualizar o eliminar contenido.');
+                                }
+                                return true;
+                            }
+                        ],
+                    ],
+                ],
+
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [

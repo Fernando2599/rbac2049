@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var backend\models\UsuarioPermiso $model */
 
-$this->title = 'Create Usuario Permiso';
+$this->title = 'Asignar Permiso';
 $this->params['breadcrumbs'][] = ['label' => 'Usuario Permisos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

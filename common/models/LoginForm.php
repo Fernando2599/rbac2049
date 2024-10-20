@@ -91,7 +91,7 @@ class LoginForm extends Model
 
     public function loginAdmin()
     {                                                                //Admin
-        if (($this->validate()) && PermisosHelpers::requerirMinimoRol('Admin', $this->getUser()->id)) {
+        if (($this->validate()) && PermisosHelpers::requerirMinimoRol(['Admin','SuperUsuario','Coordinador','Subdirector'], $this->getUser()->id)) {
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         } else {
             throw new NotFoundHttpException('No Pasarás.');

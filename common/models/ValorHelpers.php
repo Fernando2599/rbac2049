@@ -31,7 +31,7 @@ class ValorHelpers
         return false;
     }
 
-    public static function getUsersRolValor($userId = null)
+    public static function getUsersRolValor($userId = null, $rol_nombre)
     {
         // Si no se proporciona un userId, se usa el usuario autenticado
         if ($userId === null) {
@@ -39,17 +39,55 @@ class ValorHelpers
         }
 
         // Buscar el registro en la tabla usuario_rol basado en el userId
-        $usuarioRol = UsuarioRol::findOne(['user_id' => $userId]);
+        $usuarioRoles = UsuarioRol::find()
+            ->where(['user_id' => $userId])
+            ->all(); // Obtener todos los roles relacionados
 
         // Verificar si el usuario tiene un rol asignado
-        if ($usuarioRol) {
-            // Obtener el valor del rol del usuario
-            $rolValor = $usuarioRol->rol ? $usuarioRol->rol->rol_valor : null; // Acceso seguro al rol
-            return isset($rolValor) ? $rolValor : false; // Retornar el valor o false si no está definido
+        if (!empty($usuarioRoles)) {
+            
+            $rolRequerido = ValorHelpers::getRolValor($rol_nombre);
+
+            foreach ($usuarioRoles as $usuarioRol) {
+                $rolValor = $usuarioRol->rol ? $usuarioRol->rol->rol_valor : null; 
+                
+                // Si alguno de los permisos cumple con el valor requerido, retorna verdadero
+                if ($rolValor >= $rolRequerido) {
+                    return true;
+                }
+            }
         }
         // Si el usuario no tiene un rol asignado, retornar false
         return false;
     }
+    public static function getUsersRolValorEspecifico($userId = null, $rol_nombre) {
+        // Si no se proporciona un userId, se usa el usuario autenticado
+        if ($userId === null) {
+            $userId = Yii::$app->user->id; // ID del usuario autenticado
+        }
+    
+        // Buscar el registro en la tabla usuario_rol basado en el userId
+        $usuarioRoles = UsuarioRol::find()
+            ->where(['user_id' => $userId])
+            ->all(); // Obtener todos los roles relacionados
+    
+        // Verificar si el usuario tiene un rol asignado
+        if (!empty($usuarioRoles)) {
+            $rolRequerido = ValorHelpers::getRolValor($rol_nombre);
+    
+            foreach ($usuarioRoles as $usuarioRol) {
+                $rolValor = $usuarioRol->rol ? $usuarioRol->rol->rol_valor : null; 
+                
+                // Si alguno de los roles cumple con el valor requerido, retorna verdadero
+                if ($rolValor == $rolRequerido) {
+                    return true;
+                }
+            }
+        }
+        // Si el usuario no tiene un rol asignado, retornar false
+        return false;
+    }
+    
     public static function getUsersPermisoValor($userId = null, $permiso_nombre)
     {
         // Si no se proporciona un userId, se usa el usuario autenticado

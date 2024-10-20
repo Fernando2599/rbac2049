@@ -19,44 +19,46 @@ class AjusteController extends Controller
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'access' => [
-                    'class' => \yii\filters\AccessControl::className(),
-                    'only' => ['index', 'view','create', 'update', 'delete'],
-                    'rules' => [
-                        [
-                            'actions' => ['index', 'create', 'view',],
-                            'allow' => true,
-                            'roles' => ['@'],
-                            'matchCallback' => function ($rule, $action) {
-                             return PermisosHelpers::requerirMinimoRol('Admin') 
-                             && PermisosHelpers::requerirEstado('Activo');
+        return array_merge(parent::behaviors(), [
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'only' => ['index', 'view', 'update'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            if (!(PermisosHelpers::requerirMinimoRol(['Subdirector']) && PermisosHelpers::requerirEstado('Activo'))) {
+                                throw new \yii\web\ForbiddenHttpException('No tienes los permisos necesarios para acceder a esta página.');
                             }
-                        ],
-                         [
-                            'actions' => [ 'update', 'delete'],
-                            'allow' => true,
-                            'roles' => ['@'],
-                            'matchCallback' => function ($rule, $action) {
-                             return PermisosHelpers::requerirMinimoRol('SuperUsuario') 
-                             && PermisosHelpers::requerirEstado('Activo');
-                            }
-                        ],
-                             
+                            return true;
+                        }
                     ],
-                         
-                ],
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+                    [
+                        'actions' => ['index', 'view', 'update'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            // Permitir acceso si el rol es 'Admin', 'SuperUsuario' o 'Subdirector' y el estado es 'Activo'
+                            if (!((PermisosHelpers::requerirMinimoRol(['Admin', 'SuperUsuario']) && PermisosHelpers::requerirEstado('Activo')))) {
+                                throw new \yii\web\ForbiddenHttpException('Ups, necesita un rol en especifico para esta accion');
+                            }
+                            return true;
+                        }
                     ],
                 ],
-            ]
-        );
+            ],
+
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ]);
     }
+
 
     /**
      * Lists all Ajuste models.

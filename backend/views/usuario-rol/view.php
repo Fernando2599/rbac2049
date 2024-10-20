@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var backend\models\UsuarioRol $model */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Usuario Rols', 'url' => ['index']];
+$this->title = $model->username;
+$this->params['breadcrumbs'][] = ['label' => 'Usuario Roles', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -30,8 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'user_id',
-            'rol_id',
+            //'user_id',
+            'userName',
+            //'rol_id',
+            'rolNombre',
         ],
     ]) ?>
 

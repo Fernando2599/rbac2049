@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var backend\models\Rol $model */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Rols', 'url' => ['index']];
+$this->title = $model->rol_nombre;
+$this->params['breadcrumbs'][] = ['label' => 'Roles', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

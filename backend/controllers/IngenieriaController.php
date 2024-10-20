@@ -9,6 +9,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\models\search\AsignaturaSearch;
 
+use common\models\PermisosHelpers;
+
 /**
  * IngenieriaController implements the CRUD actions for Ingenieria model.
  */
@@ -22,6 +24,36 @@ class IngenieriaController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => \yii\filters\AccessControl::className(),
+                    'only' => ['index', 'view','create', 'update', 'delete'],
+                    'rules' => [
+                        [
+                            'actions' => ['index', 'view'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function ($rule, $action) {
+                                if (!(PermisosHelpers::requerirMinimoRol(['Subdirector','Coordinador']) && PermisosHelpers::requerirEstado('Activo'))) {
+                                    throw new \yii\web\ForbiddenHttpException('No tienes los permisos necesarios para acceder a esta página.');
+                                }
+                                return true;
+                            }
+                        ], 
+                        [
+                            'actions' => ['index','create','view','update'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                            'matchCallback' => function ($rule, $action) {
+                                if (!(PermisosHelpers::requerirMinimoRol(['Admin','SuperUsuario']) && PermisosHelpers::requerirEstado('Activo'))) {
+                                    throw new \yii\web\ForbiddenHttpException('Ups, necesita un rol en especifico para esta accion');
+                                }
+                                return true;
+                            }
+                        ],                           
+                    ],
+                         
+                ],
+
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
