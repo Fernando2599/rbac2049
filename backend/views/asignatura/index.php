@@ -15,7 +15,7 @@ $this->title = 'Asignaturas';
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerJsFile(
-    '@web/admin/functionAjax/AsignaturaAjax.js',
+    '@web/theme/functionAjax/AsignaturaAjax.js',
     ['depends' => [\yii\web\JqueryAsset::class]]
 )
 

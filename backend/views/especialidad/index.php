@@ -11,7 +11,7 @@ use yii\widgets\LinkPager;
 
 
 $this->registerJsFile(
-    '@web/admin/functionAjax/EspecialidadAjax.js',
+    '@web/theme/functionAjax/EspecialidadAjax.js',
     ['depends' => [\yii\web\JqueryAsset::class]]
 )
 

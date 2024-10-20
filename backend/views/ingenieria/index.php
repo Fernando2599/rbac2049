@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-header">
 
             <?=
-            Html::a(Yii::t('app', 'Crear especialidad'), ['create'], ['class' => 'btn btn-outline-secondary btn-border'])
+            Html::a(Yii::t('app', 'Crear Ingenieria'), ['create'], ['class' => 'btn btn-outline-secondary btn-border'])
             ?>
             
         </div>

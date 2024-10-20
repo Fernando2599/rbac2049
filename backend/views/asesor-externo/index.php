@@ -10,7 +10,7 @@ use yii\widgets\LinkPager;
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->registerJsFile(
-    '@web/admin/functionAjax/AsesorExternoAjax.js',
+    '@web/theme/functionAjax/AsesorExternoAjax.js',
     ['depends' => [\yii\web\JqueryAsset::class]]
 )
 

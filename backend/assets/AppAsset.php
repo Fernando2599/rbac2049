@@ -22,14 +22,13 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         //'admin/js/layout.js',
-        'theme/libs/node-waves/waves.min.js',
         'theme/libs/bootstrap/js/bootstrap.bundle.min.js',
-        'theme/libs/simplebar/simplebar.min.js',
         'theme/libs/node-waves/waves.min.js',
+        'theme/libs/simplebar/simplebar.min.js',
         'theme/libs/feather-icons/feather.min.js',
         'theme/js/pages/plugins/lord-icon-2.1.0.js',
-        'theme/js/plugins.js',
         'theme/libs/apexcharts/apexcharts.min.js',
+        'theme/js/plugins.js',
         'theme/js/pages/dashboard-projects.init.js',
         'theme/libs/jsvectormap/js/jsvectormap.min.js',
         'theme/libs/jsvectormap/maps/world-merc.js',

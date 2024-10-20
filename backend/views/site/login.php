@@ -8,6 +8,12 @@ use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 
 $this->title = 'Login';
+
+$this->registerJsFile(
+    '@web/theme/functionAjax/loginAjax.js',
+    ['depends' => [\yii\web\JqueryAsset::class]]
+)
+
 ?>
 
 <?php if (Yii::$app->session->hasFlash('success')) : ?>
@@ -102,12 +108,6 @@ $this->title = 'Login';
 
                                 </div>
 
-                                <div class="float-end">
-
-                                    <a href="auth-pass-reset-basic.php" class="text-muted">Forgot password?</a>
-
-                                </div>
-
                                 <div class="position-relative mb-3 px-2">
 
                                     <?= $form->field($model, 'password', [
@@ -120,8 +120,12 @@ $this->title = 'Login';
                                     ]) ?>
                                 </div>
 
-                                <div class="form-check">
+                                <div class="d-flex justify-content-between m-2">
+
                                     <?= $form->field($model, 'rememberMe')->checkbox(['class' => 'form-check-input']) ?>
+
+                                    <?= Html::a('¿Olvidaste tu contraseña?', ['/site/request-password-reset']); ?>
+
                                 </div>
 
                                 <div class="mt-4 p-2">

@@ -9,6 +9,11 @@ use yii\bootstrap5\ActiveForm;
 
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerJsFile(
+    '@web/theme/functionAjax/loginAjax.js',
+    ['depends' => [\yii\web\JqueryAsset::class]]
+)
 ?>
 
 <body>

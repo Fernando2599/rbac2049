@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var common\models\Especialidad $model */
+/** @var common\models\Departamento $model */
 
 $this->title = $model->nombre;
-$this->params['breadcrumbs'][] = ['label' => 'Especialidades', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Departamentos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="especialidad-view">
+<div class="departamento-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -34,7 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         <ul class="ps-4 vstack gap-2 d-flex ">
 
                             <li class="fs-15 mb-0 fw-semibold"> Nombre: <span class="fw-normal"> <?= $model->nombre ?> </span> </li>
-                            <li class="fs-15 mb-0 fw-semibold"> Ingenieria: <span class="fw-normal"> <?= $model->ingenieria->nombre ?> </span> </li>
 
                         </ul>
 

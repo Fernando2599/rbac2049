@@ -1,77 +1,57 @@
 <?php
 
-use common\models\PerfilEstudiante;
+use common\models\Departamento;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\LinkPager;
 
+
 /** @var yii\web\View $this */
-/** @var backend\models\search\PerfilEstudianteSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Estudiantes Duales';
+$this->title = 'Departamentos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="perfil-estudiante-index">
+<div class="departamento-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
-    ?>
-    <h4><?= Html::encode($this->title) ?></h4>
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <div class="card">
-        <div class="card-header">
 
+        <div class="card-header">
+            <?= Html::a('Crear Departamento', ['create'], ['class' => 'btn btn-outline-secondary btn-border']) ?>
         </div>
 
         <div class="card-body">
 
             <div class="table-responsive">
-
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
-                    'filterModel' => $searchModel,
                     'tableOptions' => ['class' => 'table align-middle mb-0'],
                     'headerRowOptions' => ['class' => 'table-light'],
                     'columns' => [
-
                         ['class' => 'yii\grid\SerialColumn'],
-                        //'id',
-                        //'user_id',
+
+                        'id',
                         'nombre',
-                        'matricula',
-                        ['label' => 'Ingenieria', 'attribute' => 'ingenieriaNombre', 'filter' => $searchModel->getIngenieriasList()],
-                        ['attribute' => 'expedienteLink', 'format' => 'raw'],
-                        ['attribute' => 'estadoExpedienteLink', 'format' => 'raw'],
-                        //'genero_id',
-                        //'especialidad_id',
-                        //'created_at',
-                        //'updated_at',
                         [
-                            'class' => 'yii\grid\ActionColumn',
-                            'template' => '{view}', // Incluye el botón de eliminar en la plantilla
-                            
-
+                            'class' => ActionColumn::className(),
+                            'urlCreator' => function ($action, Departamento $model, $key, $index, $column) {
+                                return Url::toRoute([$action, 'id' => $model->id]);
+                            }
                         ],
-
                     ],
-
                     'pager' => [
                         'class' => LinkPager::class,
                         'options' => ['class' => 'pagination justify-content-end pt-2'],
                         'linkContainerOptions' => ['class' => 'page-item'],
                         'linkOptions' => ['class' => 'page-link'],
                     ],
-
-
                 ]); ?>
-
             </div>
-
         </div>
-
     </div>
-
-
 
 </div>

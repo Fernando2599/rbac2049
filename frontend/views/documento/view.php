@@ -26,7 +26,7 @@ $fecha_cierre = date($model->fecha_cierre);
 
     if (RegistrosHelpers::validarFecha($fecha_inicio, $fecha_cierre, $fecha_actual)) { ?>
         <p>
-            <?= Html::a('Subir documento', ['documento-expediente/create', 'documento_id' => $model->id], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Subir documento', ['documento-expediente/create', 'documento_id' => $model->id], ['class' => 'btn btn-primary']) ?>
         </p>
     <?php } else {
         echo '<div class="alert alert-warning alert-border-left show">' . '<i class="ri-alert-line me-3 align-middle"></i>' . '<strong> Alerta - </strong>' . 'No es posible subir el documento, verifique la fecha de disponibilidad' .

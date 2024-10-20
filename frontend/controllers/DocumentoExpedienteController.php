@@ -140,30 +140,29 @@ class DocumentoExpedienteController extends Controller
         $conexion = \Yii::$app->db;
         $userid = Yii::$app->user->identity->id;
         $username = RecordHelpers::getUserName($userid);
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
 
-                $model->archivo = UploadedFile::getInstance($model,'archivo');
+                $model->archivo = UploadedFile::getInstance($model, 'archivo');
 
-                if($model->validate())
-                {
-                    if(($model->archivo))
-                    {
-                        if(file_exists($model->ruta))
-                        {
-                            unlink($model->ruta);
+                if ($model->validate()) {
+                    if ($model->archivo) {
+                        // Verifica que $model->ruta no sea null antes de usar file_exists
+                        if (!empty($model->ruta) && file_exists($model->ruta)) {
+                            unlink($model->ruta); // Elimina el archivo anterior
                         }
 
+                        // Crea el directorio si no existe
                         if (!file_exists('uploads/expedientes/' . $username)) {
-
                             mkdir('uploads/expedientes/' . $username, 0777, true);
-                        
                         }
 
-                        $rutaArchivo = "uploads/expedientes/". $username . "/" .time()."_".$model->archivo->basename.".".$model->archivo->extension;
+                        // Genera la nueva ruta del archivo
+                        $rutaArchivo = "uploads/expedientes/" . $username . "/" . time() . "_" . $model->archivo->basename . "." . $model->archivo->extension;
 
-                        if(($model->archivo->saveAs($rutaArchivo)))
-                        {
+                        // Guarda el archivo y actualiza la ruta en el modelo
+                        if ($model->archivo->saveAs($rutaArchivo)) {
                             $model->ruta = $rutaArchivo;
                         }
                     }
@@ -171,22 +170,20 @@ class DocumentoExpedienteController extends Controller
 
                 $model->archivo = null;
 
-                if($model->save(false))
-                {
+                if ($model->save(false)) {
                     return $this->redirect(['view', 'documento_id' => $model->documento_id, 'expediente_id' => $model->expediente_id]);
                 }
-                
             }
         } else {
             $model->loadDefaultValues();
         }
     }
 
+    
     public function actionDownload($filename)
     {
         $path = Yii::getAlias('@frontend') . '/web/' . $filename;
-        if(file_exists($path))
-        {
+        if (file_exists($path)) {
             return Yii::$app->response->sendFile($path);
         }
     }
