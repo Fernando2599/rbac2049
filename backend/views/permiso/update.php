@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var backend\models\Permiso $model */
 
-$this->title = 'Update Permiso: ' . $model->id;
+$this->title = 'Update Permiso: ' . $model->permiso_nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Permisos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->permiso_nombre, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="permiso-update">
