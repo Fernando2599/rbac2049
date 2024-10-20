@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var backend\models\search\UsuarioPermisoSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Usuarios Con Permisos';
+$this->title = 'Usuarios Permisos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="usuario-permiso-index">
