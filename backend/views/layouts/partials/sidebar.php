@@ -127,6 +127,9 @@ use yii\helpers\Url;
                                         <a href="<?= Url::to(['/especialidad']); ?>" class="nav-link" data-key="t-espacialidad">Especialidad</a>
                                     </li>
                                     <li class="nav-item">
+                                        <a href="<?= Url::to(['/ingenieria']); ?>" class="nav-link" data-key="t-espacialidad">Ingenierias</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a href="forms-select" class="nav-link" data-key="t-form-select">Plan de estudio</a>
                                     </li>
                                     <li class="nav-item">
@@ -150,6 +153,9 @@ use yii\helpers\Url;
                                     </li>
                                     <li class="nav-item">
                                         <a href="<?= Url::to(['/expediente']); ?>" class="nav-link" data-key="t-expediente">Expedientes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?= Url::to(['/perfil-estudiante']); ?>" class="nav-link" data-key="t-expediente">Estudiantes</a>
                                     </li>
                                 </ul>
                             </div>

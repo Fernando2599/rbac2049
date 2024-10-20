@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
 /** @var common\models\Preregistro $model */
@@ -13,8 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <nav class="navbar navbar-expand-lg navbar-landing fixed-top job-navbar" id="navbar">
     <div class="container-fluid custom-container">
         <a class="navbar-brand" href="index.php">
-            <img src="assets/images/logo-dark.png" class="card-logo card-logo-dark" alt="logo dark" height="17">
-            <img src="assets/images/logo-light.png" class="card-logo card-logo-light" alt="logo light" height="17">
+            <img src=<?php echo Url::to('@web/images/pleca_tecnm.jpg', true); ?> class="card-logo card-logo-dark" alt="logo dark" height="34">
+            <img src=<?php echo Url::to('@web/images/pleca_tecnm.jpg', true); ?> class="card-logo card-logo-light" alt="logo light" height="34">
         </a>
         <button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="mdi mdi-menu"></i>

@@ -94,16 +94,34 @@ class DocumentoExpedienteController extends Controller
      */
     public function actionUpdate($documento_id, $expediente_id)
     {
+        // Convertir los IDs a enteros antes de pasarlos al método findModel
+        $documento_id = (int) $documento_id;
+        $expediente_id = (int) $expediente_id;
+    
+        // Buscar el modelo basado en los IDs convertidos
         $model = $this->findModel($documento_id, $expediente_id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'documento_id' => $model->documento_id, 'expediente_id' => $model->expediente_id]);
+    
+        // Verificar si la solicitud es POST, cargar los datos del formulario, y guardar
+        if ($this->request->isPost && $model->load($this->request->post())) {
+    
+            // Convertir nuevamente a enteros antes de guardar por si acaso
+            $model->documento_id = (int) $model->documento_id;
+            $model->expediente_id = (int) $model->expediente_id;
+    
+            // Guardar el modelo
+            if ($model->save()) {
+                // Redireccionar después de la actualización exitosa
+                return $this->redirect(['view', 'documento_id' => $model->documento_id, 'expediente_id' => $model->expediente_id]);
+            }
         }
-
+    
+        // Si no es POST o falla la validación, renderizar la vista de actualización
         return $this->render('update', [
             'model' => $model,
         ]);
     }
+    
+    
 
     /**
      * Deletes an existing DocumentoExpediente model.

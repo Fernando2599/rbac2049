@@ -8,9 +8,11 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
+    'name' => "Sistema Dual",
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
+    'language'=>'es', // Este es el lenguaje en el que querés que muestre las cosas
     'modules' => [],
     'components' => [
         'request' => [

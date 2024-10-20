@@ -8,8 +8,10 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
+    'name' => "Sistema Dual",
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language'=>'es', // Este es el lenguaje en el que querés que muestre las cosas
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'request' => [

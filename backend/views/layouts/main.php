@@ -47,9 +47,9 @@ use yii\helpers\Url;
 <?= $this->render('partials/customizer') ?>
 <?= $this->render('partials/vendor-scripts') ?>
 <!-- App js -->
-<script src="<?= Url::base(true) ?>/administrador/libs/flatpickr/flatpickr.min.js"></script>
-<script src="<?= Url::base(true) ?>/administrador/libs/sweetalert2/sweetalert2.min.js"></script>
-<script src="<?= Url::base(true) ?>/administrador/js/app.js"></script>
+<script src="<?= Url::base(true) ?>/theme/libs/flatpickr/flatpickr.min.js"></script>
+<script src="<?= Url::base(true) ?>/theme/libs/sweetalert2/sweetalert2.min.js"></script>
+<script src="<?= Url::base(true) ?>/theme/js/app.js"></script>
 <!-- Incluye jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     

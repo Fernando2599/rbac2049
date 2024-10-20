@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <ul class="ps-4 vstack gap-2 d-flex ">
 
                             <li class="fs-15 mb-0 fw-semibold"> Nombre: <span class="fw-normal"> <?= $model->nombre ?> </span> </li>
-                            <li class="fs-15 mb-0 fw-semibold"> Empresa: <span class="fw-normal"> <?= $model->ingenieria->nombre ?> </span> </li>
+                            <li class="fs-15 mb-0 fw-semibold"> Ingenieria: <span class="fw-normal"> <?= $model->ingenieria->nombre ?> </span> </li>
 
                         </ul>
 

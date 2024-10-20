@@ -18,8 +18,8 @@ return [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
-                'username' => 'oscaracd231@gmail.com',
-                'password' => 'lgse mgjq rspn wbjv',
+                'username' => 'soporte.dual@valladolid.tecnm.mx',
+                'password' => 'zmcp fxgx tikg snoi',
                 'port' => '587',
                 'encryption' => 'tls',
             ],

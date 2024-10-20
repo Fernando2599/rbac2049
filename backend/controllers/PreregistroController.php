@@ -100,15 +100,14 @@ class PreregistroController extends Controller
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
 
-            if($model->estado_registro_id == 4)
-            {
+            if ($model->estado_registro_id == 4) {
                 $this->insertarUsuario($id);
                 $idEstudiante = $this->getEstudianteId($model->matricula);
                 $this->asignarRolEstudiante($idEstudiante);
                 $this->insertarPerfilEstudiante($id, $idEstudiante);
                 $idPerfilEstudiante = $this->getPerfilEstudianteId($model->matricula);
                 $this->crearExpediente($idPerfilEstudiante);
-            }else{
+            } else {
 
                 $this->sendEmail($model);
             }
@@ -155,8 +154,7 @@ class PreregistroController extends Controller
     public function actionFile($filename)
     {
         $path = Yii::getAlias('@frontend') . '/web/' . $filename;
-        if(file_exists($path))
-        {
+        if (file_exists($path)) {
             return $this->redirect(Yii::$app->urlManagerFrontEnd->baseUrl . '/' . $filename);
         }
     }
@@ -223,24 +221,28 @@ class PreregistroController extends Controller
     {
         $expediente = new Expediente();
         $expediente->perfil_estudiante_id = $idPerfilEstudiante;
-        $expediente->estado_expediente_id = 1;
 
-        return $expediente->save();
+        if (!$expediente->save()) {
+            \Yii::error("Fallo en la creación del expediente: " . json_encode($expediente->getErrors()));
+            return false;
+        }
+        return true;
     }
+
 
     public static function getEstudianteId($matricula)
     {
         $user = User::find('id')
-        ->where(['username' => $matricula])
-        ->one();
+            ->where(['username' => $matricula])
+            ->one();
         return isset($user->id) ? $user->id : false;
     }
 
     public static function getPerfilEstudianteId($matricula)
     {
         $perfilEstudiante = PerfilEstudiante::find('id')
-        ->where(['matricula' => $matricula])
-        ->one();
+            ->where(['matricula' => $matricula])
+            ->one();
         return isset($perfilEstudiante->id) ? $perfilEstudiante->id : false;
     }
 

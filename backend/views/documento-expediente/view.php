@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                     <p class="mb-2 text-uppercase fw-medium">Archivo:</p>
                                     <h5 class="fs-13 mb-1">
-                                        <?= Html::a(basename($model->ruta), ['file', 'filename' => $model->ruta], ['class' => 'text-body text-truncate d-block']) ?>
+                                        <?= Html::a(basename($model->ruta), ['download', 'filename' => $model->ruta], ['class' => 'text-body text-truncate d-block']) ?>
                                     </h5>
 
                                 </div>

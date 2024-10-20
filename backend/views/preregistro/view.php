@@ -264,6 +264,39 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         </div>
 
+                        <div class="col-xxl-3 col-lg-4">
+
+                            <div class="border rounded border-dashed p-2">
+
+                                <div class="d-flex align-items-center">
+
+                                    <div class="flex-shrink-0 me-3">
+
+                                        <div class="avatar-sm">
+
+                                            <div class="avatar-title bg-light text-secondary rounded fs-24">
+                                                <i class="ri-folder-zip-line"></i>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="flex-grow-1 overflow-hidden">
+
+                                        <p class="mb-2 text-uppercase fw-medium">Seguro Medico:</p>
+                                        <h5 class="fs-13 mb-1">
+                                            <?= Html::a(basename($model->seguro_medico), ['file', 'filename' => $model->seguro_medico], ['class' => 'text-body text-truncate d-block']) ?>
+                                        </h5>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>

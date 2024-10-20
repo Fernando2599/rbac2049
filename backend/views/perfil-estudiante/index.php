@@ -4,6 +4,7 @@ use common\models\PerfilEstudiante;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
+use yii\widgets\LinkPager;
 
 /** @var yii\web\View $this */
 /** @var backend\models\search\PerfilEstudianteSearch $searchModel */

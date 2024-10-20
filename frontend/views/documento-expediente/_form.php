@@ -25,7 +25,7 @@ $this->title = 'Subir documento';
             ]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Subir documento', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Subir documento', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
