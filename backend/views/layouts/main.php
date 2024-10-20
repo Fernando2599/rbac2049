@@ -5,6 +5,8 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use common\widgets\Alert;
+use yii\bootstrap5\Breadcrumbs;
 
 ?>
 <?php $this->beginPage() ?>
@@ -31,12 +33,15 @@ use yii\helpers\Url;
 
         <div class="page-content">
             <div class="container-fluid">
+                <?= Breadcrumbs::widget([
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]) ?>
+                <?= Alert::widget() ?>
                 <?= $content ?>
             </div>
             <!-- container-fluid -->
         </div>
         <!-- End Page-content -->
-
         <?= $this->render('partials/footer') ?>
     </div>
     <!-- end main content-->
