@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var backend\models\search\UsuarioRolSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Usuarios Con Roles';
+$this->title = 'Usuarios Roles';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="usuario-rol-index">
