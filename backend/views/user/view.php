@@ -11,7 +11,7 @@ use common\models\PermisosHelpers;
 $this->title = $model->username;
 $muestra_esta_nav = PermisosHelpers::requerirMinimoRol(['SuperUsuario']);
 
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
