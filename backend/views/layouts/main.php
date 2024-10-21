@@ -25,8 +25,9 @@ use yii\bootstrap5\Breadcrumbs;
 
 <!-- Begin page -->
 <div id="layout-wrapper">
-
-    <?= $this->render('partials/menu') ?>
+    <?php if (!Yii::$app->user->isGuest): ?>
+        <?= $this->render('partials/menu') ?>
+    <?php endif;?>
 
     <!-- Start right Content here -->
     <div class="main-content">
