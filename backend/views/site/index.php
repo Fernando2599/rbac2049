@@ -12,7 +12,7 @@ $this->registerJs(
 );
 
 $this->registerJsFile(
-    '@web/administrador/functionAjax/dashboardAjax.js',
+    '@web/theme/functionAjax/dashboardAjax.js',
     ['depends' => [\yii\web\JqueryAsset::class]]
 );
 
@@ -372,7 +372,7 @@ $this->registerJsFile(
                                                 <td><span class="badge bg-success-subtle text-success">Completed</span></td>
                                                 <td>
                                                     <a href="javascript: void(0);" class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Mary Stoner">
-                                                        <img src="administrador/images/users/avatar-2.jpg" alt="" class="rounded-circle avatar-xxs">
+                                                        <img src="theme/images/users/avatar-2.jpg" alt="" class="rounded-circle avatar-xxs">
                                                     </a>
                                                 </td>
                                             </tr><!-- end -->
@@ -389,7 +389,7 @@ $this->registerJsFile(
                                                 <td><span class="badge bg-warning-subtle text-warning">Progress</span></td>
                                                 <td>
                                                     <a href="javascript: void(0);" class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Den Davis">
-                                                        <img src="administrador/images/users/avatar-7.jpg" alt="" class="rounded-circle avatar-xxs">
+                                                        <img src="theme/images/users/avatar-7.jpg" alt="" class="rounded-circle avatar-xxs">
                                                     </a>
                                                 </td>
                                             </tr><!-- end -->
@@ -406,7 +406,7 @@ $this->registerJsFile(
                                                 <td><span class="badge bg-success-subtle text-success">Completed</span></td>
                                                 <td>
                                                     <a href="javascript: void(0);" class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Alex Brown">
-                                                        <img src="administrador/images/users/avatar-6.jpg" alt="" class="rounded-circle avatar-xxs">
+                                                        <img src="theme/images/users/avatar-6.jpg" alt="" class="rounded-circle avatar-xxs">
                                                     </a>
                                                 </td>
                                             </tr><!-- end -->
@@ -423,7 +423,7 @@ $this->registerJsFile(
                                                 <td><span class="badge bg-danger-subtle text-danger">Pending</span></td>
                                                 <td>
                                                     <a href="javascript: void(0);" class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Prezy Morin">
-                                                        <img src="administrador/images/users/avatar-5.jpg" alt="" class="rounded-circle avatar-xxs">
+                                                        <img src="theme/images/users/avatar-5.jpg" alt="" class="rounded-circle avatar-xxs">
                                                     </a>
                                                 </td>
                                             </tr><!-- end -->
@@ -440,7 +440,7 @@ $this->registerJsFile(
                                                 <td><span class="badge bg-warning-subtle text-warning">Progress</span></td>
                                                 <td>
                                                     <a href="javascript: void(0);" class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Stine Nielsen">
-                                                        <img src="administrador/images/users/avatar-1.jpg" alt="" class="rounded-circle avatar-xxs">
+                                                        <img src="theme/images/users/avatar-1.jpg" alt="" class="rounded-circle avatar-xxs">
                                                     </a>
                                                 </td>
                                             </tr><!-- end -->
@@ -457,7 +457,7 @@ $this->registerJsFile(
                                                 <td><span class="badge bg-danger-subtle text-danger">Pending</span></td>
                                                 <td>
                                                     <a href="javascript: void(0);" class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Jansh William">
-                                                        <img src="administrador/images/users/avatar-4.jpg" alt="" class="rounded-circle avatar-xxs">
+                                                        <img src="theme/images/users/avatar-4.jpg" alt="" class="rounded-circle avatar-xxs">
                                                     </a>
                                                 </td>
                                             </tr><!-- end -->
