@@ -33,7 +33,7 @@ $baseUrl = $asset->baseUrl;
 
 <?php
 //$es_estudiante = PermisosHelpers::requerirPermiso('Estudiante');
-$es_estudiante = PermisosHelpers::requerirMinimoRol('Estudiante');
+$es_estudiante = PermisosHelpers::requerirMinimoRol(['Estudiante']);
 
 if (!Yii::$app->user->isGuest && $es_estudiante) { ?>
 
