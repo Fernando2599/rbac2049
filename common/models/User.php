@@ -39,7 +39,7 @@ use  yii\helpers\Html;
 
 class User extends ActiveRecord implements IdentityInterface
 {
-    //const ESTADO_ACTIVO = 1;
+    const ESTADO_PENDIENTE = 2;
 
     public static function tableName()
     {
