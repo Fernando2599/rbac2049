@@ -69,7 +69,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['estado_id', 'default', 'value' =>  ValorHelpers::getEstadoId('Activo')],
+            ['estado_id', 'default', 'value' =>  ValorHelpers::getEstadoId('Pendiente')],
 
             [['estado_id'],'in',  'range'=>array_keys($this->getEstadoLista())],
 
@@ -164,7 +164,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $token clave de restablecimiento de password
      * @return boolean
      */
-    public static function isPasswordResetTokenValid($token)
+    public static function isPasswordResetTokenValid2($token)
     {
         if (empty($token)) {
             return false;
@@ -172,6 +172,22 @@ class User extends ActiveRecord implements IdentityInterface
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         $parts = explode('_', $token);
         $timestamp = (int) end($parts);
+        return $timestamp + $expire >= time();
+    }
+    /**
+     * Finds out if password reset token is valid
+     *
+     * @param string $token password reset token
+     * @return bool
+     */
+    public static function isPasswordResetTokenValid($token)
+    {
+        if (empty($token)) {
+            return false;
+        }
+
+        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+        $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
     }
 
