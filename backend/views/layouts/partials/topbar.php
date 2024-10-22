@@ -393,3 +393,4 @@ $form = Html::beginForm(['/site/logout'], 'post', ['class' => 'd-none', 'id' => 
 
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
+</div>
