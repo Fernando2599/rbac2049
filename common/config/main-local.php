@@ -5,7 +5,7 @@ return [
         'db' => [
             'class' => \yii\db\Connection::class,
             'dsn' => 'mysql:host=localhost;dbname=rbacdual',
-            'username' => 'root',
+            'username' => 'rbacdual',
             'password' => 'dual2$$',
             'charset' => 'utf8',
         ],
