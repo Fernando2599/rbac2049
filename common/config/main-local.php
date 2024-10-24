@@ -4,9 +4,9 @@ return [
     'components' => [
         'db' => [
             'class' => \yii\db\Connection::class,
-            'dsn' => 'mysql:host=localhost;dbname=rbac_multirol',
+            'dsn' => 'mysql:host=localhost;dbname=rbacdual',
             'username' => 'root',
-            'password' => '',
+            'password' => 'dual2$$',
             'charset' => 'utf8',
         ],
         
