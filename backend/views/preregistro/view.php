@@ -154,7 +154,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                         <p class="mb-2 text-uppercase fw-medium">Kardex:</p>
                                         <h5 class="fs-13 mb-1">
-                                            <?= Html::a(basename($model->kardex), ['file', 'filename' => $model->kardex], ['class' => 'text-body text-truncate d-block']) ?>
+                                            <?= Html::a(
+                                                basename($model->kardex),
+                                                Yii::$app->urlManagerFrontEnd->baseUrl . '/uploads/preregistro/kardex/' . rawurlencode(basename($model->kardex)),
+                                                ['class' => 'text-body text-truncate d-block']
+                                            ) ?>
                                         </h5>
 
                                     </div>
@@ -187,7 +191,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                         <p class="mb-2 text-uppercase fw-medium">Contancia de ingles:</p>
                                         <h5 class="fs-13 mb-1">
-                                            <?= Html::a(basename($model->constancia_ingles), ['file', 'filename' => $model->constancia_ingles], ['class' => 'text-body text-truncate d-block']) ?>
+                                            <?= Html::a(
+                                                basename($model->constancia_ingles),
+                                                Yii::$app->urlManagerFrontEnd->baseUrl . '/uploads/preregistro/kardex/' . rawurlencode(basename($model->constancia_ingles)),
+                                                ['class' => 'text-body text-truncate d-block']
+                                            ) ?>
                                         </h5>
 
                                     </div>
@@ -220,7 +228,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                         <p class="mb-2 text-uppercase fw-medium">Constancia de creditos complementarios:</p>
                                         <h5 class="fs-13 mb-1">
-                                            <?= Html::a(basename($model->constancia_creditos_complementarios), ['file', 'filename' => $model->constancia_creditos_complementarios], ['class' => 'text-body text-truncate d-block']) ?>
+                                            <?= Html::a(
+                                                basename($model->constancia_creditos_complementarios),
+                                                Yii::$app->urlManagerFrontEnd->baseUrl . '/uploads/preregistro/kardex/' . rawurlencode(basename($model->constancia_creditos_complementarios)),
+                                                ['class' => 'text-body text-truncate d-block']
+                                            ) ?>
                                         </h5>
 
                                     </div>
@@ -253,7 +265,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                         <p class="mb-2 text-uppercase fw-medium">cv:</p>
                                         <h5 class="fs-13 mb-1">
-                                            <?= Html::a(basename($model->cv), ['file', 'filename' => $model->cv], ['class' => 'text-body text-truncate d-block']) ?>
+                                            <?= Html::a(
+                                                basename($model->cv),
+                                                Yii::$app->urlManagerFrontEnd->baseUrl . '/uploads/preregistro/kardex/' . rawurlencode(basename($model->cv)),
+                                                ['class' => 'text-body text-truncate d-block']
+                                            ) ?>
                                         </h5>
 
                                     </div>
@@ -286,7 +302,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                         <p class="mb-2 text-uppercase fw-medium">Seguro Medico:</p>
                                         <h5 class="fs-13 mb-1">
-                                            <?= Html::a(basename($model->seguro_medico), ['file', 'filename' => $model->seguro_medico], ['class' => 'text-body text-truncate d-block']) ?>
+                                            <?= Html::a(
+                                                basename($model->seguro_medico),
+                                                Yii::$app->urlManagerFrontEnd->baseUrl . '/uploads/preregistro/kardex/' . rawurlencode(basename($model->seguro_medico)),
+                                                ['class' => 'text-body text-truncate d-block']
+                                            ) ?>
+
                                         </h5>
 
                                     </div>
