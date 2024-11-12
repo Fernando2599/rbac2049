@@ -11,7 +11,7 @@ return [
         ],
         'urlManagerFrontEnd' => [
             'class' => 'yii\web\UrlManager',
-            'baseUrl' => YII_ENV_DEV ? 'http://localhost/rbac2049/frontend/web/' : 'https://admin.modelodual.valladolid.tecnm.mx/frontend/web/',  // Cambia por el dominio de tu frontend
+            'baseUrl' => 'https://modelodual.valladolid.tecnm.mx',  // Cambia por el dominio de tu frontend
             'enablePrettyUrl' => true,
             'showScriptName' => false,
         ],
