@@ -193,7 +193,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <h5 class="fs-13 mb-1">
                                             <?= Html::a(
                                                 basename($model->constancia_ingles),
-                                                Yii::$app->urlManagerFrontEnd->baseUrl . '/uploads/preregistro/kardex/' . rawurlencode(basename($model->constancia_ingles)),
+                                                Yii::$app->urlManagerFrontEnd->baseUrl . '/uploads/preregistro/ingles/' . rawurlencode(basename($model->constancia_ingles)),
                                                 ['class' => 'text-body text-truncate d-block']
                                             ) ?>
                                         </h5>
@@ -230,7 +230,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <h5 class="fs-13 mb-1">
                                             <?= Html::a(
                                                 basename($model->constancia_creditos_complementarios),
-                                                Yii::$app->urlManagerFrontEnd->baseUrl . '/uploads/preregistro/kardex/' . rawurlencode(basename($model->constancia_creditos_complementarios)),
+                                                Yii::$app->urlManagerFrontEnd->baseUrl . '/uploads/preregistro/creditos_complementarios/' . rawurlencode(basename($model->constancia_creditos_complementarios)),
                                                 ['class' => 'text-body text-truncate d-block']
                                             ) ?>
                                         </h5>
@@ -267,7 +267,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <h5 class="fs-13 mb-1">
                                             <?= Html::a(
                                                 basename($model->cv),
-                                                Yii::$app->urlManagerFrontEnd->baseUrl . '/uploads/preregistro/kardex/' . rawurlencode(basename($model->cv)),
+                                                Yii::$app->urlManagerFrontEnd->baseUrl . '/uploads/preregistro/cv/' . rawurlencode(basename($model->cv)),
                                                 ['class' => 'text-body text-truncate d-block']
                                             ) ?>
                                         </h5>
@@ -304,7 +304,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <h5 class="fs-13 mb-1">
                                             <?= Html::a(
                                                 basename($model->seguro_medico),
-                                                Yii::$app->urlManagerFrontEnd->baseUrl . '/uploads/preregistro/kardex/' . rawurlencode(basename($model->seguro_medico)),
+                                                Yii::$app->urlManagerFrontEnd->baseUrl . '/uploads/preregistro/seguro_medico/' . rawurlencode(basename($model->seguro_medico)),
                                                 ['class' => 'text-body text-truncate d-block']
                                             ) ?>
 
