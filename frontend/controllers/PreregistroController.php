@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use backend\models\Notifications;
 use common\models\Preregistro;
 use common\models\BuscarPreregistro;
 use frontend\models\search\PreregistroSearch;
@@ -74,7 +75,15 @@ class PreregistroController extends Controller
 
         if($this->subirArchivo($model))
         {
+            //enviar correo
             $this->sendEmail($model);
+
+            $tittle = "Nuevo Candidato";
+            $nombre = $model->nombre;
+            $content = "Se ha creado un nuevo pre registro en el sistema por: {$nombre}.";
+
+            //guardar notificacion
+            $this->createNotification($model->ingenieria_id, $tittle , $content);
         }
 
         return $this->render('create', [
@@ -279,4 +288,20 @@ class PreregistroController extends Controller
             ->setSubject('Te has Pre-registrado para el ' . Yii::$app->name)
             ->send();
     }
+
+    protected function createNotification($ingenieria_id, $title, $content)
+    {
+        // instancia
+        $notifications = new Notifications();
+        //valores
+        $notifications->ingenieria_id = $ingenieria_id;
+        $notifications->title = $title;
+        $notifications->content = $content;
+
+        if (!$notifications->save()) {
+            // si existe algun error
+            Yii::error("Error al guardar la notificación: " . implode(', ', $notifications->errors), __METHOD__);
+        }
+    }
+
 }
