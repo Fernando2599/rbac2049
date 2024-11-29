@@ -36,7 +36,7 @@ $(document).ready(function () {
 function deleteProject (id) {  
      // Enviar la solicitud AJAX para eliminar el proyecto
      $.ajax({
-        url: 'proyecto/delete?id=' + id, // Ajusta la URL según tu estructura de rutas
+        url: 'index.php?r=proyecto/delete&id=' + id, // Ajusta la URL según tu estructura de rutas
         type: 'POST',
         success: function (response) {
         },

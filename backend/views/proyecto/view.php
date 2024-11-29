@@ -115,9 +115,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                         // Verificar el valor de estadoProyecto->id y asignar la clase correspondiente al badge
                                                         if ($model->estadoProyecto->id == 1) {
-                                                            $badgeClass = 'bg-info'; // Clase para el estado "Success"
+                                                            $badgeClass = 'bg-warning'; // Clase para el estado "Success"
                                                         } elseif ($model->estadoProyecto->id == 2) {
-                                                            $badgeClass = 'bg-warning'; // Clase para el estado "Warning"
+                                                            $badgeClass = 'bg-danger'; // Clase para el estado "Warning"
                                                         } elseif ($model->estadoProyecto->id == 3) {
                                                             $badgeClass = 'bg-success'; // Clase para el estado "Danger"
                                                         }
