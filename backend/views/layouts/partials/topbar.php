@@ -20,7 +20,7 @@ $form = Html::beginForm(['/site/logout'], 'post', ['class' => 'd-none', 'id' => 
                     ->where(['is_read' => 0])
                     ->count();
                   
-    Yii::$app->timeZone = 'America/Mexico_City';  // Cambia a la zona horaria deseada
+    Yii::$app->timeZone = 'America/Mexico_City';
 
     
                     function timeAgo($timestamp) {
