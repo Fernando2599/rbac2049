@@ -78,4 +78,5 @@ class Notifications extends \yii\db\ActiveRecord
             return floor($diff / 86400) . ' days ago';
         }
     }
+    
 }
