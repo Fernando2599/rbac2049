@@ -65,7 +65,7 @@ $form = Html::beginForm(['/site/logout'], 'post', ['class' => 'd-none', 'id' => 
             }
         })
         .catch(error => console.error('Error:', error));
-    }, 5000); // Consulta cada 5 segundos
+    }, 8000); // Consulta cada 8 segundos
 </script>
 <header id="page-topbar">
     <div class="layout-width">
