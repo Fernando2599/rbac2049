@@ -9,6 +9,11 @@ use yii\widgets\LinkPager;
 /** @var backend\models\search\DocumentoSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
+$this->registerJsFile(
+    '@web/theme/functionAjax/documentosAjax.js',
+    ['depends' => [\yii\web\JqueryAsset::class]]
+);
+
 $this->title = 'Documentos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -43,8 +48,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     [
                         'class' => 'yii\grid\ActionColumn',
-                        'template' => '{view} {update}', // Incluye el botón de eliminar en la plantilla
-
+                        'template' => '{view} {update} {delete}', // Incluye el botón de eliminar en la plantilla
+                        'buttons' => [
+                            'delete' => function ($url, $model, $key) {
+                                return '<a href="#" class="delete-documento-button" data-bs-toggle="modal" data-bs-target="#removeDocumentoModal" data-documento-id="' . $model->id . '"><i class="ri-delete-bin-fill align-bottom"></i></a>';
+                            },
+                        ],
 
                     ],
                 ],
@@ -62,6 +71,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </div>
 
+    <!-- removeProjectModal -->
+    <div id="removeDocumentoModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mt-2 text-center">
+                        <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                        <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                            <h4>Esta seguro ?</h4>
+                            <p class="text-muted mx-4 mb-0">Esta seguro de eliminar este registro ?</p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                        <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Cerrar</button>
+                        <a href="#" id="confirmDeleteButton" class="btn btn-danger">Eliminar</a>
+                    </div>
+                </div>
 
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 </div>

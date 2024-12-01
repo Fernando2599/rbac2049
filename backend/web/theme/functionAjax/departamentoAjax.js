@@ -1,28 +1,28 @@
 $(document).ready(function () {
 
-    let asesorId = 0;
+    let departamentoId = 0;
 
     /*=============================================================================================
-    //* Evento para limpiar la variable asesorId en caso de cerrar el modal
+    //* Evento para limpiar la variable especialidadId en caso de cerrar el modal
     =============================================================================================*/
-    $('#removeAsesorModal').on('hidden.bs.modal', function (event) {
-        asesorId = 0;
+    $('#removeDepartamentoModal').on('hidden.bs.modal', function (event) {
+        departamentoId = 0;
     });
 
     /*=============================================================================================
     //* Evento para obtener el id del proyecto cuando se abre el modal de confirmacion
     =============================================================================================*/
-    $('.delete-asesor-button').on('click', function (event) {
+    $('.delete-departamento-button').on('click', function (event) {
 
         event.preventDefault(); // Evitar la acción predeterminada del enlace
 
-        asesorId = $(this).data('asesor-id');
+        departamentoId = $(this).data('departamento-id');
 
     });
 
     $('#confirmDeleteButton').on('click', function (event) {
         event.preventDefault(); // Evitar la acción predeterminada del enlace
-        deleteProject(asesorId);
+        deleteDepartamento(departamentoId);
     });
 
 
@@ -33,10 +33,10 @@ $(document).ready(function () {
 //* Funcion para eliminar un registro al hacer click en el boton del modal
 =============================================================================================*/
 
-function deleteProject (id) {  
+function deleteDepartamento (id) {  
      // Enviar la solicitud AJAX para eliminar el proyecto
      $.ajax({
-        url: 'index.php?r=asesor-externo/delete&id=' + id, // URl de la ruta de la funcion delete en el controllador
+        url: 'index.php?r=departamento/delete&id=' + id, // URl de la ruta de la funcion delete en el controllador
         type: 'POST',
         success: function (response) {
         },

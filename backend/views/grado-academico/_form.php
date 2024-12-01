@@ -10,16 +10,44 @@ use yii\widgets\ActiveForm;
 
 <div class="grado-academico-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <div class="row">
 
-    <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
+        <div class="col-xl-12">
 
-    <?= $form->field($model, 'estado')->textInput() ?>
+            <?php $form = ActiveForm::begin(); ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-sm-6">
+                            <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <?= $form->field($model, 'estado')->dropDownList(
+                                [1 => 'Activo', 2 => 'Inactivo'], // Opciones del dropdown
+                                ['prompt' => 'Seleccione un estado'] // Opción predeterminada opcional
+                            ) ?>
+
+                        </div>
+
+                        <div class="form-group">
+                            <?= Html::submitButton('Save', ['class' => 'btn btn-primary mt-3']) ?>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <?php ActiveForm::end(); ?>
+
+        </div>
+
     </div>
-
-    <?php ActiveForm::end(); ?>
 
 </div>
