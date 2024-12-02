@@ -245,9 +245,11 @@ function timeAgo($timestamp) {
 
 
                                     <div class="my-3 text-center view-all">
-                                        <button type="button" class="btn btn-soft-success waves-effect waves-light">View
-                                            All Notifications <i class="ri-arrow-right-line align-middle"></i></button>
+                                        <a href="<?= \yii\helpers\Url::to(['notifications/index']) ?>" class="btn btn-soft-success waves-effect waves-light">
+                                            View All Notifications <i class="ri-arrow-right-line align-middle"></i>
+                                        </a>
                                     </div>
+
                                 </div>
 
                             </div>

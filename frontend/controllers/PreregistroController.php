@@ -77,10 +77,10 @@ class PreregistroController extends Controller
         {
             //enviar correo
             $this->sendEmail($model);
-
-            $tittle = "Nuevo Candidato";
             $nombre = $model->nombre;
-            $content = "Se ha creado un nuevo pre registro en el sistema por: {$nombre}.";
+            $tittle = "{$nombre}";
+            
+            $content = "Se ha Pre Registrado en el sistema";
 
             //guardar notificacion
             $this->createNotification($model->ingenieria_id, $tittle , $content);
@@ -120,21 +120,36 @@ class PreregistroController extends Controller
     {
         $model = $this->findModel($id);
 
-        if(file_exists($model->kardex) && file_exists($model->constancia_ingles) && file_exists($model->cv) && file_exists($model->constancia_creditos_complementarios) && file_exists($model->seguro_medico))
-        {
+        // Eliminar archivos asociados si existen
+        if (file_exists($model->kardex)) {
             unlink($model->kardex);
+        }
+        if (file_exists($model->constancia_ingles)) {
             unlink($model->constancia_ingles);
+        }
+        if (file_exists($model->cv)) {
             unlink($model->cv);
+        }
+        if (file_exists($model->constancia_creditos_complementarios)) {
             unlink($model->constancia_creditos_complementarios);
+        }
+        if (file_exists($model->seguro_medico)) {
             unlink($model->seguro_medico);
         }
 
+        // Eliminar notificación asociada (basada en el nombre del preregistro)
+        \backend\models\Notifications::deleteAll(['title' => $model->nombre]);
+
+        // Eliminar el preregistro
         $model->delete();
 
-        Yii::$app->session->setFlash('warning', 'Tu Pre-registro ha sido eliminado');
+        // Mensaje de confirmación
+        Yii::$app->session->setFlash('warning', 'Tu Pre-registro y la notificación asociada han sido eliminados');
 
+        // Redirección
         return $this->redirect(['site/index']);
     }
+
 
     /**
      * Finds the Preregistro model based on its primary key value.
