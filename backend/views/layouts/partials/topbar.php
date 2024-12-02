@@ -10,46 +10,103 @@ $form = Html::beginForm(['/site/logout'], 'post', ['class' => 'd-none', 'id' => 
     . Html::endForm();
 ?>
 <?php
-    $notifications = Notifications::find()
-                    ->where(['is_read' => 0])
-                    ->orderBy(['created_at' => SORT_DESC])
-                    ->limit(5)
-                    ->all();
+use common\models\ValorHelpers;
+use backend\models\UsuarioPermiso;
+use yii\web\NotFoundHttpException;
 
-     $unreadCount = Notifications::find()
-                    ->where(['is_read' => 0])
-                    ->count();
-                  
-    Yii::$app->timeZone = 'America/Mexico_City';  // Cambia a la zona horaria deseada
+$id_user = Yii::$app->user->identity->getId();
+if ($id_user !== null) {
+    // Buscar todos los permisos del usuario
+    $userPermisos = UsuarioPermiso::findAll(['user_id' => $id_user]);
 
-    
-                    function timeAgo($timestamp) {
-                        $time_ago = strtotime($timestamp);
-                        $current_time = time();
-                        $time_difference = $current_time - $time_ago;
-                        
-                        // Determinar el tiempo en unidades apropiadas
-                        if ($time_difference < 60) {
-                            return "Justo ahora";
-                        } else if ($time_difference < 3600) { // Menos de una hora
-                            $minutes = floor($time_difference / 60);
-                            return "$minutes min ago";
-                        } else if ($time_difference < 86400) { // Menos de un día
-                            $hours = floor($time_difference / 3600);
-                            return "$hours hrs ago";
-                        } else if ($time_difference < 2592000) { // Menos de un mes
-                            $days = floor($time_difference / 86400);
-                            return "$days days ago";
-                        } else if ($time_difference < 31536000) { // Menos de un año
-                            $months = floor($time_difference / 2592000);
-                            return "$months months ago";
-                        } else {
-                            $years = floor($time_difference / 31536000);
-                            return "$years years ago";
-                        }
-                    }
-                    
+    if (!empty($userPermisos)) {
+        // Definir permisos para coordinadores y avanzados
+        $permisosCoordinadores = [
+            'CoordinadorSistemas',
+            'CoordinadorAdministracion',
+            'CoordinadorCivil',
+            'CoordinadorAmbiental',
+            'CoordinadorIndustrial',
+            'CoordinadorGestionEmpresarial',
+        ];
+        $permisosAvanzados = [
+            'AdministradorDelSistema',
+            'SuperUsuario',
+        ];
+
+        // Variable para controlar si ya se aplicó el filtro
+        $filtroAplicado = false;
+
+        // Crear la consulta de notificaciones
+        $query = Notifications::find()->where(['is_read' => 0]);
+
+        // Si el usuario tiene permiso, aplicar el filtro
+        foreach ($userPermisos as $userPermiso) {
+            $nombrePermiso = $userPermiso->permiso->permiso_nombre;
+
+            if (in_array($nombrePermiso, $permisosCoordinadores)) {
+                $userPermisoValor = ValorHelpers::getPermisoValor($nombrePermiso);
+                $query->andFilterWhere(['=', 'ingenieria_id', $userPermisoValor]);
+                $filtroAplicado = true;
+                break; // Se aplicó un filtro, detener el ciclo
+            }
+
+            if (in_array($nombrePermiso, $permisosAvanzados)) {
+                $filtroAplicado = true; // Usuario avanzado, no se aplica filtro adicional
+                break;
+            }
+        }
+
+        // Si no se aplicó ningún filtro, lanzar excepción
+        if (!$filtroAplicado) {
+            throw new NotFoundHttpException('Necesitas otro tipo de permiso para esta acción.');
+        }
+
+        // Ejecutar la consulta con el filtro aplicado
+        $notifications = $query
+            ->orderBy(['created_at' => SORT_DESC])
+            ->limit(5)
+            ->all();
+
+        $unreadCount = $query->count();
+
+    } else {
+        throw new NotFoundHttpException('El usuario no tiene un permiso asignado.');
+    }
+} else {
+    throw new NotFoundHttpException('Necesitas permisos para esta acción.');
+}
+
+// Cambiar zona horaria
+Yii::$app->timeZone = 'America/Mexico_City';
+
+// Función para calcular tiempo transcurrido
+function timeAgo($timestamp) {
+    $time_ago = strtotime($timestamp);
+    $current_time = time();
+    $time_difference = $current_time - $time_ago;
+
+    if ($time_difference < 60) {
+        return "Justo ahora";
+    } else if ($time_difference < 3600) {
+        $minutes = floor($time_difference / 60);
+        return "$minutes min ago";
+    } else if ($time_difference < 86400) {
+        $hours = floor($time_difference / 3600);
+        return "$hours hrs ago";
+    } else if ($time_difference < 2592000) {
+        $days = floor($time_difference / 86400);
+        return "$days days ago";
+    } else if ($time_difference < 31536000) {
+        $months = floor($time_difference / 2592000);
+        return "$months months ago";
+    } else {
+        $years = floor($time_difference / 31536000);
+        return "$years years ago";
+    }
+}
 ?>
+
 <header id="page-topbar">
     <div class="layout-width">
         <div class="navbar-header">

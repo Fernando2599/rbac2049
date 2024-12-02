@@ -125,6 +125,13 @@ function tieneAcceso($opcion, $userId = null) {
                                         </a>
                                     </li>
                                     <?php endif; ?>
+                                    <?php if (tieneAcceso('proyectos')): ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu-link" href="<?= Url::to(['/notifications']); ?>">
+                                        <i class="ri-toggle-line"></i> <span data-key="t-notifications">Notificaciones</span>
+                                        </a>
+                                    </li>
+                                    <?php endif; ?>
                                 </ul>
                             </div>
                         </li>
