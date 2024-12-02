@@ -20,7 +20,7 @@ $form = Html::beginForm(['/site/logout'], 'post', ['class' => 'd-none', 'id' => 
                     ->where(['is_read' => 0])
                     ->count();
                   
-    Yii::$app->timeZone = 'America/Mexico_City';
+    Yii::$app->timeZone = 'America/Mexico_City';  // Cambia a la zona horaria deseada
 
     
                     function timeAgo($timestamp) {
@@ -50,23 +50,6 @@ $form = Html::beginForm(['/site/logout'], 'post', ['class' => 'd-none', 'id' => 
                     }
                     
 ?>
-<--- js -->
-<script>
-    function mostrarNotificacion(message) {
-   // alert(message); // Muestra una alerta del navegador con el mensaje
-}
-
-    setInterval(() => {
-    fetch('/rbac-dual/backend/web/index.php?r=notifications/obtener-notificaciones')
-        .then(response => response.json())
-        .then(data => {
-            if (data.length > 0) {
-                mostrarNotificacion(data);
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }, 8000); // Consulta cada 8 segundos
-</script>
 <header id="page-topbar">
     <div class="layout-width">
         <div class="navbar-header">
@@ -169,32 +152,32 @@ $form = Html::beginForm(['/site/logout'], 'post', ['class' => 'd-none', 'id' => 
                                 <div data-simplebar style="max-height: 300px;" class="pe-2">
                                     <?php if (!empty($notifications)): ?>
                                         <?php foreach ($notifications as $notification): ?>
-                                        <div class="text-reset notification-item d-block dropdown-item position-relative">
-                                            <div class="d-flex">
-                                                <div class="avatar-xs me-3 flex-shrink-0">
-                                                    <span class="avatar-title bg-info-subtle text-info rounded-circle fs-16">
-                                                        <i class="bx bx-badge-check"></i>
-                                                    </span>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <a href="#!" class="stretched-link">
-                                                        <h6 class="mt-0 mb-2 lh-base"><b><?= htmlspecialchars($notification->title, ENT_QUOTES) ?></b></br>
-                                                            <span class="text-secondary"><?= htmlspecialchars($notification->content, ENT_QUOTES) ?></span>
-                                                        </h6>
-                                                    </a>
-                                                    <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                        <span><i class="mdi mdi-clock-outline"></i> <?= timeAgo($notification->created_at) ?></span>
-                                                    </p>
-                                                </div>
-                                                <div class="px-2 fs-15">
-                                                    <div class="form-check notification-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="all-notification-check01">
-                                                        <label class="form-check-label" for="all-notification-check01"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
+                            <div class="text-reset notification-item d-block dropdown-item position-relative">
+                                <div class="d-flex">
+                                    <div class="avatar-xs me-3 flex-shrink-0">
+                                        <span class="avatar-title bg-info-subtle text-info rounded-circle fs-16">
+                                            <i class="bx bx-badge-check"></i>
+                                        </span>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <a href="#!" class="stretched-link">
+                                            <h6 class="mt-0 mb-2 lh-base"><b><?= htmlspecialchars($notification->title, ENT_QUOTES) ?></b></br>
+                                                <span class="text-secondary"><?= htmlspecialchars($notification->content, ENT_QUOTES) ?></span>
+                                            </h6>
+                                        </a>
+                                        <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                            <span><i class="mdi mdi-clock-outline"></i> <?= timeAgo($notification->created_at) ?></span>
+                                        </p>
+                                    </div>
+                                    <div class="px-2 fs-15">
+                                        <div class="form-check notification-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="all-notification-check01">
+                                            <label class="form-check-label" for="all-notification-check01"></label>
                                         </div>
-                                    <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
 
                                     <?php else: ?>
                                         <div class="text-center text-muted py-3">

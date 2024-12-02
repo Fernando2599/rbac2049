@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\Notifications;
 use backend\models\search\NotificationsSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -143,6 +144,5 @@ class NotificationsController extends Controller
 
         return $this->asJson($notifications);
     }
-
-
+    
 }
