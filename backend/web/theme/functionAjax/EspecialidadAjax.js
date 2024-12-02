@@ -5,7 +5,7 @@ $(document).ready(function () {
     /*=============================================================================================
     //* Evento para limpiar la variable especialidadId en caso de cerrar el modal
     =============================================================================================*/
-    $('#removeEmpresaModal').on('hidden.bs.modal', function (event) {
+    $('#removeEspecialidadModal').on('hidden.bs.modal', function (event) {
         especialidadId = 0;
     });
 
@@ -22,7 +22,8 @@ $(document).ready(function () {
 
     $('#confirmDeleteButton').on('click', function (event) {
         event.preventDefault(); // Evitar la acción predeterminada del enlace
-        deleteProject(especialidadId);
+        let resp = deleteProject(especialidadId);
+        console.log(resp);
     });
 
 
@@ -36,7 +37,7 @@ $(document).ready(function () {
 function deleteProject (id) {  
      // Enviar la solicitud AJAX para eliminar el proyecto
      $.ajax({
-        url: 'especialidad/delete?id=' + id, // Ajusta la URL según tu estructura de rutas
+        url: 'index.php?r=especialidad/delete&id=' + id, // URl de la ruta de la funcion delete en el controllador
         type: 'POST',
         success: function (response) {
         },

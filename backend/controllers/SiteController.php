@@ -1,9 +1,12 @@
 <?php
 
 namespace backend\controllers;
+
 use common\models\PermisosHelpers;
 use common\models\Proyecto;
+use common\models\Preregistro;
 use common\models\AsesorInterno;
+use common\models\Expediente;
 use common\models\LoginForm;
 use backend\models\SignupForm;
 use backend\models\VerifyEmailForm;
@@ -44,7 +47,7 @@ class SiteController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
-                            if (!(PermisosHelpers::requerirMinimoRol(['Admin','SuperUsuario','Coordinador','Subdirector']) && PermisosHelpers::requerirEstado('Activo'))) {
+                            if (!(PermisosHelpers::requerirMinimoRol(['Admin', 'SuperUsuario', 'Coordinador', 'Subdirector']) && PermisosHelpers::requerirEstado('Activo'))) {
                                 throw new \yii\web\ForbiddenHttpException('Ups, necesita un rol en especifico para esta accion');
                             }
                             return true;
@@ -54,7 +57,7 @@ class SiteController extends Controller
                         'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
-                       
+
                     ],
                 ],
             ],
@@ -88,46 +91,62 @@ class SiteController extends Controller
     {
         //Consulta de los proyectos en la base de datos
         $totalProjects = Proyecto::find()->count();
+
+        //Consulta de los estudiantes en la base de datos
+        $totalStudents = Preregistro::find()
+            ->where(['estado_registro_id' => 4])
+            ->limit(8)
+            ->count();
+
         // Consulta del numero de proyectos por estado
-        $projectCounts = Proyecto::find()
-            ->select(['estado_proyecto_id', 'COUNT(*) AS count'])
-            ->groupBy('estado_proyecto_id')
+        $statusCounts = Proyecto::find()
+            ->select(['estado_proyecto_id', 'estado_proyecto.nombre', 'COUNT(*) AS count'])
+            ->joinWith('estadoProyecto') // Relación con el modelo EstadoProyecto
+            ->groupBy(['estado_proyecto_id', 'estado_proyecto.nombre'])
             ->asArray()
             ->all();
 
         //Consulta de los numeros de docentes en la base de datos
         $totalTeachers = AsesorInterno::find()->count();
 
-        //Paginancion para los resultados obtenidos de docente
-        $pageSize = 5;
-
-        $paginationTeachers = new Pagination([
-            'defaultPageSize' => $pageSize,
-            'totalCount' => $totalTeachers,
-        ]);
-
-        //Consulta de los docentes en la base de datos
+        $totalTeachersGrafica = AsesorInterno::find()
+            ->select(['capacitacion', 'COUNT(*) AS total'])
+            ->groupBy('capacitacion')
+            ->asArray()
+            ->all();
+        
+        // Consulta de los docentes en la base de datos
         $teachers = AsesorInterno::find()
             ->select(['asesor_interno.*', 'ingenieria.nombre AS nombre_ingenieria'])
             ->leftJoin('ingenieria', 'asesor_interno.ingenieria_id = ingenieria.id')
-            ->offset($paginationTeachers->offset)
-            ->limit($paginationTeachers->limit)
-            ->asArray() //Para trabajar con arrays en lugar de objetos
-            ->all(); //Obtienen todo  los registros
+            ->asArray() // Para trabajar con arrays en lugar de objetos
+            ->all();
 
-        // Procesar resultados para la vista
-        $statusCounts = [];
-        foreach ($projectCounts as $projectCount) {
-            //Cuenta los resultados dependiendo el estado
-            $statusCounts[$projectCount['estado_proyecto_id']] = $projectCount['count'];
-        }
+        //Consulta de los expediente 
+        $totalFiles = Expediente::find()
+            ->select([
+                'perfil_estudiante.nombre AS nombre_estudiante',
+                'expediente.created_at',
+                'estado_expediente_id',
+                'estado_expediente.nombre AS nombre_estado',
+                'COALESCE(motivo_cierre.nombre, "Sin motivo") AS nombre_motivo'
+            ])
+            ->joinWith('perfilEstudiante') // LEFT JOIN con perfil_estudiante
+            ->joinWith('estadoExpediente') // LEFT JOIN con estado_expediente
+            ->leftJoin('motivo_cierre', 'expediente.motivo_cierre_id = motivo_cierre.id') // LEFT JOIN manual
+            ->limit(8)
+            ->asArray()
+            ->all();
+
 
         return $this->render('index', [
             'totalProjects' => $totalProjects,
             'totalTeachers' => $totalTeachers,
+            'totalTeachersGrafica' => $totalTeachersGrafica,
+            'totalStudents' => $totalStudents,
             'statusCounts' => $statusCounts,
+            'totalFiles' => $totalFiles,
             'teachers' => $teachers,
-            'paginationTeachers' => $paginationTeachers,
         ]);
     }
 
@@ -155,7 +174,7 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-     /**
+    /**
      * Signs user up.
      *
      * @return mixed
