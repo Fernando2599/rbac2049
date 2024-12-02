@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\Notifications;
 use backend\models\search\NotificationsSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -131,24 +132,7 @@ class NotificationsController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-    public function actionGetNotifications()
-    {
-        // Suponiendo que Notifications es el modelo que representa las notificaciones
-        $notifications = Notifications::find()
-                        ->where(['is_read' => 0])
-                        ->orderBy(['created_at' => SORT_DESC])
-                        ->limit(5)
-                        ->all();
-                        
-        $unreadCount = Notifications::find()
-                        ->where(['is_read' => 0])
-                        ->count();
-
-        return $this->asJson([
-            'notifications' => $notifications,
-            'unreadCount' => $unreadCount,
-        ]);
-    }
+   
     public function actionObtenerNotificaciones()
     {
         $notifications = Notifications::find()
@@ -160,6 +144,5 @@ class NotificationsController extends Controller
 
         return $this->asJson($notifications);
     }
-
-
+    
 }
