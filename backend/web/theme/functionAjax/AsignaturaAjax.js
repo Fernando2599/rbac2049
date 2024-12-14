@@ -1,22 +1,25 @@
 $(document).ready(function () {
 
-    $('#SwitchEstado').on('change', function () {
+    $('.switch-estado').on('change', function () {
 
-        //Se almacena el input switch en una variable
+        // Se almacena el input switch en una variable
         let $switch = $(this);
-        //ALmacena el id del switch en otra variable accediendo desde la variable donde se almaceno el switch
+
+        // Almacena el id del switch desde el atributo data
         let id = $switch.data('asignatura-id');
-        //Actualiza la variable estado en caso si tiene el atributo checked
+
+        // Actualiza el estado basado en si tiene el atributo checked
         let status = $switch.is(":checked");
-        //Valida si tiene el atributo checked accediendo desde la variable donde se almaceno, y en dado caso muestra un mensaje diferente en la alerta
+
+        // Mensaje a mostrar según el estado
         let message = status ? '¿Estás seguro de habilitar la asignatura?' : '¿Estás seguro de deshabilitar la asignatura?';
 
-        //Llamada de la funcion que muestra el mensjase, pasandole la variable con el mensjase que se desea mostrar y un funcion callback para confirmar si se hace la actualizacion del status o no en la base de datos
+        // Llamada de la función para mostrar el mensaje de confirmación
         confirmationMessage(message, function (confirmed) {
             if (confirmed) {
-                updateStutus(id, status);
+                updateStatus(id, status); // Llama a la función que hace la actualización
             } else {
-                $switch.prop('checked', !status);
+                $switch.prop('checked', !status); // Revertir el cambio si no se confirma
             }
         });
     });
@@ -42,27 +45,43 @@ function confirmationMessage(message, callback) {
         callback(result.isConfirmed);
     });
 }
+
+function alertMessage(icon, message) {
+    Swal.fire({
+        position: 'center',
+        icon: icon,
+        title: message,
+        showConfirmButton: false,
+        timer: 2000,
+        showCloseButton: true
+    })
+}
 /*=============================================================================================
-//* Funcion para eliminar un registro al hacer click en el boton del modal
+//* Funcion para cambiar el estado del registro
 =============================================================================================*/
 
-function updateEstado(id, estado) {
+function updateStatus(id, status) {
     $.ajax({
-        url: 'asignatura/updateStatus',
-        type: 'POST',
+        url: 'index.php?r=asignatura/update-status&id=' + id,
+        method: 'POST', // Asegúrate de usar 'method' en lugar de 'type'
         data: {
             id: id,
-            estado: estado ? 1 : 0,
+            status: status ? 1 : 2,
+            _csrf: yii.getCsrfToken() // Agrega el token CSRF
         },
-        success: function(response) {
-            if (response.success) {
-                alert('Estado actualizado correctamente');
+        success: function (response) {
+            console.log(response);
+            if (response.success === true) {
+                alertMessage('success', response.message);
+                setTimeout(() => {
+
+                    location.reload(); // Recarga la página
+                }, 1800);
             } else {
-                alert('Error al actualizar el estado');
+                alertMessage('danger', response.message);
             }
+
         },
-        error: function() {
-            alert('Error en la petición');
-        }
     });
+
 }

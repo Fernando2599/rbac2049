@@ -57,6 +57,21 @@ $this->registerJsFile(
                         //'periodo_desarrollo',
                         //'periodo_acreditacion',
                         //'semestre_id',
+                        [
+                            'attribute' => 'estado',
+                            'format' => 'raw', // Permite HTML para personalizar el contenido
+                            'value' => function ($model) {
+                                if ($model->estado == 1) {
+                                    $badgeClass = 'bg-success'; // Clase CSS para el badge "Activo"
+                                    $badgeText = 'Activo';
+                                } elseif ($model->estado == 2) {
+                                    $badgeClass = 'bg-danger'; // Clase CSS para el badge "Inactivo"
+                                    $badgeText = 'Inactivo';
+                                }
+
+                                return '<span class="badge ' . $badgeClass . '">' . $badgeText . '</span>';
+                            },
+                        ],
 
                         [
                             'class' => 'yii\grid\ActionColumn',
@@ -67,12 +82,12 @@ $this->registerJsFile(
                                     return '
                                         <div class="form-check form-switch form-switch-secondary">
                                             <input 
-                                            class="form-check-input" 
-                                            type="checkbox" role="switch" 
-                                            id="SwitchEstado" 
-                                            data-asignatura-id="' . $model->id . '"
-                                            checked>
-                                            <label class="form-check-label" for="SwitchEstadoLabel">Estado</label>
+                                            class="form-check-input switch-estado" 
+                                            type="checkbox" 
+                                            role="switch" 
+                                            data-asignatura-id="' . $model->id . '" 
+                                            ' . ($model->estado == 1 ? 'checked' : '') . '>
+                                            <label class="form-check-label">Estado</label>
                                         </div>';
                                 },
                             ],

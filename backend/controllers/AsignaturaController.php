@@ -1,7 +1,7 @@
 <?php
 
 namespace backend\controllers;
-
+use Yii;
 use common\models\Asignatura;
 use backend\models\search\AsignaturaSearch;
 use common\models\Ajuste;
@@ -12,6 +12,7 @@ use yii\db\Query;
 use yii\helpers\Json;
 
 use common\models\PermisosHelpers;
+
 /**
  * AsignaturaController implements the CRUD actions for Asignatura model.
  */
@@ -39,9 +40,9 @@ class AsignaturaController extends Controller
                                 }
                                 return true;
                             }
-                        ],                        
+                        ],
                         [
-                            'actions' => ['index', 'view','create', 'update'],
+                            'actions' => ['index', 'view', 'create', 'update'],
                             'allow' => true,
                             'roles' => ['@'],
                             'matchCallback' => function ($rule, $action) {
@@ -116,9 +117,9 @@ class AsignaturaController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
                 $ajuste = $this->findAjuste(1);
-                $model->horas_dedicadas = $model->creditos * $ajuste -> num_semanas_semestre;
-                $model -> periodo_desarrollo = $model-> mes_inicio .'-'. $model-> anio_inicio; 
-                $model -> periodo_acreditacion = $model-> mes_final .'-'. $model-> anio_final;
+                $model->horas_dedicadas = $model->creditos * $ajuste->num_semanas_semestre;
+                $model->periodo_desarrollo = $model->mes_inicio . '-' . $model->anio_inicio;
+                $model->periodo_acreditacion = $model->mes_final . '-' . $model->anio_final;
                 $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -142,11 +143,11 @@ class AsignaturaController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) ) {
+        if ($this->request->isPost && $model->load($this->request->post())) {
             $ajuste = $this->findAjuste(1);
-            $model->horas_dedicadas = $model->creditos * $ajuste -> num_semanas_semestre;
-            $model -> periodo_desarrollo = $model-> mes_inicio .'-'. $model-> anio_inicio; 
-            $model -> periodo_acreditacion = $model-> mes_final .'-'. $model-> anio_final; 
+            $model->horas_dedicadas = $model->creditos * $ajuste->num_semanas_semestre;
+            $model->periodo_desarrollo = $model->mes_inicio . '-' . $model->anio_inicio;
+            $model->periodo_acreditacion = $model->mes_final . '-' . $model->anio_final;
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -155,6 +156,31 @@ class AsignaturaController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionUpdateStatus($id)
+    {
+        if (Yii::$app->request->isPost) {
+            // Encuentra el modelo correspondiente al ID
+            $model = $this->findModel($id);
+
+            // Obtén el nuevo estado desde los datos enviados
+            $estado = Yii::$app->request->post('status');
+
+            // Asigna el nuevo valor de estado al modelo
+            $model->estado = $estado;
+
+            // Intenta guardar el modelo actualizado
+            if ($model->save()) {
+                return $this->asJson(['success' => true, 'message' => 'Estado actualizado correctamente.']);
+            } else {
+                return $this->asJson(['success' => false, 'message' => 'No se pudo actualizar el estado.', 'errors' => $model->errors]);
+            }
+        }
+
+        // Si la solicitud no es POST, lanza una excepción
+        throw new BadRequestHttpException('Método no permitido.');
+    }
+
 
     /**
      * Deletes an existing Asignatura model.
@@ -195,34 +221,35 @@ class AsignaturaController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionAsesoresList() {
+    public function actionAsesoresList()
+    {
         $out = [];
         if (isset($_POST['depdrop_parents'])) {
-        $parents = $_POST['depdrop_parents'];
+            $parents = $_POST['depdrop_parents'];
 
-        if ($parents != null) {
-        $ingenieria_id = $parents[0];
-        $out = \common\models\Asignatura::getAsesores($ingenieria_id);
-        echo Json::encode(['output'=>$out, 'selected'=>'']);
-        return;
+            if ($parents != null) {
+                $ingenieria_id = $parents[0];
+                $out = \common\models\Asignatura::getAsesores($ingenieria_id);
+                echo Json::encode(['output' => $out, 'selected' => '']);
+                return;
+            }
         }
-        }
-        echo Json::encode(['output'=>'', 'selected'=>'']);
+        echo Json::encode(['output' => '', 'selected' => '']);
     }
 
-    public function actionEspecialidadList() {
+    public function actionEspecialidadList()
+    {
         $out = [];
         if (isset($_POST['depdrop_parents'])) {
-        $parents = $_POST['depdrop_parents'];
+            $parents = $_POST['depdrop_parents'];
 
-        if ($parents != null) {
-        $ingenieria_id = $parents[0];
-        $out = \common\models\Asignatura::getEspecialidades($ingenieria_id);
-        echo Json::encode(['output'=>$out, 'selected'=>'']);
-        return;
+            if ($parents != null) {
+                $ingenieria_id = $parents[0];
+                $out = \common\models\Asignatura::getEspecialidades($ingenieria_id);
+                echo Json::encode(['output' => $out, 'selected' => '']);
+                return;
+            }
         }
-        }
-        echo Json::encode(['output'=>'', 'selected'=>'']);
+        echo Json::encode(['output' => '', 'selected' => '']);
     }
-
 }

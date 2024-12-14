@@ -198,9 +198,16 @@ class PerfilEstudiante extends \yii\db\ActiveRecord
     }
 
     public function getEstadoExpediente()
-    {
-        return $this->expediente->estado_expediente_id;
+{
+    if ($this->expediente) {
+        return [
+            'id' => $this->expediente->estado_expediente_id,
+            'nombre' => $this->expediente->estadoExpediente->nombre, // Supone que tienes una relación llamada estadoExpediente
+        ];
     }
+    return null; // Retorna null si no hay expediente
+}
+
 
     public function getEstadoExpedienteLink()
     {

@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <li class="fs-15 mb-0 fw-semibold">Nombre: <span class="fw-normal"> <?= $model->nombre ?> </span></li>
                                 <li class="fs-15 mb-0 fw-semibold">Docente: <span class="fw-normal"> <?= $model->asesorInterno->nombre ?> </span></li>
                                 <li class="fs-15 mb-0 fw-semibold">Ingenieria: <span class="fw-normal"> <?= $model->ingenieria->nombre ?> </span></li>
-                                <li class="fs-15 mb-0 fw-semibold">Especialidad: <span class="fw-normal"> <?= $model->especialidad->nombre ?> </span></li>
+                                <li class="fs-15 mb-0 fw-semibold">Especialidad: <span class="fw-normal"> <?= $model->especialidad?->nombre ?? 'No asignada' ?> </span></li>
                                 <li class="fs-15 mb-0 fw-semibold">Semanas: <span class="fw-normal"> <?= $model->semanas ?> </span></li>
                             </ul>
                         </div>

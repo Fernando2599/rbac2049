@@ -91,11 +91,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $badgeClass = 'bg-info'; // Clase predeterminada para el badge
 
                                 // Verificar el valor de estadoRegistro->id y asignar la clase correspondiente al badge
-                                if ($model->estadoExpediente->id == 1) {
+                                if ($model->estado_expediente_id == 1) {
                                     $badgeClass = 'bg-info'; // Clase para el estado "Success"
-                                } elseif ($model->estadoExpediente->id == 2) {
+                                } elseif ($model->estado_expediente_id == 2) {
                                     $badgeClass = 'bg-danger'; // Clase para el estado "Warning"
-                                } elseif ($model->estadoExpediente->id == 3) {
+                                } elseif ($model->estado_expediente_id == 3) {
                                     $badgeClass = 'bg-success'; // Clase para el estado "Danger"
                                 }
                                 ?>
@@ -162,11 +162,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $badgeClass = 'bg-info'; // Clase predeterminada para el badge
 
                                 // Verificar el valor de estadoRegistro->id y asignar la clase correspondiente al badge
-                                if ($model->estadoExpediente->id == 1) {
+                                if ($model->estado_expediente_id == 1) {
                                     $badgeClass = 'bg-info'; // Clase para el estado "info"
-                                } elseif ($model->estadoExpediente->id == 2) {
+                                } elseif ($model->estado_expediente_id == 2) {
                                     $badgeClass = 'bg-danger'; // Clase para el estado "danger"
-                                } elseif ($model->estadoExpediente->id == 3) {
+                                } elseif ($model->estado_expediente_id == 3) {
                                     $badgeClass = 'bg-success'; // Clase para el estado "success"
                                 }
                                 ?>

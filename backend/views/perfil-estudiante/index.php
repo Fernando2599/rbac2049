@@ -42,7 +42,28 @@ $this->params['breadcrumbs'][] = $this->title;
                         'matricula',
                         ['label' => 'Ingenieria', 'attribute' => 'ingenieriaNombre', 'filter' => $searchModel->getIngenieriasList()],
                         ['attribute' => 'expedienteLink', 'format' => 'raw'],
-                        ['attribute' => 'estadoExpedienteLink', 'format' => 'raw'],
+                        [
+                            'attribute' => 'estado_expediente',
+                            'label' => 'Estado del Expediente',
+                            'value' => function ($model) {
+                                $badgeClass = 'bg-info'; // Clase predeterminada para el badge
+                                $estado = $model->getEstadoExpediente(); 
+                        
+                                if ($estado && $estado['id'] == 1) {
+                                    $badgeClass = 'bg-info'; // Clase para estado 1
+                                } elseif ($estado && $estado['id'] == 2) {
+                                    $badgeClass = 'bg-danger'; // Clase para estado 2
+                                } elseif ($estado && $estado['id'] == 3) {
+                                    $badgeClass = 'bg-success'; //  Clase para estado 3 
+                                }
+                        
+                                return $estado 
+                                    ? '<span class="badge ' . $badgeClass . '">' . $estado['nombre'] . '</span>' 
+                                    : '<span class="badge bg-warning">No asignado</span>'; // Texto predeterminado
+                            },
+                            'format' => 'raw', 
+                        ],
+                        
                         //'genero_id',
                         //'especialidad_id',
                         //'created_at',

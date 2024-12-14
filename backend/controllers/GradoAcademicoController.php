@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use Yii;
 use common\models\GradoAcademico;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -25,10 +26,10 @@ class GradoAcademicoController extends Controller
             [
                 'access' => [
                     'class' => \yii\filters\AccessControl::className(),
-                    'only' => ['index', 'view','create', 'update', 'delete'],
+                    'only' => ['index', 'view', 'create', 'update', 'delete'],
                     'rules' => [
                         [
-                            'actions' => ['index', 'view','create', 'update'],
+                            'actions' => ['index', 'view', 'create', 'update'],
                             'allow' => true,
                             'roles' => ['@'],
                             'matchCallback' => function ($rule, $action) {
@@ -48,9 +49,9 @@ class GradoAcademicoController extends Controller
                                 }
                                 return true;
                             }
-                        ],                          
+                        ],
                     ],
-                         
+
                 ],
 
                 'verbs' => [
@@ -143,6 +144,33 @@ class GradoAcademicoController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionUpdateStatus($id)
+    {
+        if (Yii::$app->request->isPost) {
+            // Encuentra el modelo correspondiente al ID
+            $model = $this->findModel($id);
+    
+            // Obtén el nuevo estado desde los datos enviados
+            $estado = Yii::$app->request->post('status');
+    
+            // Asigna el nuevo valor de estado al modelo
+            $model->estado = $estado;
+    
+            // Intenta guardar el modelo actualizado
+            if ($model->save()) {
+                return $this->asJson(['success' => true, 'message' => 'Estado actualizado correctamente.']);
+            } else {
+                return $this->asJson(['success' => false, 'message' => 'No se pudo actualizar el estado.', 'errors' => $model->errors]);
+            }
+        }
+    
+        // Si la solicitud no es POST, lanza una excepción
+        throw new BadRequestHttpException('Método no permitido.');
+    }
+    
+
+
 
     /**
      * Deletes an existing GradoAcademico model.

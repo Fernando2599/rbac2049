@@ -36,7 +36,7 @@ $this->registerJsFile(
         <div class="card-body">
 
             <div class="table-responsive">
-
+                
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
@@ -46,13 +46,19 @@ $this->registerJsFile(
                         ['class' => 'yii\grid\SerialColumn'],
                         //'id',
                         //'perfil_estudiante_id',
+                        'nombre',
                         [
                             'label' => 'Matricula',
                             'attribute' => 'matriculaEstudiante',
                             'filter' => $searchModel->getMatriculasList()
                         ],
-                        'nombre',
                         //'departamento_id',
+                        [
+                            'attribute' => 'Estudiante',
+                            'value' => function ($model) {
+                                return $model->perfilEstudiante->nombre;
+                            }
+                        ],
                         [
                             'label' => 'Departamento',
                             'attribute' => 'departamentoNombre',
@@ -68,6 +74,23 @@ $this->registerJsFile(
                         //'empresa_id',
                         //'asesor_externo_id',
                         //'estado_proyecto_id',
+                        [
+                            
+                            'attribute' => 'estado',
+                            'format' => 'raw', // Permite HTML para personalizar el contenido
+                            'value' => function ($model) {
+                                $badgeClass = 'bg-warning'; // Clase predeterminada para el badge
+                                if ($model->estado_proyecto_id == 1) {
+                                    $badgeClass = 'bg-warning'; 
+                                } elseif ($model->estado_proyecto_id == 2) {
+                                    $badgeClass = 'bg-danger'; 
+                                } elseif ($model->estado_proyecto_id == 3) {
+                                    $badgeClass = 'bg-success'; 
+                                }
+
+                                return '<span class="badge ' . $badgeClass . '">' . $model->estadoProyecto->nombre    . '</span>';
+                            },
+                        ],
                         //'created_at',
                         //'updated_at',
                         [
