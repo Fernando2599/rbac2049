@@ -137,17 +137,18 @@ use yii\helpers\Url;
                             <div class="row">
                                 <div class="col">
 
-                                    <?=
-                                    $form->field($model, 'mes_inicio')->widget(Select2::classname(), [
+                                    <?= $form->field($model, 'mes_inicio')->widget(Select2::classname(), [
                                         'data' => $dataMes,
                                         'theme' => Select2::THEME_BOOTSTRAP,
                                         'size' => Select2::LARGE,
-                                        'options' => ['placeholder' => Yii::t('app', 'Selecionar mes')],
+                                        'options' => [
+                                            'placeholder' => Yii::t('app', 'Selecionar mes')
+                                        ],
                                         'pluginOptions' => [
                                             'allowClear' => true
                                         ],
-                                    ]);
-                                    ?>
+                                    ]) ?>
+
                                 </div>
 
                                 <div class="col">

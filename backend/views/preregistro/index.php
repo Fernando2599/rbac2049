@@ -50,7 +50,26 @@ $this->params['breadcrumbs'][] = $this->title;
                         //'created_at',
                         //'updated_at',
                         //'estado_registro_id',
-                        ['label' => 'Estado', 'attribute' => 'estadoRegistroNombre', 'filter' => $searchModel->getEstadoRegistroNombreList()],
+                        
+                        [
+                            'label' => 'Estado',
+                            'format' => 'raw', // Permite HTML para personalizar el contenido
+                            'filter' => $searchModel->getEstadoRegistroNombreList(),
+                            'value' => function ($model) {
+                                $badgeClass = 'bg-info'; // Clase predeterminada para el badge
+                                if ($model->estado_registro_id == 1) {
+                                    $badgeClass = 'bg-info'; 
+                                } elseif ($model->estado_registro_id == 2) {
+                                    $badgeClass = 'bg-warning'; 
+                                } elseif ($model->estado_registro_id == 3) {
+                                    $badgeClass = 'bg-danger'; 
+                                } elseif ($model->estado_registro_id == 4) {
+                                    $badgeClass = 'bg-success'; 
+                                }
+
+                                return '<span class="badge ' . $badgeClass . '">' . $model->estadoRegistro->nombre    . '</span>';
+                            },
+                        ],
                         //'comentario:ntext',
 
 

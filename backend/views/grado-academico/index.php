@@ -26,7 +26,7 @@ $this->registerJsFile(
     <div class="card">
 
         <div class="card-header">
-            <?= Html::a('Create Grado Academico', ['create'], ['class' => 'btn btn-outline-secondary btn-border']) ?>
+            <?= Html::a('Crear Grado Academico', ['create'], ['class' => 'btn btn-outline-secondary btn-border']) ?>
         </div>
 
         <div class="card-body">
@@ -41,7 +41,42 @@ $this->registerJsFile(
 
                         //'id',
                         'nombre',
-                        'estado',
+                        [
+                            'attribute' => 'estado',
+                            'format' => 'raw', // Permite HTML para personalizar el contenido
+                            'value' => function ($model) {
+                                if ($model->estado == 1) {
+                                    $badgeClass = 'bg-success'; // Clase CSS para el badge "Activo"
+                                    $badgeText = 'Activo';
+                                } elseif ($model->estado == 2) {
+                                    $badgeClass = 'bg-danger'; // Clase CSS para el badge "Inactivo"
+                                    $badgeText = 'Inactivo';
+                                }
+
+                                return '<span class="badge ' . $badgeClass . '">' . $badgeText . '</span>';
+                            },
+                        ],
+
+                        [
+                            'class' => 'yii\grid\ActionColumn',
+                            'template' => '{switch}',
+                            'buttons' => [
+                                //Switch para cambiar el estado de la asignatura si esta habilita o deshabilitada
+                                'switch' => function ($url, $model, $key) {
+                                    return '
+                                        <div class="form-check form-switch form-switch-secondary">
+                                            <input 
+                                            class="form-check-input switch-estado" 
+                                            type="checkbox" 
+                                            role="switch" 
+                                            data-grado-id="' . $model->id . '" 
+                                            ' . ($model->estado == 1 ? 'checked' : '') . '>
+                                            <label class="form-check-label">Estado</label>
+                                        </div>';
+                                },
+                            ],
+                        ],
+
                         [
                             'class' => 'yii\grid\ActionColumn',
                             'template' => '{view} {update} {delete}', // Incluye el botón de eliminar en la plantilla
