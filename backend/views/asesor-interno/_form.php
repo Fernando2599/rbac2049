@@ -37,7 +37,7 @@ use yii\helpers\ArrayHelper;
                         <div class="col-sm-6">
 
                             <?= $form->field($model, 'grado_academico_id')->widget(Select2::classname(), [
-                                'data' => ArrayHelper::map(GradoAcademico::find()->all(), 'id', 'nombre'),
+                                'data' => ArrayHelper::map(GradoAcademico::find()->where(['!=', 'estado', 2])->all(), 'id', 'nombre'),
                                 'theme' => Select2::THEME_BOOTSTRAP,
                                 'size' => Select2::LARGE,
                                 'options' => ['placeholder' => Yii::t('app', 'Seleccione su grado academico')],

@@ -45,7 +45,7 @@ class Asignatura extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre', 'clave', 'creditos', 'competencia_disciplinar', 'asesor_interno_id', 'periodo_desarrollo', 'periodo_acreditacion', 'ingenieria_id', 'semestre_id', 'semanas', 'mes_inicio','anio_inicio','mes_final','anio_final',], 'required'],
+            [['nombre', 'clave', 'creditos', 'competencia_disciplinar', 'asesor_interno_id', 'periodo_desarrollo', 'periodo_acreditacion', 'ingenieria_id', 'semestre_id', 'semanas',], 'required'],
             [['competencia_disciplinar'], 'string'],
             [['asesor_interno_id', 'horas_dedicadas', 'ingenieria_id', 'semestre_id', 'especialidad_id'], 'integer'],
             [['nombre', 'clave', 'creditos', 'periodo_desarrollo', 'periodo_acreditacion'], 'string', 'max' => 45],
@@ -69,8 +69,8 @@ class Asignatura extends \yii\db\ActiveRecord
             'especialidad_id' => 'Especialidad (Opcional)',
             'horas_dedicadas' => 'Horas Dedicadas',
             'semanas' => 'semanas',
-            'periodo_desarrollo' => 'Periodo Desarrollo',
-            'periodo_acreditacion' => 'Periodo Acreditacion',
+            'periodo_desarrollo' => 'Periodo de desarrollo',
+            'periodo_acreditacion' => 'Periodo de acreditacion',
             'ingenieria_id' => 'Ingenieria',
             'semestre_id' => 'Semestre',
             'mes_inicio' => 'Mes',

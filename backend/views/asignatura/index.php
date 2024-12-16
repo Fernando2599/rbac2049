@@ -49,7 +49,7 @@ $this->registerJsFile(
                         //'id',
                         'nombre',
                         'clave',
-                        'creditos',
+                        //'creditos',
                         'competencia_disciplinar:ntext',
                         //'docente_id',
                         ['label' => 'Docente', 'attribute' => 'asesorInternoNombre', 'filter' => $searchModel->getAsesorInternoList()],
@@ -75,7 +75,7 @@ $this->registerJsFile(
 
                         [
                             'class' => 'yii\grid\ActionColumn',
-                            'template' => '{view} {update} {switch}',
+                            'template' => '{switch}',
                             'buttons' => [
                                 //Switch para cambiar el estado de la asignatura si esta habilita o deshabilitada
                                 'switch' => function ($url, $model, $key) {
@@ -91,6 +91,17 @@ $this->registerJsFile(
                                         </div>';
                                 },
                             ],
+                        ],
+
+                        [
+                            'class' => 'yii\grid\ActionColumn',
+                            'template' => '{view} {update} {delete}',
+                            'buttons' => [
+                                'delete' => function ($url, $model, $key) {
+                                    return '<a href="#" class="delete-asignatura-button" data-bs-toggle="modal" data-bs-target="#removeAsignaturaModal" data-asignatura-id="' . $model->id . '"><i class="ri-delete-bin-fill align-bottom"></i></a>';
+                                },
+                            ],
+                            
                         ],
 
                     ],
@@ -111,7 +122,7 @@ $this->registerJsFile(
     </div>
 
     <!-- removeProjectModal -->
-    <div id="removeProjectModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+    <div id="removeAsignaturaModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
