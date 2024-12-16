@@ -118,8 +118,6 @@ class AsignaturaController extends Controller
             if ($model->load($this->request->post())) {
                 $ajuste = $this->findAjuste(1);
                 $model->horas_dedicadas = $model->creditos * $ajuste->num_semanas_semestre;
-                $model->periodo_desarrollo = $model->mes_inicio . '-' . $model->anio_inicio;
-                $model->periodo_acreditacion = $model->mes_final . '-' . $model->anio_final;
                 $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -146,8 +144,6 @@ class AsignaturaController extends Controller
         if ($this->request->isPost && $model->load($this->request->post())) {
             $ajuste = $this->findAjuste(1);
             $model->horas_dedicadas = $model->creditos * $ajuste->num_semanas_semestre;
-            $model->periodo_desarrollo = $model->mes_inicio . '-' . $model->anio_inicio;
-            $model->periodo_acreditacion = $model->mes_final . '-' . $model->anio_final;
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }

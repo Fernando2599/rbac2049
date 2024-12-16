@@ -19,7 +19,7 @@ use common\models\Proyecto;
 
     <?= $form->field($model, 'asignaturaArray')->widget(Select2::classname(), [
 
-        'data' => ArrayHelper::map(Asignatura::find()->all(), 'id', 'nombre'),
+        'data' => ArrayHelper::map(Asignatura::find()->where(['!=', 'estado', 2])->all(), 'id','nombre'),
         'theme' => Select2::THEME_BOOTSTRAP,
         'size' => Select2::LARGE,
         'options' => ['placeholder' => Yii::t('app', 'Select...')],

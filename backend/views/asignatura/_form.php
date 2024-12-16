@@ -7,6 +7,7 @@ use yii\bootstrap5\ActiveForm;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use kartik\depdrop\DepDrop;
+use kartik\date\DatePicker;
 use yii\helpers\Url;
 
 
@@ -21,33 +22,6 @@ use yii\helpers\Url;
 <div class="asignatura-form">
 
     <?php $form = ActiveForm::begin();
-    $dataMes = [
-        "ENE" => "ENERO",
-        "FEB" => "FEBRERO",
-        "MAR" => "MARZO",
-        "ABR" => "ABRIL",
-        "MAY" => "MAYO",
-        "JUN" => "JUNIO",
-        "JUL" => "JULIO",
-        "AGO" => "AGOSTO",
-        "SEP" => "SEPTIEMBRE",
-        "OCT" => "OCTUBRE",
-        "NOV" => "NOVIEMBRE",
-        "DIC" => "DICIEMBRE"
-
-    ];
-
-    $dataAnio = [
-        "2022" => "2022",
-        "2023" => "2023",
-        "2024" => "2024",
-        "2025" => "2025",
-        "2026" => "2026",
-        "2027" => "2027",
-        "2028" => "2028",
-        "2029" => "2029",
-        "2030" => "2030"
-    ];
     ?>
 
     <div class="row">
@@ -132,73 +106,37 @@ use yii\helpers\Url;
                     <div class="row border-top ">
                         <div class="col-md-6 mt-3">
 
-                            <h5>Periodo de Desarrollo</h5>
+                            <h5>Periodo</h5>
 
                             <div class="row">
-                                <div class="col">
-
-                                    <?= $form->field($model, 'mes_inicio')->widget(Select2::classname(), [
-                                        'data' => $dataMes,
-                                        'theme' => Select2::THEME_BOOTSTRAP,
-                                        'size' => Select2::LARGE,
-                                        'options' => [
-                                            'placeholder' => Yii::t('app', 'Selecionar mes')
-                                        ],
-                                        'pluginOptions' => [
-                                            'allowClear' => true
-                                        ],
-                                    ]) ?>
-
-                                </div>
-
-                                <div class="col">
-                                    <?=
-                                    $form->field($model, 'anio_inicio')->widget(Select2::classname(), [
-                                        'data' => $dataAnio,
-                                        'theme' => Select2::THEME_BOOTSTRAP,
-                                        'size' => Select2::LARGE,
-                                        'options' => ['placeholder' => Yii::t('app', 'Selecionar año')],
-                                        'pluginOptions' => [
-                                            'allowClear' => true
-                                        ],
-                                    ]);
-                                    ?>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-md-6 mt-3">
-                            <h5>Periodo de Acreditación</h5>
-
-                            <div class="row">
-
                                 <div class="col-sm-6">
-                                    <?=
-                                    $form->field($model, 'mes_final')->widget(Select2::classname(), [
-                                        'data' => $dataMes,
-                                        'theme' => Select2::THEME_BOOTSTRAP,
-                                        'size' => Select2::LARGE,
-                                        'options' => ['placeholder' => Yii::t('app', 'Selecionar mes')],
+
+                                    <?= $form->field($model, 'periodo_desarrollo')->widget(DatePicker::classname(), [
+                                        'type' => DatePicker::TYPE_INPUT,
                                         'pluginOptions' => [
-                                            'allowClear' => true
-                                        ],
+                                            'todayHighlight' => true,
+                                            'todayBtn' => true,
+                                            'format' => 'dd-M-yyyy',
+                                            'autoclose' => true,
+                                        ]
                                     ]);
                                     ?>
+
                                 </div>
 
                                 <div class="col-sm-6">
-                                    <?=
-                                    $form->field($model, 'anio_final')->widget(Select2::classname(), [
-                                        'data' => $dataAnio,
-                                        'theme' => Select2::THEME_BOOTSTRAP,
-                                        'size' => Select2::LARGE,
-                                        'options' => ['placeholder' => Yii::t('app', 'Selecionar año')],
+                                    <?= $form->field($model, 'periodo_acreditacion')->widget(DatePicker::classname(), [
+                                        'type' => DatePicker::TYPE_INPUT,
                                         'pluginOptions' => [
-                                            'allowClear' => true
-                                        ],
+                                            'todayHighlight' => true,
+                                            'todayBtn' => true,
+                                            'format' => 'dd-M-yyyy',
+                                            'autoclose' => true,
+                                        ]
                                     ]);
                                     ?>
                                 </div>
+
                             </div>
                         </div>
                     </div>

@@ -27,8 +27,9 @@
         "twbs/bootstrap": "5.3.2",
         "kartik-v/yii2-widget-depdrop": "dev-master",
         "kartik-v/yii2-mpdf": "dev-master",
-        "fortawesome/font-awesome": "4.2.0"
-    },
+        "fortawesome/font-awesome": "4.2.0",
+        "kartik-v/yii2-widget-datepicker": "dev-master"
+      },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
         "yiisoft/yii2-gii": "~2.2.0",
