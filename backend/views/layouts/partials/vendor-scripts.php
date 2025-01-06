@@ -14,4 +14,5 @@ use yii\helpers\Url;
 <script src="<?= Url::base(true) ?>/theme/libs/choices.js/public/assets/scripts/choices.min.js"></script>
 <script src="<?= Url::base(true) ?>/theme/js/pages/dashboard-projects.init.js"></script>
 <script src="<?= Url::base(true) ?>/theme/libs/jsvectormap/js/jsvectormap.min.js"></script>
+<script src="<?= Url::base(true) ?>/theme/libs/dropzone/dropzone-min.js"></script>
 <script src="<?= Url::base(true) ?>/theme/js/plugins.js"></script>

@@ -14,4 +14,6 @@ use yii\helpers\Url;
 <!-- custom Css-->
 <link href="<?= Url::base(true) ?>/theme/css/custom.min.css" rel="stylesheet" type="text/css" />
 
+<link href="<?= Url::base(true) ?>/theme/libs/dropzone/dropzone.css" rel="stylesheet" type="text/css" />
+
 <link href="<?= Url::base(true) ?>/theme/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
