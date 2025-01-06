@@ -18,7 +18,7 @@ class AppAsset extends AssetBundle
         'theme/libs/swiper/swiper-bundle.min.css',
         'theme/css/icons.min.css',
         'theme/css/app.min.css',
-        'theme/css/custom.min.css',
+        'theme/css/custom.min.css'
     ];
     public $js = [
         //'admin/js/layout.js',

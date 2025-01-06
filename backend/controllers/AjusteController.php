@@ -3,12 +3,16 @@
 namespace backend\controllers;
 
 use common\models\Ajuste;
+use common\models\Membrete;
 use backend\models\search\AjusteSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use Yii;
 
 use common\models\PermisosHelpers;
+
 /**
  * AjusteController implements the CRUD actions for Ajuste model.
  */
@@ -67,10 +71,34 @@ class AjusteController extends Controller
      */
     public function actionIndex()
     {
+        $claves = ['header', 'footer'];
+
+        // Inicializar las rutas predeterminadas
+        $rutasImagenes = [
+            'header' => 'assets/images/logo-dark.png',
+            'footer' => 'assets/images/logo-dark.png',
+        ];
+
+        // Obtener los modelos que coincidan con las claves
+        $modelos = Membrete::find()->where(['clave' => $claves])->all();
+
+        foreach ($modelos as $model) {
+            if (isset($rutasImagenes[$model->clave])) {
+                $rutasImagenes[$model->clave] = Yii::getAlias('@web/') . $model->ruta;
+            }
+        }
+
+        // Acceder a las rutas finales
+        $rutaHeader = $rutasImagenes['header'];
+        $rutaFooter = $rutasImagenes['footer'];
+
         return $this->render('view', [
             'model' => $this->findModel(1),
+            'rutaHeader' => $rutaHeader,
+            'rutaFooter' => $rutaFooter,
         ]);
     }
+
 
     /**
      * Displays a single Ajuste model.
@@ -156,4 +184,6 @@ class AjusteController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionGetMembrete() {}
 }

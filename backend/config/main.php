@@ -1,4 +1,8 @@
 <?php
+
+use kartik\mpdf\Pdf;
+
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -12,7 +16,7 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'language'=>'es', // Este es el lenguaje en el que querés que muestre las cosas
+    'language' => 'es', // Este es el lenguaje en el que querés que muestre las cosas
     'modules' => [],
     'components' => [
         'request' => [
@@ -39,6 +43,17 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'pdf' => [
+            'class' => Pdf::classname(),
+            'format' => Pdf::FORMAT_A4,
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            'destination' => Pdf::DEST_BROWSER,
+            'marginTop' => 25,    // Espacio para el encabezado
+            'marginBottom' => 25,
+            'marginLeft' => 25,
+            'marginRight' => 25,
+            'marginHeader' => 4,
+        ]
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
